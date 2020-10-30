@@ -1,21 +1,53 @@
-import { AppLoading } from 'expo';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import { LinearGradient } from "expo-linear-gradient";
 import { useFonts, Manrope_400Regular } from '@expo-google-fonts/manrope';
 import { Spectral_400Regular } from '@expo-google-fonts/spectral';
-import React from 'react';
-import { Text, View, Image  } from 'react-native';
+import { ActivityIndicator, Text, View, Image  } from 'react-native';
 import { Button, Input } from 'react-native-elements';
 import { styles } from './style';
 
 export default () => {
+
+  const [ isLoading, setIsLoading ] = useState(true);
+  let [ username, setUsername ] = useState('');
+  let [ password, setPassword ] = useState('');
+
+  useEffect(() => {
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 1000);
+  });
+
+  let singUp = () => {
+    try {
+      axios.post('http://127.0.0.1:8000/api/login', {
+        username: username,
+        password: password
+      })
+      .then(function (response) {
+        console.log(response);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+    } catch (error) {
+      
+    }
+  }
+
   let [fontsLoaded] = useFonts({
     Manrope_400Regular,
     Spectral_400Regular,
   });
 
-  if (!fontsLoaded)
+  if (!fontsLoaded || isLoading)
   {
-    return <AppLoading />;
+    return (
+      <View style={{flex:1,justifyContent:"center", alignItems:'center'}}>
+        <ActivityIndicator size='large' color='green'/>
+      </View>
+    );
   }
   else
   {
@@ -37,7 +69,7 @@ export default () => {
               inputContainerStyle={{borderColor: '#FFF'}}
               inputStyle={styles.inputStyle}
               placeholderTextColor={'#F8F8F8'}
-              
+              onChangeText={value => setUsername(value)}
               />
             <Input
               containerStyle={styles.input_text}
@@ -47,12 +79,14 @@ export default () => {
               inputStyle={styles.inputStyle}
               leftIcon={{ type: 'font-awesome', name: 'lock', color: '#FFF' }}
               placeholderTextColor={'#F8F8F8'}
+              onChangeText={psw => setPassword(psw)}
             />
             <Button
               titleStyle={{color: '#FFF', fontFamily: 'Manrope_400Regular', fontSize: 12}}
-              buttonStyle={styles.btnLogin}
-              title="Ingresar"
+              buttonStyle={ styles.btnLogin }
+              title='Usuario'
               type="outline"
+              onPress={() => { singUp(); console.log('Button Pressed');}}
             />
           </LinearGradient>
       </View>
