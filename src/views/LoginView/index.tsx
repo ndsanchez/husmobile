@@ -22,8 +22,8 @@ export default () => {
     return (
       <View style={styles.container}>
           <LinearGradient
-            colors={["#034B8F", '#0A68C2']}
-            start={[0.1, 0.7]}
+            colors={["#034B8F", '#86CC36']}
+            start={[0.4, 0.4]}
             style={styles.linearGradient}
           >
             <Image style={styles.logo} source={require('../../assets/images/logo.png')}/>
