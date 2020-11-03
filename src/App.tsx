@@ -1,8 +1,11 @@
 import React from 'react';
 import Loginview from './views/LoginView';
+import { Provider } from 'react-redux';
 
 export default function App() {
   return (
-    <Loginview/>
+    <Provider store={}>
+      <Loginview/>
+    </Provider>
   );
 }
