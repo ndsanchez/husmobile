@@ -6,12 +6,18 @@ import { Spectral_400Regular } from '@expo-google-fonts/spectral';
 import { ActivityIndicator, Text, View, Image  } from 'react-native';
 import { Button, Input } from 'react-native-elements';
 import { styles } from './style';
+import { setUsername, setPassword, loginSuccess } from '../../store/login/action';
+import store from '../../store';
+import { connect } from 'react-redux';
 
-export default () => {
+interface Istate {
+  username: string,
+  password: string,
+}
+
+const LoginView = ({ username, password }: Istate) => {
 
   const [ isLoading, setIsLoading ] = useState(true);
-  let [ username, setUsername ] = useState('');
-  let [ password, setPassword ] = useState('');
 
   useEffect(() => {
     setTimeout(() => {
@@ -19,22 +25,20 @@ export default () => {
     }, 1000);
   });
 
-  let singUp = () => {
-    try {
-      axios.post('http://127.0.0.1:8000/api/login', {
-        username: username,
-        password: password
-      })
-      .then(function (response) {
-        console.log(response);
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-    } catch (error) {
-      
-    }
-  }
+  const loginRequest = () => {
+    axios.post('http://172.16.10.150/husapp/api/login', {
+      username,
+      password,
+    })
+    .then((response) => {
+      console.log(username, password);
+      store.dispatch(loginSuccess(response.data));
+    })
+    .catch((error) => {
+      console.log('error');
+      console.log(error);
+    });
+  };
 
   let [fontsLoaded] = useFonts({
     Manrope_400Regular,
@@ -59,7 +63,7 @@ export default () => {
             style={styles.linearGradient}
           >
             <Image style={styles.logo} source={require('../../assets/images/logo.png')}/>
-            <Text style={styles.title} >HUS</Text>
+    <Text style={styles.title} >HUS</Text>
             <Text style={styles.subtitle} >Hospital Universitario de la Samaritana</Text>
 
             <Input
@@ -69,7 +73,7 @@ export default () => {
               inputContainerStyle={{borderColor: '#FFF'}}
               inputStyle={styles.inputStyle}
               placeholderTextColor={'#F8F8F8'}
-              onChangeText={value => setUsername(value)}
+              onChangeText={value => store.dispatch(setUsername(value))}
               />
             <Input
               containerStyle={styles.input_text}
@@ -79,17 +83,29 @@ export default () => {
               inputStyle={styles.inputStyle}
               leftIcon={{ type: 'font-awesome', name: 'lock', color: '#FFF' }}
               placeholderTextColor={'#F8F8F8'}
-              onChangeText={psw => setPassword(psw)}
+              onChangeText={psw =>  store.dispatch(setPassword(psw))}
             />
             <Button
               titleStyle={{color: '#FFF', fontFamily: 'Manrope_400Regular', fontSize: 12}}
               buttonStyle={ styles.btnLogin }
               title='Usuario'
               type="outline"
-              onPress={() => { singUp(); console.log('Button Pressed');}}
+              onPress={() => { loginRequest()}}
             />
           </LinearGradient>
       </View>
     );
   }
 };
+
+const mapStateToProps = (state:any) => {
+  return { 
+    username: state.loginReducer.username,
+    password: state.loginReducer.password,
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  { setUsername, setPassword}
+  )(LoginView)
