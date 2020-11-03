@@ -1,6 +1,10 @@
 const initialState = {
+    isLoading: true,
     username: '',
     password: '',
+    login: {
+        access_token: '',
+    }
 };
 
 interface IAction {
@@ -20,11 +24,17 @@ const loginReducer = (state = initialState, action:IAction) => {
                 ...state,
                 password: action.payload,
             };
-        case 'LOGIN_SUCCESS':
+        case 'LOGIN_RESPONSE':
             return {
                 ...state,
                 password: '',
-                auth: action.payload,
+                login: action.payload,
+                isLoading: false,
+            }
+        case 'SET_LOADING':
+            return {
+                ...state,
+                isLoading: action.payload,
             }
         default:
             return initialState;

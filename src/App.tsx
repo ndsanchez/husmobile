@@ -1,12 +1,12 @@
 import React from 'react';
-import Loginview from './views/LoginView';
 import { Provider } from 'react-redux';
+import Root from './Root';
 import store from './store';
 
 export default function App() {
   return (
     <Provider store={store}>
-      <Loginview/>
+      <Root/>
     </Provider>
   );
 }
