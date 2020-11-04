@@ -12,6 +12,9 @@
     "@expo-google-fonts/inter": "^0.1.0",
     "@expo-google-fonts/manrope": "^0.1.0",
     "@expo-google-fonts/spectral": "^0.1.0",
+    "@react-navigation/bottom-tabs": "^5.10.5",
+    "@react-navigation/material-bottom-tabs": "^5.3.5",
+    "@react-navigation/native": "^5.8.5",
     "axios": "^0.21.0",
     "expo": "~39.0.2",
     "expo-font": "~8.3.0",
@@ -35,7 +38,9 @@
     "redux-devtools-extension": "^2.13.8",
     "redux-thunk": "^2.3.0",
     "rxjs": "^6.6.3",
-    "rxjs-compat": "^6.6.3"
+    "rxjs-compat": "^6.6.3",
+    "react-native-safe-area-context": "3.1.4",
+    "@react-native-community/masked-view": "0.1.10"
   },
   "devDependencies": {
     "@babel/core": "~7.9.0",
