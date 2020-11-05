@@ -9,7 +9,13 @@ const loginRequest = (username: string, password: string) => {
       password,
     })
     .then((response) => {
-      store.dispatch(loginResponse(response.data));
+      if (response.data.hasOwnProperty('error')) {
+        console.log('error');
+      }
+      else {
+        console.log('Success')
+        store.dispatch(loginResponse(response.data));
+      }
     })
     .catch((error) => {
       console.log(error);

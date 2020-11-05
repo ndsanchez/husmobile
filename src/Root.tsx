@@ -37,7 +37,7 @@ const Root = ({ token, isLoading }: Istate) => {
         </View>
       );
     }
-    else if (true/*token !== ''*/) {
+    else if (token !== '') {
       return <DashboardView/>
     }
     else {
