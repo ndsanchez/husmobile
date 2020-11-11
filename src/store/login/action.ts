@@ -1,6 +1,7 @@
 const SET_USERNAME = 'SET_USERNAME';
 const SET_PASSWORD = 'SET_PASSWORD';
-const LOGIN_RESPONSE = 'LOGIN_RESPONSE';
+const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
+const LOGIN_FAILED = 'LOGIN_FAILED';
 const SET_LOADING = 'SET_LOADING';
 
 interface IAction {
@@ -22,9 +23,16 @@ const setPassword = (password: string): IAction => {
     };
 };
 
-const loginResponse = (response:object): IAction => {
+const loginSuccess = (response:object): IAction => {
     return {
-        type: LOGIN_RESPONSE,
+        type: LOGIN_SUCCESS,
+        payload: response,
+    };
+};
+
+const loginFailed = (response:object): IAction => {
+    return {
+        type: LOGIN_FAILED,
         payload: response,
     };
 };
@@ -36,4 +44,4 @@ const setLoading = (flag:boolean): IAction => {
     };
 };
 
-export { setUsername, setPassword, loginResponse, setLoading };
+export { setUsername, setPassword, loginFailed, loginSuccess, setLoading };

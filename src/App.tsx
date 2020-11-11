@@ -1,12 +1,12 @@
 import React from 'react';
 import { Provider } from 'react-redux';
-import Root from './Root';
+import AppRouter from './AppRouter';
 import store from './store';
 
 export default function App() {
   return (
     <Provider store={store}>
-      <Root/>
+      <AppRouter/>
     </Provider>
   );
 }

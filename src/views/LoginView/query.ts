@@ -1,6 +1,6 @@
 import axios from 'axios';
 import store from '../../store';
-import { loginResponse, setLoading } from '../../store/login/action';
+import { loginFailed, loginSuccess, setLoading } from '../../store/login/action';
 
 const loginRequest = (username: string, password: string) => {
     store.dispatch(setLoading(true));
@@ -10,11 +10,12 @@ const loginRequest = (username: string, password: string) => {
     })
     .then((response) => {
       if (response.data.hasOwnProperty('error')) {
-        console.log('error');
+        console.log(response.data);
+        store.dispatch(loginFailed(response.data));
       }
       else {
         console.log('Success')
-        store.dispatch(loginResponse(response.data));
+        store.dispatch(loginSuccess(response.data));
       }
     })
     .catch((error) => {

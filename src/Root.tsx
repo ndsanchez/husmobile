@@ -12,12 +12,11 @@ import LoginView from './views/LoginView';
 interface Istate {
     username: string,
     password: string,
-    token: string,
+    bearer: string,
     isLoading: boolean,
 }
 
-const Root = ({ token, isLoading }: Istate) => {
-
+const Root = ({ bearer, isLoading }: Istate) => {
     useEffect(() => {
       setTimeout(() => {
         store.dispatch(setLoading(false));
@@ -31,13 +30,13 @@ const Root = ({ token, isLoading }: Istate) => {
   
     if (!fontsLoaded || isLoading) {
       return (
-        <View style={{flex:1,justifyContent:"center", alignItems:'center', backgroundColor: '#034B8F'}}>
+        <View style={{flex:1,justifyContent:"center", alignItems:'center', backgroundColor: '#034B8F', marginTop:30}}>
           <Image style={{ width: 120, height: 120, marginBottom:40 }} source={require('./assets/images/logo.png')}/>
           <ActivityIndicator size='large' color='#F8F8F8'/>
         </View>
       );
     }
-    else if (token !== '') {
+    else if (true/*bearer*/) {
       return <DashboardView/>
     }
     else {
@@ -47,7 +46,7 @@ const Root = ({ token, isLoading }: Istate) => {
   
   const mapStateToProps = (state:any) => {
     return {
-      token: state.loginReducer.login.access_token,
+      bearer: state.loginReducer.login.Bearer,
       isLoading: state.loginReducer.isLoading,
     };
   };

@@ -11,10 +11,10 @@ import { loginRequest } from './query';
 interface Istate {
   username: string,
   password: string,
-  token: string,
+  loginError: string,
 }
 
-const LoginView = ({ username, password }: Istate) => {
+const LoginView = ({ loginError, password, username }: Istate) => {
     return (
       <View style={styles.container}>
           <LinearGradient
@@ -34,7 +34,10 @@ const LoginView = ({ username, password }: Istate) => {
               inputStyle={styles.inputStyle}
               placeholderTextColor={'#F8F8F8'}
               onChangeText={value => store.dispatch(setUsername(value))}
-              />
+              errorStyle={{color:'#EFA314'}}
+              errorMessage={loginError}
+              value={username}
+            />
             <Input
               containerStyle={styles.input_text}
               placeholder='Contraseña'
@@ -61,10 +64,11 @@ const mapStateToProps = (state:any) => {
   return { 
     username: state.loginReducer.username,
     password: state.loginReducer.password,
+    loginError: state.loginReducer.login.error,
   };
 };
 
 export default connect(
   mapStateToProps,
-  { setUsername, setPassword}
+  { setUsername, setPassword }
   )(LoginView)

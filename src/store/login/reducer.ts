@@ -3,7 +3,8 @@ const initialState = {
     username: '',
     password: '',
     login: {
-        access_token: '',
+        Bearer: '',
+        error: '',
     }
 };
 
@@ -24,7 +25,14 @@ const loginReducer = (state = initialState, action:IAction) => {
                 ...state,
                 password: action.payload,
             };
-        case 'LOGIN_RESPONSE':
+        case 'LOGIN_SUCCESS':
+            return {
+                ...state,
+                password: '',
+                login: action.payload,
+                isLoading: false,
+            }
+        case 'LOGIN_FAILED':
             return {
                 ...state,
                 password: '',
