@@ -7,7 +7,7 @@ import { style } from './style';
 export default ({ navigation }: any) => {
     return (
       <View style={{flex: 1}}>
-        <View style={{flex: 1, backgroundColor: '#FAFAFA'}}>
+        <View style={{flex: 1, backgroundColor: '#F0F0F0'}}>
           <ListItem key={1} bottomDivider>
               <Avatar rounded icon={{name: 'user', type: 'font-awesome', color: '#59AD42'}} overlayContainerStyle={{backgroundColor: '#F0F0F0'}}/>
               <ListItem.Content>
@@ -17,7 +17,7 @@ export default ({ navigation }: any) => {
           </ListItem>
         </View>
         <View style={{ flex: 2 }}>
-          <View style={{flex: 1, flexDirection: 'column', justifyContent: 'flex-end', alignItems: "center", backgroundColor: '#FAFAFA', paddingBottom: 40}}>
+          <View style={{flex: 1, flexDirection: 'column', justifyContent: 'flex-end', alignItems: "center", backgroundColor: '#F0F0F0', paddingBottom: 40}}>
           <Button
             icon={
               <Icon

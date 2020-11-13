@@ -8,7 +8,7 @@ import SettingsView from '../SettingsView';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { HeaderLogo, HeaderTitle } from '../../layouts/Header';
-import InterconsultationView from '../InterconsultationView';
+import { InterconsultationView, HospitalPicker } from '../InterconsultationView';
 
 const headerOptions = {
   headerBackTitleStyle: {
@@ -73,7 +73,14 @@ function HomeStackScreen() {
           headerTitleStyle: {...headerOptions.headerTitleStyle, alignSelf: "center"}
         }}
       />
-      <HomeStack.Screen name="Interconsultas" component={InterconsultationView} options={headerOptions} />
+      <HomeStack.Screen
+        name="Interconsultas"
+        component={InterconsultationView}
+        options={{
+          ...headerOptions,
+          headerRight: HospitalPicker,
+        }}
+      />
     </HomeStack.Navigator>
   );
 }
