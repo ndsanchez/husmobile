@@ -27,7 +27,7 @@ const Root = ({ bearer, isLoading }: Istate) => {
       Manrope_400Regular,
       Spectral_400Regular,
     });
-  
+
     if (!fontsLoaded || isLoading) {
       return (
         <View style={{flex:1,justifyContent:"center", alignItems:'center', backgroundColor: '#034B8F', marginTop:30}}>
@@ -43,16 +43,16 @@ const Root = ({ bearer, isLoading }: Istate) => {
       return <LoginView/>
     }
   };
-  
+
   const mapStateToProps = (state:any) => {
     return {
       bearer: state.loginReducer.login.Bearer,
       isLoading: state.loginReducer.isLoading,
     };
   };
-  
+
 export default connect(
     mapStateToProps,
-    { setUsername, setPassword}
+    { setUsername, setPassword }
     )(Root)
   
