@@ -67,8 +67,8 @@ const InterconsultationView = () => {
             {label: 'Regional', value: '10', icon: () => <Icon name='hospital-o' type='font-awesome' color='white' />},
           ]}
           defaultValue={'00'}
-          containerStyle={{height: 40, paddingRight: 20}}
-          style={{backgroundColor: 'transparent', borderColor: 'transparent'}}
+          containerStyle={{height: 40}}
+          style={{backgroundColor: 'rgba(0, 0, 0, 0.8)', borderColor: 'transparent'}}
           itemStyle={{
               justifyContent: 'flex-start',
           }}
