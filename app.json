@@ -1,0 +1,12 @@
+{
+  "name": "husmobile",
+  "displayName": "husmobile",
+  "expo": {
+    "name": "husmobile",
+    "slug": "husmobile",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  }
+}
