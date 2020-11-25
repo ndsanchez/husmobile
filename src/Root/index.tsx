@@ -8,6 +8,7 @@ import { connect } from 'react-redux';
 import HomeScene from '../scenes/HomeScene';
 import LoginScene from '../scenes/LoginScene';
 import { loadResources } from './query';
+import LoadingIndicator from '../components/LoadingIndicator';
 
 interface Istate {
     username: string,
@@ -18,7 +19,7 @@ interface Istate {
 
 const Root = ({ bearer, isLoading }: Istate) => {
     useEffect(() => {
-      loadResources();
+
     });
   
     let [fontsLoaded] = useFonts({
@@ -26,16 +27,23 @@ const Root = ({ bearer, isLoading }: Istate) => {
       Spectral_400Regular,
     });
 
-    if (!fontsLoaded || isLoading) {
+    if (!fontsLoaded) {
       return (
-        <View style={{flex:1,justifyContent:"center", alignItems:'center', backgroundColor: '#034B8F', marginTop:30}}>
-          <Image style={{ width: 120, height: 120, marginBottom:40 }} source={require('../assets/images/logo.png')}/>
-          <ActivityIndicator size='large' color='#F8F8F8'/>
+        <View style={{flex:1,justifyContent:"center", alignItems:'center', backgroundColor: '#034B8F'}} >
+          <Image style={{ width: 120, height: 120, marginBottom:40 }} source={require('../assets/images/logo.png')} />
+          <ActivityIndicator size='large' color='#F8F8F8' />
         </View>
       );
     }
     else if (true/*bearer*/) {
-      return <HomeScene />
+      return (
+        <View style={{flex: 1, top: 0, bottom: 0, left: 0, right: 0}} >
+          {
+            isLoading ? <LoadingIndicator /> : undefined
+          }
+          <HomeScene />
+        </View>
+      );
     }
     else {
       return <LoginScene />
@@ -45,7 +53,7 @@ const Root = ({ bearer, isLoading }: Istate) => {
 const mapStateToProps = (state:any) => {
   return {
     bearer: state.loginReducer.login.Bearer,
-    isLoading: state.loginReducer.isLoading,
+    isLoading: state.generalReducer.isLoading,
   };
 };
 

@@ -1,15 +1,16 @@
 const assistanceInitialState = {
     interconsultation: {
-        activeSpeciality: '00',
+        activeSpeciality: {},
     },
     speciality: {
-        all: []
-    }
+        all: [],
+    },
 };
 
 interface IAction {
     type: string,
-    payload: string | Object,
+    payload: any,
+    otro: any
 };
 
 const AssistanceReducer = (state = assistanceInitialState, action:IAction) => {
@@ -22,7 +23,10 @@ const AssistanceReducer = (state = assistanceInitialState, action:IAction) => {
         case 'SET_SPECIALITY':
             return {
                 ...state,
-                interconsultation: action.payload
+                interconsultation: {
+                    ...state.interconsultation,
+                    codigo: action.payload,
+                },
             };
         default:
             return state;

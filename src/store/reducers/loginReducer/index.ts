@@ -1,5 +1,4 @@
 const LoginInitialState = {
-    isLoading: false,
     username: '',
     password: '',
     login: {
@@ -38,11 +37,6 @@ const loginReducer = (state = LoginInitialState, action:IAction) => {
                 password: '',
                 login: action.payload,
                 isLoading: false,
-            }
-        case 'SET_LOADING':
-            return {
-                ...state,
-                isLoading: action.payload,
             }
         default:
             return state;
