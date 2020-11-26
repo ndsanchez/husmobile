@@ -60,40 +60,38 @@ const InterconsultationScene = ({ interconsultation, placeCode, specialities, sp
   return (
     <View style={{flex: 1, flexDirection: 'column'}}>
       <View style={{flex: 1}}>
-        <View style={{paddingTop: 20, paddingBottom: 20/*, zIndex: 10*/}}>
-          
-        <DropDownPicker
-          items={specialities.map((item: any) => {
-            return {
-              label: item.GEEDESCRI.charAt(0).toUpperCase() + item.GEEDESCRI.slice(1).toLowerCase(),
-              value: item.OID,
-              icon: () => <Icon size={14} name='chevron-right' type='entypo' color='#000' />
+        <View style={{paddingBottom: 5/*, zIndex: 10*/}}>
+          <DropDownPicker
+            items={specialities.map((item: any) => {
+              return {
+                label: item.GEEDESCRI.charAt(0).toUpperCase() + item.GEEDESCRI.slice(1).toLowerCase(),
+                value: item.OID,
+                icon: () => <Icon size={14} name='chevron-right' type='entypo' color='#000' />
+              }
+              })
             }
-            })
-          }
-          containerStyle={{height: 50}}
-          style={{backgroundColor: '#FFF', borderColor: '#FFF'}}
-          itemStyle={{
-            justifyContent: 'flex-start',
-            borderBottomColor: '#000',
-          }}
-          labelStyle={{
-            color: '#000',
-            fontFamily: 'Manrope_400Regular',
-            fontSize: 11,
-          }}
-          selectedLabelStyle={{fontWeight: 'bold'}}
-          activeLabelStyle={{color: '#59AD42', fontWeight: 'bold'}}
-          dropDownMaxHeight={600}
-          dropDownStyle={{backgroundColor: '#FFF', borderColor: '#FAFAFA', borderWidth: 3, maxWidth: windowWidth}}
-          placeholder="Seleccione una especialidad"
-          searchable={true}
-          searchableError={() => <NothingToShow />}
-          searchablePlaceholder="Buscar especialidad"
-          onChangeItem={ selected => onChangeItemHandler(selected) }
-          onOpen={() => onOpenHandler()}
-        />
-    
+            containerStyle={{height: 50}}
+            style={{backgroundColor: '#FFF', borderColor: '#FFF'}}
+            itemStyle={{
+              justifyContent: 'flex-start',
+              borderBottomColor: '#000',
+            }}
+            labelStyle={{
+              color: '#000',
+              fontFamily: 'Manrope_400Regular',
+              fontSize: 11,
+            }}
+            selectedLabelStyle={{fontWeight: 'bold'}}
+            activeLabelStyle={{color: '#59AD42', fontWeight: 'bold'}}
+            dropDownMaxHeight={600}
+            dropDownStyle={{backgroundColor: '#FFF', borderColor: '#FAFAFA', borderWidth: 3, maxWidth: windowWidth}}
+            placeholder="Seleccione una especialidad"
+            searchable={true}
+            searchableError={() => <NothingToShow />}
+            searchablePlaceholder="Buscar especialidad"
+            onChangeItem={ selected => onChangeItemHandler(selected) }
+            onOpen={() => onOpenHandler()}
+          />
         </View>
         <View style={{flex: 1}}>
           {
@@ -108,7 +106,7 @@ const InterconsultationScene = ({ interconsultation, placeCode, specialities, sp
               interconsultation.length > 0 ?
                 interconsultation.map((patient:any, key:any) => (
                       <ListItem bottomDivider key={key} >
-                        <FontAwesome5 name="user-clock" size={16} color="rgba(255, 193, 7, 1)" />
+                        <Icon type="octicon" name="primitive-dot" size={16} color="rgba(255, 193, 7, 1)" />
                         <ListItem.Content>
                           <ListItem.Title style={{fontFamily: 'Manrope_400Regular', textTransform: 'capitalize', fontSize: 12}}>
                             { patient.NOMBRE }
