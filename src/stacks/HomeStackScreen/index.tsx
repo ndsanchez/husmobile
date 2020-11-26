@@ -40,7 +40,7 @@ const HomeStackScreen: React.FC<HomeStackScreenProps> = ({ place }: HomeStackScr
         }}
       />
       <HomeStack.Screen
-        name="Interconsultas"
+        name="Interconsultas_feed"
         component={InterconsultationStackScreen}
         options={{ headerShown: false }}
       />

@@ -17,7 +17,7 @@ const HomeScreen = ({ navigation }: any) => {
     const list = [
       {
         icon: 'solution1',
-        screen: 'Interconsultas',
+        screen: 'Interconsultas_feed',
         title: 'Interconsultas pendientes',
         type: 'antdesign',
       },

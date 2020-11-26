@@ -30,7 +30,7 @@ const InterconsultationStackScreen: React.FC<HomeStackScreenProps> = ({ place }:
   return (
     <Stack.Navigator>
       <Stack.Screen
-        name="interconsultation_feed"
+        name="Interconsultas"
         component={InterconsultationScene}
         options={{
           ...headerOptions,
@@ -38,7 +38,7 @@ const InterconsultationStackScreen: React.FC<HomeStackScreenProps> = ({ place }:
         }}
       />
       <Stack.Screen
-        name="interconsultation_detail"
+        name="Detalle de Interconsulta"
         component={InterconsultationDetailScreen}
         options={{
           ...headerOptions,

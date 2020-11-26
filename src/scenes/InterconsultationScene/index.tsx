@@ -26,13 +26,13 @@ interface InterconsultationSceneProps {
 }
 const InterconsultationScene = ({ interconsultation, navigation, placeCode, specialities, specialityOptions }: any) => {
 
-  const onPressHandler = (navigation: any, item:any) => {
+  const onPressHandler = (navigation: any, route:any, patient: any) => {
     store.dispatch({
       type: 'SET_LOADING',
       payload: true
     });
   
-    setTimeout(() => {navigation.navigate(item)}, 1);
+    setTimeout(() => {navigation.navigate(route, {item: patient})}, 1);
   };
 
   const onChangeItemHandler = (item: any) => {
@@ -69,7 +69,7 @@ const InterconsultationScene = ({ interconsultation, navigation, placeCode, spec
   return (
     <View style={{flex: 1, flexDirection: 'column'}}>
       <View style={{flex: 1}}>
-        <View style={{paddingBottom: 5/*, zIndex: 10*/}}>
+        <View style={{paddingBottom: 5, /*zIndex: 10*/}}>
           <DropDownPicker
             items={specialities.map((item: any) => {
               return {
@@ -114,7 +114,7 @@ const InterconsultationScene = ({ interconsultation, navigation, placeCode, spec
             {
               interconsultation.length > 0 ?
                 interconsultation.map((patient:any, key:any) => (
-                      <ListItem bottomDivider key={key} onPress={() => onPressHandler(navigation, 'interconsultation_detail')} >
+                      <ListItem bottomDivider key={key} onPress={() => onPressHandler(navigation, 'Detalle de Interconsulta', patient)} >
                         <Icon type="octicon" name="primitive-dot" size={16} color="rgba(255, 193, 7, 1)" />
                         <ListItem.Content>
                           <ListItem.Title style={{fontFamily: 'Manrope_400Regular', textTransform: 'capitalize', fontSize: 12}}>
