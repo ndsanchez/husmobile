@@ -5,7 +5,7 @@ import { Avatar, Icon, ListItem } from 'react-native-elements';
 import { connect } from 'react-redux';
 import { setSpeciality } from '../../store/actions/assistanceAction';
 import store from '../../store';
-import { specialityType } from '../../types';
+import { specialityOptionType, specialityType } from '../../types';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import { loadResources } from '../../Root/query';
 
@@ -22,13 +22,10 @@ interface InterconsultationSceneProps {
 }
 const InterconsultationScene = ({specialities, specialityOptions}: any) => {
 
-  const onChangeItemHandler = (label: string, value: string) => {
+  const onChangeItemHandler = (item: any) => {
     store.dispatch({
       type: 'SET_SPECIALITY',
-      payload: {
-        one: label, /* este payload solo esta enviando un valor, corregir eso*/
-        two: value,
-      }
+      payload: item
     })
   };
 
@@ -77,7 +74,7 @@ const InterconsultationScene = ({specialities, specialityOptions}: any) => {
               items={specialities.map((item: any) => {
                 return {
                   label: item.GEEDESCRI.charAt(0).toUpperCase() + item.GEEDESCRI.slice(1).toLowerCase(),
-                  value: item.GEECODICO,
+                  value: item.GEECODIGO,
                   /*icon: () => <Icon size={14} name='chevron-right' type='entypo' color='#000' />*/
                 }
                 })
@@ -100,7 +97,7 @@ const InterconsultationScene = ({specialities, specialityOptions}: any) => {
               placeholder="Seleccione una especialidad"
               searchable={true}
               searchablePlaceholder="Buscar especialidad"
-              onChangeItem={ selected => onChangeItemHandler(selected.label, selected.value) }
+              onChangeItem={ selected => onChangeItemHandler(selected) }
               onOpen={() => onOpenHandler()}
             />
 

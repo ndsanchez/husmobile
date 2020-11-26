@@ -21,12 +21,16 @@ const AssistanceReducer = (state = assistanceInitialState, action:IAction) => {
                 speciality: action.payload
             };
         case 'SET_SPECIALITY':
+            console.log('payload: ', action.payload);
             return {
                 ...state,
                 interconsultation: {
                     ...state.interconsultation,
-                    codigo: action.payload,
+                    activeSpeciality: action.payload,
                 },
+                speciality: {
+                    all: [{ GEEDESCRI: action.payload.label, GEECODIGO: action.payload.value }]
+                }
             };
         default:
             return state;
