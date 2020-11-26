@@ -1,16 +1,15 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { createStackNavigator } from '@react-navigation/stack';
-import HomeScreen from '../../screens/HomeScreen';
 import { HospitalIndicator } from '../../components/Header';
 import InterconsultationScene from '../../scenes/InterconsultationScene';
-import InterconsultationStackScreen from '../InterconsultationStackScreen';
+import InterconsultationDetailScreen from '../../screens/InterconsultationDetailScreen';
 
 interface HomeStackScreenProps {
   place: string,
 }
 
-const HomeStack = createStackNavigator();
+const Stack = createStackNavigator();
 
 const headerOptions = {
     headerBackTitleStyle: {
@@ -27,24 +26,26 @@ const headerOptions = {
     headerTintColor:'#FFF'
 };
 
-const HomeStackScreen: React.FC<HomeStackScreenProps> = ({ place }: HomeStackScreenProps) => {
+const InterconsultationStackScreen: React.FC<HomeStackScreenProps> = ({ place }: HomeStackScreenProps) => {
   return (
-    <HomeStack.Navigator>
-      <HomeStack.Screen
-        name="Asistencial"
-        component={HomeScreen}
+    <Stack.Navigator>
+      <Stack.Screen
+        name="interconsultation_feed"
+        component={InterconsultationScene}
         options={{
           ...headerOptions,
-          headerTitle: "Hospital Universitario de la Samaritana",
-          headerTitleStyle: {...headerOptions.headerTitleStyle, alignSelf: "center"}
+        headerRight: () => (<HospitalIndicator place={place} />),
         }}
       />
-      <HomeStack.Screen
-        name="Interconsultas"
-        component={InterconsultationStackScreen}
-        options={{ headerShown: false }}
+      <Stack.Screen
+        name="interconsultation_detail"
+        component={InterconsultationDetailScreen}
+        options={{
+          ...headerOptions,
+        headerRight: () => (<HospitalIndicator place={place} />),
+        }}
       />
-    </HomeStack.Navigator>
+    </Stack.Navigator>
   );
 }
 
@@ -54,4 +55,4 @@ const mapStateToProps = (state:any) => {
     };
 };
 
-export default connect(mapStateToProps, null)(HomeStackScreen);
+export default connect(mapStateToProps, null)(InterconsultationStackScreen);

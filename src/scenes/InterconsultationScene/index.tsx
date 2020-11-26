@@ -24,7 +24,16 @@ const Picker = DropDownPicker;
 interface InterconsultationSceneProps {
   specialities: [specialityType] | []
 }
-const InterconsultationScene = ({ interconsultation, placeCode, specialities, specialityOptions }: any) => {
+const InterconsultationScene = ({ interconsultation, navigation, placeCode, specialities, specialityOptions }: any) => {
+
+  const onPressHandler = (navigation: any, item:any) => {
+    store.dispatch({
+      type: 'SET_LOADING',
+      payload: true
+    });
+  
+    setTimeout(() => {navigation.navigate(item)}, 1);
+  };
 
   const onChangeItemHandler = (item: any) => {
     store.dispatch({
@@ -105,7 +114,7 @@ const InterconsultationScene = ({ interconsultation, placeCode, specialities, sp
             {
               interconsultation.length > 0 ?
                 interconsultation.map((patient:any, key:any) => (
-                      <ListItem bottomDivider key={key} >
+                      <ListItem bottomDivider key={key} onPress={() => onPressHandler(navigation, 'interconsultation_detail')} >
                         <Icon type="octicon" name="primitive-dot" size={16} color="rgba(255, 193, 7, 1)" />
                         <ListItem.Content>
                           <ListItem.Title style={{fontFamily: 'Manrope_400Regular', textTransform: 'capitalize', fontSize: 12}}>
