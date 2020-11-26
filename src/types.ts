@@ -3,7 +3,7 @@ type specialityOptionType = {
 };
   
 type specialityType = {
-  GEECODIGO: string,
+  OID: string,
   GEEDESCRI: string
 };
   

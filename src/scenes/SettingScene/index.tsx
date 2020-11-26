@@ -8,7 +8,7 @@ import DropDownPicker from 'react-native-dropdown-picker';
 import { setPlace } from '../../store/actions/generalAction';
 import store from '../../store';
 
-const SettingScene = ({ place }: any) => {
+const SettingScene = ({ placeCode }: any) => {
     return (
       <View style={{flex: 1}}>
         <Divider style={{marginTop: 20, marginBottom: 20}} />
@@ -25,11 +25,11 @@ const SettingScene = ({ place }: any) => {
             activeLabelStyle={{color: '#59AD42'}}
             arrowColor="#000"
             items={[
-              {label: 'Bogotá', value: '01', icon: () => <Icon size={20} name='hospital-o' type='font-awesome' color='#000' />},
-              {label: 'UFZ', value: '02', icon: () => <Icon size={20} name='hospital-o' type='font-awesome' color='#000' />},
-              {label: 'Regional', value: '10', icon: () => <Icon size={20} name='hospital-o' type='font-awesome' color='#000' />},
+              {label: 'Bogotá', value: '4', icon: () => <Icon size={20} name='hospital-o' type='font-awesome' color='#000' />},
+              {label: 'UFZ', value: '5', icon: () => <Icon size={20} name='hospital-o' type='font-awesome' color='#000' />},
+              {label: 'Regional', value: '13', icon: () => <Icon size={20} name='hospital-o' type='font-awesome' color='#000' />},
             ]}
-            defaultValue={'01'}
+            defaultValue={placeCode}
             containerStyle={{height:80}}
             style={{backgroundColor: '#FFF', borderColor: '#F0F0F0', paddingLeft: 30}}
             itemStyle={{
@@ -70,7 +70,13 @@ const SettingScene = ({ place }: any) => {
     );
 };
 
+const mapStateToProps = (state: any) => {
+  return {
+    placeCode: state.generalReducer.place.code,
+  };
+};
+
 export default connect(
-  null,
+  mapStateToProps,
   { setPlace }
   )(SettingScene)

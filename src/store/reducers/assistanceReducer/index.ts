@@ -3,11 +3,11 @@ const assistanceInitialState = {
     activeSpeciality: {},
     fetched: [/*
       {
-        'NAME': 'NEIL DAVID SANCHEZ QUINTANA',
+        'NOMBRE': 'NEIL DAVID SANCHEZ QUINTANA',
         'HISTORIA': '105416846'
       },
       {
-        'NAME': 'ANA GOMEZ',
+        'NOMBRE': 'ANA GOMEZ',
         'HISTORIA': '10578946'
       },
     */]
@@ -25,6 +25,14 @@ interface IAction {
 
 const AssistanceReducer = (state = assistanceInitialState, action:IAction) => {
     switch (action.type) {
+        case 'LIST_INTERCONSULTATIONS':
+            return {
+                ...state,
+                interconsultation: {
+                    ...state.interconsultation,
+                    fetched: action.payload
+                }
+            };
         case 'LIST_SPECIALITIES':
             return {
                 ...state,
@@ -39,7 +47,7 @@ const AssistanceReducer = (state = assistanceInitialState, action:IAction) => {
                     activeSpeciality: action.payload,
                 },
                 speciality: {
-                    all: [{ GEEDESCRI: action.payload.label, GEECODIGO: action.payload.value }]
+                    all: [{ GEEDESCRI: action.payload.label, OID: action.payload.value }]
                 }
             };
         default:

@@ -9,6 +9,7 @@ import { specialityOptionType, specialityType } from '../../types';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import { loadResources } from '../../Root/query';
 import NothingToShow from '../../components/NothingToShow';
+import { fetchInterconsultation } from './query';
 
 const windowWidth = Dimensions.get('window').width;
 
@@ -23,13 +24,22 @@ const Picker = DropDownPicker;
 interface InterconsultationSceneProps {
   specialities: [specialityType] | []
 }
-const InterconsultationScene = ({ interconsultation, specialities, specialityOptions }: any) => {
+const InterconsultationScene = ({ interconsultation, placeCode, specialities, specialityOptions }: any) => {
 
   const onChangeItemHandler = (item: any) => {
     store.dispatch({
       type: 'SET_SPECIALITY',
       payload: item
     })
+
+    store.dispatch({
+      type: 'SET_LOADING',
+      payload: true
+    })
+
+    setTimeout(() => {
+      fetchInterconsultation(parseInt(placeCode), parseInt(item.value));
+    }, 5);
   };
 
   const onOpenHandler = () => {
@@ -47,25 +57,17 @@ const InterconsultationScene = ({ interconsultation, specialities, specialityOpt
     });
   });
 
-  const items: [itemType] = [{label: 'Seleccione una especialidad...', value: '00'}];
-  const result = specialities.map((item:any) => {
-    items.push({
-      label: item.GEEDESCRI.charAt(0).toUpperCase() + item.GEEDESCRI.slice(1).toLowerCase(),
-      value: item.GEECODIGO,
-    })
-  });
-
     if (true) {
       return (
         <View style={{flex: 1, flexDirection: 'column'}}>
           <View style={{flex: 1}}>
-            <View style={{paddingTop: 20, paddingBottom: 20, zIndex: 10}}>
+            <View style={{paddingTop: 20, paddingBottom: 20/*, zIndex: 10*/}}>
               
             <DropDownPicker
               items={specialities.map((item: any) => {
                 return {
                   label: item.GEEDESCRI.charAt(0).toUpperCase() + item.GEEDESCRI.slice(1).toLowerCase(),
-                  value: item.GEECODIGO,
+                  value: item.OID,
                   icon: () => <Icon size={14} name='chevron-right' type='entypo' color='#000' />
                 }
                 })
@@ -109,10 +111,10 @@ const InterconsultationScene = ({ interconsultation, specialities, specialityOpt
                           <ListItem bottomDivider key={key} >
                             <FontAwesome5 name="user-clock" size={16} color="rgba(255, 193, 7, 1)" />
                             <ListItem.Content>
-                              <ListItem.Title style={{fontFamily: 'Manrope_400Regular', textTransform: 'capitalize', fontSize: 14}}>
-                                { patient.NAME }
+                              <ListItem.Title style={{fontFamily: 'Manrope_400Regular', textTransform: 'capitalize', fontSize: 12}}>
+                                { patient.NOMBRE }
                               </ListItem.Title>
-                              <ListItem.Subtitle style={{fontFamily: 'Manrope_400Regular', fontSize: 5}}>
+                              <ListItem.Subtitle style={{fontFamily: 'Manrope_400Regular', fontSize: 10}}>
                                 { patient.HISTORIA }
                               </ListItem.Subtitle>
                             </ListItem.Content>
@@ -138,6 +140,7 @@ const InterconsultationScene = ({ interconsultation, specialities, specialityOpt
 
 const mapStateToProps = (state: any) => {
   return {
+    placeCode: state.generalReducer.place.code,
     interconsultation: state.assistanceReducer.interconsultation.fetched,
     specialities: state.assistanceReducer.speciality.all,
     specialityOptions: state.assistanceReducer.specialityOptions,

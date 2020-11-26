@@ -1,7 +1,7 @@
 const generalInitialState = {
   isLoading: false,
   place: {
-    code: '01',
+    code: '4',
     name: 'Bogotá', 
   },
 };
