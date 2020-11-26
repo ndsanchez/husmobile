@@ -55,7 +55,7 @@ const InterconsultationScene = ({specialities, specialityOptions}: any) => {
 
     const tableData: any[] = [
       {
-        'NAME': 'NEIL SANCHEZ',
+        'NAME': 'NEIL DAVID SANCHEZ QUINTANA',
         'HISTORIA': '105416846'
       },
       {
@@ -75,7 +75,7 @@ const InterconsultationScene = ({specialities, specialityOptions}: any) => {
                 return {
                   label: item.GEEDESCRI.charAt(0).toUpperCase() + item.GEEDESCRI.slice(1).toLowerCase(),
                   value: item.GEECODIGO,
-                  /*icon: () => <Icon size={14} name='chevron-right' type='entypo' color='#000' />*/
+                  icon: () => <Icon size={14} name='chevron-right' type='entypo' color='#000' />
                 }
                 })
               }
@@ -108,10 +108,14 @@ const InterconsultationScene = ({specialities, specialityOptions}: any) => {
                 tableData ?
                   tableData.map((patient:any, key:any) => (
                         <ListItem bottomDivider key={key} >
-                          <FontAwesome5 name="user-clock" size={16} color="rgba(255, 193, 7, 0.7)" />
+                          <FontAwesome5 name="user-clock" size={16} color="rgba(255, 193, 7, 1)" />
                           <ListItem.Content>
-                            <ListItem.Title>{patient.NAME}</ListItem.Title>
-                            <ListItem.Subtitle>{patient.HISTORIA}</ListItem.Subtitle>
+                            <ListItem.Title style={{fontFamily: 'Manrope_400Regular', textTransform: 'capitalize', fontSize: 14}}>
+                              { patient.NAME }
+                            </ListItem.Title>
+                            <ListItem.Subtitle style={{fontFamily: 'Manrope_400Regular', fontSize: 10}}>
+                              { patient.HISTORIA }
+                            </ListItem.Subtitle>
                           </ListItem.Content>
                           <ListItem.Chevron />
                         </ListItem>
