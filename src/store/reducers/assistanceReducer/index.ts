@@ -1,10 +1,20 @@
 const assistanceInitialState = {
-    interconsultation: {
-        activeSpeciality: {},
-    },
-    speciality: {
-        all: [],
-    },
+  interconsultation: {
+    activeSpeciality: {},
+    fetched: [/*
+      {
+        'NAME': 'NEIL DAVID SANCHEZ QUINTANA',
+        'HISTORIA': '105416846'
+      },
+      {
+        'NAME': 'ANA GOMEZ',
+        'HISTORIA': '10578946'
+      },
+    */]
+  },
+  speciality: {
+      all: [],
+  },
 };
 
 interface IAction {

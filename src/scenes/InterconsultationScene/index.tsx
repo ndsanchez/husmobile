@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Text, View, StyleSheet, ScrollView, TouchableWithoutFeedback } from 'react-native';
+import { Dimensions, Text, View, StyleSheet, ScrollView } from 'react-native';
 import DropDownPicker from 'react-native-dropdown-picker';
 import { Avatar, Icon, ListItem } from 'react-native-elements';
 import { connect } from 'react-redux';
@@ -8,6 +8,9 @@ import store from '../../store';
 import { specialityOptionType, specialityType } from '../../types';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import { loadResources } from '../../Root/query';
+import NothingToShow from '../../components/NothingToShow';
+
+const windowWidth = Dimensions.get('window').width;
 
 type itemType = {
   label: string,
@@ -20,7 +23,7 @@ const Picker = DropDownPicker;
 interface InterconsultationSceneProps {
   specialities: [specialityType] | []
 }
-const InterconsultationScene = ({specialities, specialityOptions}: any) => {
+const InterconsultationScene = ({ interconsultation, specialities, specialityOptions }: any) => {
 
   const onChangeItemHandler = (item: any) => {
     store.dispatch({
@@ -49,20 +52,8 @@ const InterconsultationScene = ({specialities, specialityOptions}: any) => {
     items.push({
       label: item.GEEDESCRI.charAt(0).toUpperCase() + item.GEEDESCRI.slice(1).toLowerCase(),
       value: item.GEECODIGO,
-      
     })
   });
-
-    const tableData: any[] = [
-      {
-        'NAME': 'NEIL DAVID SANCHEZ QUINTANA',
-        'HISTORIA': '105416846'
-      },
-      {
-        'NAME': 'ANA GOMEZ',
-        'HISTORIA': '10578946'
-      },
-    ];
 
     if (true) {
       return (
@@ -91,36 +82,44 @@ const InterconsultationScene = ({specialities, specialityOptions}: any) => {
                 fontSize: 11,
               }}
               selectedLabelStyle={{fontWeight: 'bold'}}
-              /*activeLabelStyle={{color: '#59AD42', fontWeight: 'bold'}}*/
+              activeLabelStyle={{color: '#59AD42', fontWeight: 'bold'}}
               dropDownMaxHeight={600}
-              dropDownStyle={{backgroundColor: '#FFF', borderColor: '#FAFAFA', borderWidth: 3}}
+              dropDownStyle={{backgroundColor: '#FFF', borderColor: '#FAFAFA', borderWidth: 3, maxWidth: windowWidth}}
               placeholder="Seleccione una especialidad"
               searchable={true}
+              searchableError={() => <NothingToShow />}
               searchablePlaceholder="Buscar especialidad"
               onChangeItem={ selected => onChangeItemHandler(selected) }
               onOpen={() => onOpenHandler()}
             />
 
             </View>
-            <View>
-            <ScrollView>
+            <View style={{flex: 1}}>
               {
-                tableData ?
-                  tableData.map((patient:any, key:any) => (
-                        <ListItem bottomDivider key={key} >
-                          <FontAwesome5 name="user-clock" size={16} color="rgba(255, 193, 7, 1)" />
-                          <ListItem.Content>
-                            <ListItem.Title style={{fontFamily: 'Manrope_400Regular', textTransform: 'capitalize', fontSize: 14}}>
-                              { patient.NAME }
-                            </ListItem.Title>
-                            <ListItem.Subtitle style={{fontFamily: 'Manrope_400Regular', fontSize: 10}}>
-                              { patient.HISTORIA }
-                            </ListItem.Subtitle>
-                          </ListItem.Content>
-                          <ListItem.Chevron />
-                        </ListItem>
-                  ))
-                  : undefined
+                interconsultation.length < 1 ?
+                  <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
+                    <NothingToShow />
+                  </View>
+                : undefined
+              }
+              <ScrollView>
+                {
+                  interconsultation.length > 0 ?
+                    interconsultation.map((patient:any, key:any) => (
+                          <ListItem bottomDivider key={key} >
+                            <FontAwesome5 name="user-clock" size={16} color="rgba(255, 193, 7, 1)" />
+                            <ListItem.Content>
+                              <ListItem.Title style={{fontFamily: 'Manrope_400Regular', textTransform: 'capitalize', fontSize: 14}}>
+                                { patient.NAME }
+                              </ListItem.Title>
+                              <ListItem.Subtitle style={{fontFamily: 'Manrope_400Regular', fontSize: 5}}>
+                                { patient.HISTORIA }
+                              </ListItem.Subtitle>
+                            </ListItem.Content>
+                            <ListItem.Chevron />
+                          </ListItem>
+                    ))
+                    : undefined
                 }
               </ScrollView>
               </View>
@@ -139,8 +138,9 @@ const InterconsultationScene = ({specialities, specialityOptions}: any) => {
 
 const mapStateToProps = (state: any) => {
   return {
+    interconsultation: state.assistanceReducer.interconsultation.fetched,
     specialities: state.assistanceReducer.speciality.all,
-    specialityOptions: state.assistanceReducer.specialityOptions
+    specialityOptions: state.assistanceReducer.specialityOptions,
   };
 };
 
