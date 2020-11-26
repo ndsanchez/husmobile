@@ -59,7 +59,7 @@ const InterconsultationScene = ({ interconsultation, specialities, specialityOpt
       return (
         <View style={{flex: 1, flexDirection: 'column'}}>
           <View style={{flex: 1}}>
-            <View style={{paddingTop: 20, paddingBottom: 20}}>
+            <View style={{paddingTop: 20, paddingBottom: 20, zIndex: 10}}>
               
             <DropDownPicker
               items={specialities.map((item: any) => {
