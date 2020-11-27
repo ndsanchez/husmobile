@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Dimensions, ScrollView,Text, View } from 'react-native';
+import { Dimensions, ScrollView,Text, View, ImageBackground } from 'react-native';
 import { Divider, Avatar } from 'react-native-elements';
 import { LinearGradient } from 'expo-linear-gradient';
 import store from '../../store';
@@ -16,35 +16,26 @@ const InterconsultationDetailScreen = ({ navigation, route }: any) => {
     });
   });
 
-  const list = [
-    {
-      name: 'Amy Farha',
-      avatar_url: 'https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/128.jpg',
-      subtitle: 'Vice President'
-    },
-    {
-      name: 'Chris Jackson',
-      avatar_url: 'https://s3.amazonaws.com/uifaces/faces/twitter/adhamdannaway/128.jpg',
-      subtitle: 'Vice Chairman'
-    },
-  ]
-
   return (
     <View style={{flex: 1, paddingTop: 20, paddingBottom: 5, backgroundColor: '#FAFAFA'}}>
       <ScrollView>
       <LinearGradient
           start= {{x: 0.9, y: 0}}
           colors={['#2E226F', '#034B8F', '#02D3E7']}
-          style={{alignItems: 'center', borderRadius: 15, marginHorizontal: 5}}>
-          <View style={{flex: 1, flexDirection: 'row', paddingVertical: 25, width: windowWidth*0.8}}>
-            <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
-            <Avatar size='medium' rounded icon={{name: 'user-o', type: 'font-awesome', color: '#034B8F'}} overlayContainerStyle={{backgroundColor: '#FFF'}}/>
+          style={{borderRadius: 15, marginHorizontal: 5}}>
+          <ImageBackground source={require('../../assets/images/circles.png')} resizeMode='cover' style={{flex:1, justifyContent: 'center'}}>
+            <View style={{flex: 1, width: windowWidth, alignItems: 'center'}}>
+              <View style={{flex: 1, flexDirection: 'row', paddingVertical: 25, width: windowWidth*0.8}}>
+                <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
+                <Avatar size='medium' rounded icon={{name: 'user-o', type: 'font-awesome', color: '#034B8F'}} overlayContainerStyle={{backgroundColor: '#FFF'}}/>
+                </View>
+                <View style={{flex: 3, justifyContent: 'center'}}>
+                  <Text style={{color: '#fff', fontFamily: 'Manrope_400Regular', fontWeight: 'bold', textTransform: 'capitalize', fontSize: 12}}>{item.NOMBRE}</Text>
+                  <Text style={{color: '#FFF', fontFamily: 'Manrope_400Regular', fontSize: 10, paddingTop: 5}}>No. Historia clínica: {item.HISTORIA}</Text>
+                </View>
+              </View>
             </View>
-            <View style={{flex: 3, justifyContent: 'center'}}>
-              <Text style={{color: '#fff', fontFamily: 'Manrope_400Regular', fontWeight: 'bold', textTransform: 'capitalize', fontSize: 12}}>{item.NOMBRE}</Text>
-              <Text style={{color: '#FFF', fontFamily: 'Manrope_400Regular', fontSize: 10, paddingTop: 5}}>No. Historia clínica: {item.HISTORIA}</Text>
-            </View>
-          </View>
+          </ImageBackground>
         </LinearGradient>
         <View style={{backgroundColor: '#FFF', marginHorizontal: 5, marginTop: 10, borderRadius: 15}}>
           <View style={{flex:1, flexDirection: 'column', marginVertical: 20, marginHorizontal: 20}}>
