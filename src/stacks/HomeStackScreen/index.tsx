@@ -5,6 +5,7 @@ import HomeScreen from '../../screens/HomeScreen';
 import { HospitalIndicator } from '../../components/Header';
 import InterconsultationScene from '../../scenes/InterconsultationScene';
 import InterconsultationStackScreen from '../InterconsultationStackScreen';
+import ReceiptStackScreen from '../ReceiptStackScreen';
 
 interface HomeStackScreenProps {
   place: string,
@@ -42,6 +43,11 @@ const HomeStackScreen: React.FC<HomeStackScreenProps> = ({ place }: HomeStackScr
       <HomeStack.Screen
         name="Interconsultas_feed"
         component={InterconsultationStackScreen}
+        options={{ headerShown: false }}
+      />
+      <HomeStack.Screen
+        name="receipt_feed"
+        component={ReceiptStackScreen}
         options={{ headerShown: false }}
       />
     </HomeStack.Navigator>
