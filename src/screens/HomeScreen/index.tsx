@@ -1,8 +1,10 @@
 import React from 'react';
-import { View } from 'react-native';
-import { Icon, ListItem } from 'react-native-elements';
+import { View, Text, Dimensions } from 'react-native';
+import { Icon, ListItem, Avatar } from 'react-native-elements';
 import store from '../../store';
-import { loadResources } from '../../Root/query';
+import { LinearGradient } from 'expo-linear-gradient'
+
+const windowWidth =Dimensions.get('window').width;
 
 const onPressHandler = (navigation: any, item:any) => {
   store.dispatch({
@@ -35,6 +37,8 @@ const HomeScreen = ({ navigation }: any) => {
             </ListItem>
           ))
         }
+        <View>
+        </View>
       </View>
     );
 }
