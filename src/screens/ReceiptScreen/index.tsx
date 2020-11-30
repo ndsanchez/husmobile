@@ -74,7 +74,7 @@ const ReceiptScreen = () => {
             <Text
               style={{
                 fontFamily: 'Manrope_400Regular',
-                color: '#5553F7',
+                color: '#686354',
                 fontWeight: 'bold',
                 fontSize: 6,
                 position: 'absolute',
@@ -88,7 +88,7 @@ const ReceiptScreen = () => {
         <View style={{flex: 1}}>
           <View style={{paddingHorizontal: 20, flex: 1, flexDirection: 'row', alignItems: 'center'}}>
             <Icon type='octicon' name='primitive-dot' color='#17D6D8' />
-            <Text style={{fontFamily: 'Manrope_400Regular', fontSize: 18, fontWeight: 'bold', color: '#333'}}> $9.361.950,00</Text>
+            <Text style={{fontFamily: 'Manrope_400Regular', fontSize: 18, fontWeight: 'bold', color: '#686354'}}> $9.361.950,00</Text>
           </View>
         </View>
       </View>
