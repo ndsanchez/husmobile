@@ -35,13 +35,14 @@ const ReceiptScreen = () => {
     <View style={{flex: 1, paddingVertical: 20, paddingHorizontal: 20}}>
       <View
         style={{
-          flex: 1,
           backgroundColor: '#FFF',
           borderRadius: 20, shadowColor: '#000',
           shadowOffset: {height: 2, width:0},
           shadowOpacity: 0.25,
           shadowRadius: 3.84,
           elevation: 5,
+          height: 220,
+          width: WWidth-40,
         }}
       >
         <View style={{flex: 1, justifyContent: 'center'}}>
