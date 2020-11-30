@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react';
-import { Text, View, Dimensions } from 'react-native';
+import {  Dimensions, ScrollView, Text, View } from 'react-native';
 import { Icon } from 'react-native-elements';
 import store from '../../store';
 import { PieChart } from 'react-native-svg-charts';
-import { ScrollView } from 'react-native-gesture-handler';
+import * as Progress from 'react-native-progress';
 
 const WWidth = Dimensions.get('window').width;
 
@@ -108,7 +108,8 @@ const ReceiptScreen = () => {
               </View>
             </View>
           </View>
-
+          
+          
           <View 
             style={{
               backgroundColor: '#FFF',
@@ -120,8 +121,84 @@ const ReceiptScreen = () => {
               height: 330,
               width: WWidth-40,
             }}
-          >
+          >            
+            <View style={{flex: 1, justifyContent: "center"}}>
+              <View style={{paddingHorizontal: 20}}>
+                <Text style={{fontFamily: 'Manrope_400Regular', color: '#686354'}}>Reporte</Text>
+              </View>
+            </View>
 
+            <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+              <Text>DatePicker</Text>
+            </View>
+
+            <View style={{flex: 1, justifyContent: "center"}}>
+              <View style={{flex:1, justifyContent: "center", paddingHorizontal: 20}}>
+                <View style={{paddingBottom: 20, height:30, flexDirection: "row"}}>
+                  <View style={{flex: 1}}>
+                    <Text style={{fontFamily: 'Manrope_400Regular', color: '#686354'}}>Valor</Text>
+                  </View>
+
+                  <View style={{flex: 1, alignItems: 'flex-end'}}>
+                    <Text style={{fontFamily: 'Manrope_400Regular', color: '#686354'}}>100%</Text>
+                  </View>
+                </View>
+
+                <Progress.Bar
+                  progress={1}
+                  width={null}
+                  height={5}
+                  borderRadius={6}
+                  color="#5553F7"
+                  useNativeDriver/>
+              </View>
+            </View>
+
+            <View style={{flex: 1, justifyContent: "center"}}>
+              <View style={{flex:1, justifyContent: "center", paddingHorizontal: 20}}>
+                <View style={{paddingBottom: 20, height:30, flexDirection: "row"}}>
+                  <View style={{flex: 1}}>
+                    <Text style={{fontFamily: 'Manrope_400Regular', color: '#686354'}} >Valor</Text>
+                  </View>
+
+                  <View style={{flex: 1, alignItems: 'flex-end'}}>
+                    <Text style={{fontFamily: 'Manrope_400Regular', color: '#686354'}} >20%</Text>
+                  </View>
+                </View>
+
+                <Progress.Bar 
+                  progress={0.2} 
+                  width={null} 
+                  height={5} 
+                  borderRadius={6} 
+                  color="#FFC85B" 
+                  useNativeDriver
+                />
+              </View>
+            </View>
+
+            <View style={{flex: 1, justifyContent: "center"}}>
+              <View style={{flex:1, justifyContent: "center", paddingHorizontal: 20, paddingBottom: 30}}>
+                <View style={{paddingBottom: 20, height:30, flexDirection: "row"}}>
+                  <View style={{flex: 1}}>
+                    <Text style={{fontFamily: 'Manrope_400Regular', color: '#686354'}} >Valor</Text>
+                  </View>
+
+                  <View style={{flex: 1, alignItems: 'flex-end'}}>
+                    <Text style={{fontFamily: 'Manrope_400Regular', color: '#686354'}} >60%</Text>
+                  </View>
+                </View>
+
+                <Progress.Bar
+                  progress={0.8} 
+                  width={null} 
+                  height={5} 
+                  borderRadius={6} 
+                  color="#17D6D8" 
+                  useNativeDriver
+                />
+              </View>
+            </View>
           </View>
         </View>
       </ScrollView>
