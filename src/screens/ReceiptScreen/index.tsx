@@ -2,38 +2,27 @@ import React, { useEffect } from 'react';
 import { Text, View, Dimensions } from 'react-native';
 import { Icon } from 'react-native-elements';
 import store from '../../store';
-import {
-    LineChart,
-    BarChart,
-    PieChart,
-    ProgressChart,
-    ContributionGraph,
-    StackedBarChart
-  } from "react-native-chart-kit";
+import { PieChart } from 'react-native-svg-charts';
 
 const WWidth = Dimensions.get('window').width;
 
-const data = {
-    labels: ["Facturado", "Anulado"],
-    datasets: [
-      {
-        data: [20, 45,]
-      }
-    ]
-  };
-
-  const chartConfig = {
-    backgroundColor: 'rgba(255, 255, 255, 0)',
-    backgroundGradientFrom: 'rgba(255, 255, 255, 0)',
-    backgroundGradientTo: 'rgba(255, 255, 255, 0)',
-    decimalPlaces: 2,
-    color: (opacity = 1) => `rgba(84, 81, 250, ${opacity})`,
-    style: {
-      borderRadius: 16,
-    },
-  }
-
 const ReceiptScreen = () => {
+
+  const data = [20, 80]
+  const colors = ['#FFC85B', '#17D6D8'];
+ 
+  const randomColor = (index: number) => (colors[index])
+ 
+  const pieData = data
+      .filter((value) => value > 0)
+      .map((value, index) => ({
+          value,
+          svg: {
+              fill: randomColor(index),
+              onPress: () => console.log('press', index),
+          },
+          key: `pie-${index}`,
+      }))
 
   useEffect(() => {
     store.dispatch({
@@ -44,10 +33,20 @@ const ReceiptScreen = () => {
 
   return (
     <View style={{flex: 1, paddingVertical: 20, paddingHorizontal: 20}}>
-      <View style={{flex: 1, backgroundColor: '#FFF', borderRadius: 20}}>
+      <View
+        style={{
+          flex: 1,
+          backgroundColor: '#FFF',
+          borderRadius: 20, shadowColor: '#000',
+          shadowOffset: {height: 2, width:0},
+          shadowOpacity: 0.25,
+          shadowRadius: 3.84,
+          elevation: 5,
+        }}
+      >
         <View style={{flex: 1, justifyContent: 'center'}}>
           <View style={{paddingHorizontal: 20}}>
-            <Text style={{fontFamily: 'Manrope_400Regular', fontWeight: 'bold', color: '#CCC'}}>Cifras de Hoy</Text>
+            <Text style={{fontFamily: 'Manrope_400Regular', color: '#555'}}>Cifras de Hoy</Text>
           </View>
         </View>
 
@@ -55,47 +54,41 @@ const ReceiptScreen = () => {
           <View style={{flex:4}}>
             <View style={{flex: 1}}>
               <View style={{flex: 1, paddingHorizontal: 20, justifyContent: 'flex-end'}}>
-                <View style={{flexDirection: 'row', paddingBottom: 20}}>
-                  <Icon type='material-community' name="arrow-top-right" color='#03CB96' size={14} />
-                  <Text style={{fontFamily: 'Manrope_400Regular', fontSize: 10, fontWeight: 'bold', color: '#03CB96'}}>+ $12.369.000,00</Text>
+                <View style={{flexDirection: 'row', paddingBottom: 20, alignItems: 'center'}}>
+                  <Icon type='octicon' name='primitive-dot' color='#5553F7' />
+                  <Icon type='material-community' name="arrow-top-right" color='#00CF96' size={14} />
+                  <Text style={{fontFamily: 'Manrope_400Regular', fontSize: 10, fontWeight: 'bold', color: '#AAA'}}> + $12.369.000,00</Text>
                 </View>
 
-                <View style={{flexDirection: 'row', paddingBottom: 20}}>
-                  <Icon type='material-community' name="arrow-bottom-right" color='#F7BB00' size={14} />
-                  <Text style={{fontFamily: 'Manrope_400Regular', fontSize: 10, fontWeight: 'bold', color: '#F7BB00'}}>- $3.721.050,00</Text>
+                <View style={{flexDirection: 'row', paddingBottom: 20, alignItems: 'center'}}>
+                  <Icon type='octicon' name='primitive-dot' color='#FFC85B' />
+                  <Icon type='material-community' name="arrow-bottom-right" color='#EB7070' size={14} />
+                  <Text style={{fontFamily: 'Manrope_400Regular', fontSize: 10, fontWeight: 'bold', color: '#AAA'}}> - $3.721.050,00</Text>
                 </View>
               </View>
             </View>
           </View>
 
           <View style={{flex: 6, justifyContent: "center", alignItems: 'center'}}>
-          <ProgressChart
-  data={[0.4, 0.68, 0.8]}
-  width={WWidth*0.5}
-  height={150}
-  chartConfig={{
-    backgroundColor: 'rgba(255, 255, 255, 0)',
-    backgroundGradientFrom: 'rgba(255, 255, 255, 0)',
-    backgroundGradientTo: 'rgba(255, 255, 255, 0)',
-    decimalPlaces: 2,
-    color: (opacity = 1) => `rgba(84, 81, 250, ${opacity})`,
-    style: {
-      borderRadius: 8,
-    },
-  }}
-  style={{
-    marginVertical: 8,
-    borderRadius: 16,
-  }}
-  strokeWidth={8}
-  radius={20}
-/>
+            <PieChart style={{ height: 150, width: 130 }} data={pieData} />
+            <Text
+              style={{
+                fontFamily: 'Manrope_400Regular',
+                color: '#5553F7',
+                fontWeight: 'bold',
+                fontSize: 6,
+                position: 'absolute',
+                textAlign: 'center'
+              }}>
+              {'$12.369.000,00'}
+            </Text>
           </View>
         </View>
 
         <View style={{flex: 1}}>
-          <View style={{paddingHorizontal: 20}}>
-            <Text style={{fontFamily: 'Manrope_400Regular', fontSize: 20, fontWeight: 'bold', color: '#5451FA'}}>$ 9.361.950,00</Text>
+          <View style={{paddingHorizontal: 20, flex: 1, flexDirection: 'row', alignItems: 'center'}}>
+            <Icon type='octicon' name='primitive-dot' color='#17D6D8' />
+            <Text style={{fontFamily: 'Manrope_400Regular', fontSize: 18, fontWeight: 'bold', color: '#333'}}> $9.361.950,00</Text>
           </View>
         </View>
       </View>

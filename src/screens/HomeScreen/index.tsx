@@ -2,14 +2,6 @@ import React from 'react';
 import { View, Text, Dimensions } from 'react-native';
 import { Icon, ListItem, Avatar } from 'react-native-elements';
 import store from '../../store';
-import {
-  LineChart,
-  BarChart,
-  PieChart,
-  ProgressChart,
-  ContributionGraph,
-  StackedBarChart
-} from "react-native-chart-kit";
 
 const windowWidth =Dimensions.get('window').width;
 
