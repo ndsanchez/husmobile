@@ -1,17 +1,38 @@
-import React, { useEffect } from 'react';
-import {  Dimensions, ScrollView, Text, View } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import {  Dimensions, ScrollView, Text, TouchableOpacity, View } from 'react-native';
 import { Icon } from 'react-native-elements';
 import store from '../../store';
 import { PieChart } from 'react-native-svg-charts';
 import * as Progress from 'react-native-progress';
+import DateTimePicker from '@react-native-community/datetimepicker';
 
 const WWidth = Dimensions.get('window').width;
 
 const ReceiptScreen = () => {
+  console.disableYellowBox = true;
+
+  const [initialDate, setInitialDate]: any = useState(new Date());
+  const [endDate, setEndDate]: any = useState(new Date());
+  const [showInitialPicker, setShowInitialPicker]: any = useState(false);
+  const [showEndPicker, setShowEndPicker]: any = useState(false);
 
   const data = [20, 80]
   const colors = ['#FFC85B', '#17D6D8'];
  
+  const onChangeInitialDateHandler = (evn: any, selectedDate: Date | undefined) => {
+    setShowInitialPicker(false);
+    if(selectedDate) {
+      setInitialDate(selectedDate);
+    }
+  };
+
+  const onChangeEndDateHandler = (evn: any, selectedDate: Date | undefined) => {
+    setShowEndPicker(false);
+    if(selectedDate) {
+      setEndDate(selectedDate);
+    }
+  };
+
   const randomColor = (index: number) => (colors[index])
  
   const pieData = data
@@ -123,13 +144,53 @@ const ReceiptScreen = () => {
             }}
           >            
             <View style={{flex: 1, justifyContent: "center"}}>
-              <View style={{paddingHorizontal: 20}}>
-                <Text style={{fontFamily: 'Manrope_400Regular', color: '#686354'}}>Reporte</Text>
+              <View style={{paddingHorizontal: 20, flex: 1, flexDirection: "row"}}>
+                <View style={{flex: 1, justifyContent: 'center'}}>
+                  <Text style={{fontFamily: 'Manrope_400Regular', color: '#686354'}}>Reporte</Text>
+                </View>
+
+                <View style={{paddingHorizontal: 5, flex: 1, justifyContent: 'center'}} >
+                  <TouchableOpacity onPress={() => {setShowInitialPicker(true)}}>
+                  <View style={{ height: 25, paddingHorizontal: 5, flexDirection: 'row', justifyContent: "center", alignItems: "center", borderColor: '#686354', borderRadius: 20, borderWidth: 1}}>
+                    <Icon name='calendar' type='octicon' size={12} />
+                    <Text style={{fontFamily: 'Manrope_400Regular', color: '#686354', fontSize: 10}} >  Fecha inicial</Text>
+                    { showInitialPicker && (
+                      <DateTimePicker
+                        testID="dateTimePickerOne"
+                        value={initialDate}
+                        mode={'date'}
+                        display="default"
+                        onChange={(_, selected) => { onChangeInitialDateHandler(_, selected) }}
+                      />
+                    )}
+                  </View>
+                  </TouchableOpacity>
+                </View>
+
+                <View style={{paddingHorizontal: 5, flex: 1, justifyContent: 'center'}} >
+                  <TouchableOpacity onPress={() => {setShowEndPicker(true)}}>
+                  <View style={{ height: 25, paddingHorizontal: 5, flexDirection: 'row', justifyContent: "center", alignItems: "center", borderColor: '#686354', borderRadius: 20, borderWidth: 1}}>
+                    <Icon name='calendar' type='octicon' size={12} />
+                    <Text style={{fontFamily: 'Manrope_400Regular', color: '#686354', fontSize: 10}} >  Fecha final</Text>
+                    { showEndPicker && (
+                      <DateTimePicker
+                        testID="dateTimePickerOne"
+                        value={endDate}
+                        mode={'date'}
+                        display="default"
+                        onChange={(evn, selected) => { onChangeEndDateHandler(evn, selected) }}
+                      />
+                    )}
+                  </View>
+                  </TouchableOpacity>
+                </View>
               </View>
             </View>
 
             <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-              <Text>DatePicker</Text>
+              <View>
+                    <Text style={{fontFamily: 'Manrope_400Regular', fontWeight: 'bold', color: '#686354'}}>Bogotá</Text>
+              </View>
             </View>
 
             <View style={{flex: 1, justifyContent: "center"}}>
