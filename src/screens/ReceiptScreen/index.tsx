@@ -13,7 +13,7 @@ import store from '../../store';
 const WWidth = Dimensions.get('window').width;
 
 const ReceiptScreen = ({ placeCode, todayReceipt }: any) => {
-  //LogBox.ignoreAllLogs(true);
+  LogBox.ignoreAllLogs(true);
 
   const [initialDate, setInitialDate]: any = useState(new Date());
   const [endDate, setEndDate]: any = useState(new Date());
@@ -205,7 +205,9 @@ const ReceiptScreen = ({ placeCode, todayReceipt }: any) => {
 
             <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
               <View>
-                    <Text style={{fontFamily: 'Manrope_400Regular', fontWeight: 'bold', color: '#686354'}}>Bogotá</Text>
+                <Text style={{fontFamily: 'Manrope_400Regular', fontWeight: 'bold', color: '#686354'}}>
+                  Bogotá,
+                </Text>
               </View>
             </View>
 
