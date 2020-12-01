@@ -121,13 +121,13 @@ const ReceiptScreen = ({ placeCode, todayReceipt }: any) => {
               </View>
 
               <View style={{flex: 6, justifyContent: "center", alignItems: 'center'}}>
-                <PieChart style={{ height: 180, width: 160 }} data={pieData} />
+                <PieChart style={{ height: 180, width: 170 }} data={pieData} innerRadius="60%" />
                 <Text
                   style={{
                     fontFamily: 'Manrope_400Regular',
                     color: '#686354',
                     fontWeight: 'bold',
-                    fontSize: 6,
+                    fontSize: 10,
                     position: 'absolute',
                     textAlign: 'center'
                   }}>
@@ -139,7 +139,7 @@ const ReceiptScreen = ({ placeCode, todayReceipt }: any) => {
             <View style={{flex: 1}}>
               <View style={{paddingHorizontal: 20, flex: 1, flexDirection: 'row', alignItems: 'center'}}>
                 <Icon type='octicon' name='primitive-dot' color='#17D6D8' />
-                <Text style={{fontFamily: 'Manrope_400Regular', fontSize: 18, fontWeight: 'bold', color: '#686354'}}>
+                <Text style={{fontFamily: 'Manrope_400Regular', fontSize: 18, fontWeight: 'bold', color: '#686354', paddingLeft: 5}}>
                   <FormatedNumber value={todayReceipt.totalGananciaHoy} />
                 </Text>
               </View>
