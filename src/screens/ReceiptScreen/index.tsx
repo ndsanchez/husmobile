@@ -61,7 +61,7 @@ const ReceiptScreen = ({ placeCode, todayReceipt }: any) => {
         payload: false
       });
     }
-  });
+  }, []);
 
   return (
     <View style={{flex: 1}}>
