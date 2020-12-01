@@ -35,19 +35,15 @@ const Root = ({ bearer, isLoading }: Istate) => {
         </View>
       );
     }
-    else if (bearer) {
-      return (
-        <View style={{flex: 1, top: 0, bottom: 0, left: 0, right: 0}} >
-          {
-            isLoading ? <LoadingIndicator /> : undefined
-          }
+
+    return (
+        bearer ?
+         <View style={{flex: 1, top: 0, bottom: 0, left: 0, right: 0}} >
           <HomeScene />
+          { isLoading && (<LoadingIndicator />) }
         </View>
-      );
-    }
-    else {
-      return <LoginScene />
-    }
+        : <LoginScene />
+    );
   };
 
 const mapStateToProps = (state:any) => {
