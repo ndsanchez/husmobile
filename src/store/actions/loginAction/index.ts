@@ -3,10 +3,18 @@ const SET_PASSWORD = 'SET_PASSWORD';
 const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 const LOGIN_FAILED = 'LOGIN_FAILED';
 const SET_LOADING = 'SET_LOADIN';
+const LOGOUT = 'LOGOUT';
 
 interface IAction {
     type: string,
     payload: string | object | boolean,
+};
+
+const logOut = () => {
+    return {
+        type: LOGOUT,
+        payload: [],
+    };
 };
 
 const setUsername = (username: string): IAction => {
@@ -44,4 +52,4 @@ const setLoading = (flag:boolean): IAction => {
     };
 };
 
-export { setUsername, setPassword, loginFailed, loginSuccess, setLoading };
+export { setUsername, setPassword, loginFailed, loginSuccess, setLoading, logOut };

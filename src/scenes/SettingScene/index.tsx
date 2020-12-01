@@ -61,7 +61,7 @@ const SettingScene = ({ placeCode, user }: any) => {
             buttonStyle={ style.btnLogin }
             title='Cerrar Sesión'
             type="outline"
-            onPress={() => { console.log('logout')}}
+            onPress={() => { store.dispatch({type: 'LOGOUT', payload: []})}}
           />
           </View>
         </View>

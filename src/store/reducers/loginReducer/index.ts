@@ -15,6 +15,15 @@ interface IAction {
 
 const loginReducer = (state = LoginInitialState, action:IAction) => {
     switch (action.type) {
+        case 'LOGOUT':
+            return {
+                ...state,
+                password: '',
+                login: {
+                    Bearer: '',
+                    user: {}
+                }
+            };
         case 'SET_USERNAME':
             return {
                 ...state,
