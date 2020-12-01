@@ -87,14 +87,14 @@ const ReceiptScreen = ({ placeCode, todayReceipt }: any) => {
             </View>
 
             <View style={{ flex: 1, flexDirection: 'row', alignItems: "center", justifyContent: "center"}}>
-              <Icon type='octicon' name='primitive-dot' color='#5553F7' size={12} />
-              <Text style={{fontFamily: 'Manrope_400Regular', fontSize: 8, color: '#686354', marginRight: 20}}>  Facturado</Text>
+              <Icon type='octicon' name='primitive-dot' color='#5553F7' size={14} />
+              <Text style={{fontFamily: 'Manrope_400Regular', fontSize: 10, color: '#686354', marginRight: 20}}>  Facturado</Text>
 
-              <Icon type='octicon' name='primitive-dot' color='#FFC85B' size={12} />
-              <Text style={{fontFamily: 'Manrope_400Regular', fontSize: 8, color: '#686354', marginRight: 20}}>  Anulado</Text>
+              <Icon type='octicon' name='primitive-dot' color='#FFC85B' size={14} />
+              <Text style={{fontFamily: 'Manrope_400Regular', fontSize: 10, color: '#686354', marginRight: 20}}>  Anulado</Text>
 
-              <Icon type='octicon' name='primitive-dot' color='#17D6D8' size={12} />
-              <Text style={{fontFamily: 'Manrope_400Regular', fontSize: 8, color: '#686354'}}>  Ganancia</Text>
+              <Icon type='octicon' name='primitive-dot' color='#17D6D8' size={14} />
+              <Text style={{fontFamily: 'Manrope_400Regular', fontSize: 10, color: '#686354'}}>  Ganancia</Text>
             </View>
 
             <View style={{flex: 3, flexDirection: 'row'}}>
