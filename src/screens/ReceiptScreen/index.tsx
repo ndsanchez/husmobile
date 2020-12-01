@@ -1,23 +1,30 @@
 import React, { useEffect, useState } from 'react';
-import {  Dimensions, ScrollView, Text, TouchableOpacity, View } from 'react-native';
 import { Icon } from 'react-native-elements';
-import store from '../../store';
-import { PieChart } from 'react-native-svg-charts';
+import {  Dimensions, LogBox, ScrollView, Text, TouchableOpacity, View } from 'react-native';
 import * as Progress from 'react-native-progress';
+import { connect } from 'react-redux';
+import { PieChart } from 'react-native-svg-charts';
 import DateTimePicker from '@react-native-community/datetimepicker';
+import FormatedNumber from '../../components/FormatedNumber';
+
+import { requestTodayReceipt } from './query';
+import store from '../../store';
 
 const WWidth = Dimensions.get('window').width;
 
-const ReceiptScreen = () => {
-  console.disableYellowBox = true;
+const ReceiptScreen = ({ placeCode, todayReceipt }: any) => {
+  //LogBox.ignoreAllLogs(true);
 
   const [initialDate, setInitialDate]: any = useState(new Date());
   const [endDate, setEndDate]: any = useState(new Date());
   const [showInitialPicker, setShowInitialPicker]: any = useState(false);
   const [showEndPicker, setShowEndPicker]: any = useState(false);
 
-  const data = [20, 80]
-  const colors = ['#FFC85B', '#17D6D8'];
+  const annulmentPercentage: number = parseFloat(todayReceipt.totalAnuladoHoy) / parseFloat(todayReceipt.totalFacturadoHoy);
+  const earningPercentage: number = parseFloat(todayReceipt.totalGananciaHoy) / parseFloat(todayReceipt.totalFacturadoHoy); 
+  const data = [earningPercentage, annulmentPercentage];
+  console.log('Percentages: ', data);
+  const colors = ['#17D6D8', '#FFC85B',];
  
   const onChangeInitialDateHandler = (evn: any, selectedDate: Date | undefined) => {
     setShowInitialPicker(false);
@@ -47,11 +54,14 @@ const ReceiptScreen = () => {
       }))
 
   useEffect(() => {
-    store.dispatch({
-      type: 'SET_LOADING',
-      payload: false
-    });
-  });
+    const wasSuccessRequest = requestTodayReceipt(parseInt(placeCode));
+    if (wasSuccessRequest) {
+      store.dispatch({
+        type: 'SET_LOADING',
+        payload: false
+      });
+    }
+  }, []);
 
   return (
     <View style={{flex: 1}}>
@@ -72,7 +82,7 @@ const ReceiptScreen = () => {
           >
             <View style={{flex: 1, justifyContent: 'center'}}>
               <View style={{paddingHorizontal: 20}}>
-                <Text style={{fontFamily: 'Manrope_400Regular', color: '#555'}}>Hoy, Nov 30</Text>
+                <Text style={{fontFamily: 'Manrope_400Regular', color: '#555'}}>Hoy, {todayReceipt.hoy}</Text>
               </View>
             </View>
 
@@ -94,13 +104,17 @@ const ReceiptScreen = () => {
                     <View style={{flexDirection: 'row', paddingBottom: 20, alignItems: 'center'}}>
                       <Icon type='octicon' name='primitive-dot' color='#5553F7' size={14} />
                       <Icon type='material-community' name="arrow-top-right" color='#00CF96' size={14} />
-                      <Text style={{fontFamily: 'Manrope_400Regular', fontSize: 10, fontWeight: 'bold', color: '#AAA'}}> + $12.369.000,00</Text>
+                      <Text style={{fontFamily: 'Manrope_400Regular', fontSize: 10, fontWeight: 'bold', color: '#AAA'}}>
+                        + <FormatedNumber value={todayReceipt.totalFacturadoHoy} />
+                      </Text>
                     </View>
     
                     <View style={{flexDirection: 'row', paddingBottom: 20, alignItems: 'center'}}>
                       <Icon type='octicon' name='primitive-dot' color='#FFC85B' size={14} />
                       <Icon type='material-community' name="arrow-bottom-right" color='#EB7070' size={14} />
-                      <Text style={{fontFamily: 'Manrope_400Regular', fontSize: 10, fontWeight: 'bold', color: '#AAA'}}> - $3.721.050,00</Text>
+                      <Text style={{fontFamily: 'Manrope_400Regular', fontSize: 10, fontWeight: 'bold', color: '#AAA'}}>
+                        - <FormatedNumber value={todayReceipt.totalAnuladoHoy} />
+                      </Text>
                     </View>
                   </View>
                 </View>
@@ -117,7 +131,7 @@ const ReceiptScreen = () => {
                     position: 'absolute',
                     textAlign: 'center'
                   }}>
-                  {'$12.369.000,00'}
+                    <FormatedNumber value={todayReceipt.totalFacturadoHoy} />
                 </Text>
               </View>
             </View>
@@ -125,7 +139,9 @@ const ReceiptScreen = () => {
             <View style={{flex: 1}}>
               <View style={{paddingHorizontal: 20, flex: 1, flexDirection: 'row', alignItems: 'center'}}>
                 <Icon type='octicon' name='primitive-dot' color='#17D6D8' />
-                <Text style={{fontFamily: 'Manrope_400Regular', fontSize: 18, fontWeight: 'bold', color: '#686354'}}> $9.361.950,00</Text>
+                <Text style={{fontFamily: 'Manrope_400Regular', fontSize: 18, fontWeight: 'bold', color: '#686354'}}>
+                  <FormatedNumber value={todayReceipt.totalGananciaHoy} />
+                </Text>
               </View>
             </View>
           </View>
@@ -267,4 +283,11 @@ const ReceiptScreen = () => {
   );
 };
 
-export default ReceiptScreen;
+const mapStateToProps = (state: any) => {
+  return {
+    placeCode: state.generalReducer.place.code,
+    todayReceipt: state.receiptReducer.todayReceipt,
+  };
+};
+
+export default connect(mapStateToProps, {})(ReceiptScreen);

@@ -23,6 +23,7 @@
     "expo-updates": "~0.3.3",
     "react": "16.13.1",
     "react-dom": "16.13.1",
+    "react-intl": "^5.10.6",
     "react-native": "~0.63.3",
     "react-native-chart-kit": "^6.7.0",
     "react-native-dropdown-picker": "^3.7.1",
@@ -37,6 +38,7 @@
     "react-native-svg-charts": "^5.4.0",
     "react-native-unimodules": "~0.11.0",
     "react-native-web": "~0.13.12",
+    "react-number-format": "^4.4.1",
     "react-redux": "^7.2.2",
     "redux": "^4.0.5",
     "redux-thunk": "^2.3.0"
