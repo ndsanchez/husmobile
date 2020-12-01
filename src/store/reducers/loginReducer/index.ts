@@ -3,6 +3,7 @@ const LoginInitialState = {
     password: '',
     login: {
         Bearer: '',
+        user: {},
         error: '',
     }
 };

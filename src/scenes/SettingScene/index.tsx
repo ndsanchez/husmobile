@@ -8,16 +8,15 @@ import DropDownPicker from 'react-native-dropdown-picker';
 import { setPlace } from '../../store/actions/generalAction';
 import store from '../../store';
 
-const SettingScene = ({ placeCode }: any) => {
+const SettingScene = ({ placeCode, user }: any) => {
     return (
       <View style={{flex: 1}}>
-        <Divider style={{marginTop: 20, marginBottom: 20}} />
         <View style={{flex: 2, backgroundColor: '#F0F0F0'}}>
           <ListItem key={1} bottomDivider>
               <Avatar rounded icon={{name: 'user', type: 'font-awesome', color: '#59AD42'}} overlayContainerStyle={{backgroundColor: '#F0F0F0'}}/>
               <ListItem.Content>
-                <ListItem.Title>{"Neil David Sanchez Quintana"}</ListItem.Title>
-                <ListItem.Subtitle>{"sistemas.ingeniero3"}</ListItem.Subtitle>
+                <ListItem.Title>{user.name}</ListItem.Title>
+                <ListItem.Subtitle>{user.username}</ListItem.Subtitle>
               </ListItem.Content>
           </ListItem>
 
@@ -73,6 +72,7 @@ const SettingScene = ({ placeCode }: any) => {
 const mapStateToProps = (state: any) => {
   return {
     placeCode: state.generalReducer.place.code,
+    user: state.loginReducer.login.user,
   };
 };
 
