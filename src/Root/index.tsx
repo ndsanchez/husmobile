@@ -37,11 +37,11 @@ const Root = ({ bearer, isLoading }: Istate) => {
     }
 
     return (
-        bearer ?
-         <View style={{flex: 1, top: 0, bottom: 0, left: 0, right: 0}} >
-          <HomeScene />
-          { isLoading && (<LoadingIndicator />) }
-        </View>
+        /*bearer*/ true ?
+          <View style={{flex: 1, top: 0, bottom: 0, left: 0, right: 0}} >
+            <HomeScene />
+            { isLoading && (<LoadingIndicator />) }
+          </View>
         : <LoginScene />
     );
   };

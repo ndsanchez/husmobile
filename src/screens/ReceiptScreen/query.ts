@@ -1,9 +1,8 @@
 import axios from 'axios';
 import store from '../../store';
 
-const requestTodayReceipt = (OIDCENATE: number) => {
-    //store.dispatch(setLoading(true));
-    axios.get(`http://172.16.10.150/husapp/api/receipt/${OIDCENATE}`)
+const requestTodayReceipt = (dateIndicator: number) => {
+    axios.get(`http://172.16.10.150/husapp/api/receipt/${dateIndicator}`)
     .then((response) => {
       if (response.data) {
         console.log('receipt_Successfully: ', response.data)

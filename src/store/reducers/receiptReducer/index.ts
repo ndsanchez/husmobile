@@ -1,10 +1,5 @@
 const receiptInitialState = {
-  todayReceipt: {
-    hoy: '',
-    totalAnuladoHoy: '',
-    totalFacturadoHoy: '',
-    totalGananciaHoy: ''
-  },
+  todayReceipt: [],
 };
 
 interface IAction {

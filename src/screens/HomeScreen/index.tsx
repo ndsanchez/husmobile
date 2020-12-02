@@ -82,7 +82,7 @@ const HomeScreen = ({ navigation }: any) => {
                           <Icon name='solution1' type='antdesign' size={30} color='#686354' />
                         </View>
                       </TouchableOpacity>
-                      <Text style={{fontFamily: 'Manrope_400Regular', color: '#FFF', fontSize: 8}}>Interconsultas pendientes</Text>
+                      <Text style={{fontFamily: 'Manrope_400Regular', color: '#FFF', fontSize: 9}}>Interconsultas pendientes</Text>
                     </View>
 
                     <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>

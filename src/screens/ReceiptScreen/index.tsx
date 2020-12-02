@@ -5,6 +5,7 @@ import * as Progress from 'react-native-progress';
 import { connect } from 'react-redux';
 import { PieChart } from 'react-native-svg-charts';
 import DateTimePicker from '@react-native-community/datetimepicker';
+import DropDownPicker from 'react-native-dropdown-picker';
 import FormatedNumber from '../../components/FormatedNumber';
 
 import { requestTodayReceipt } from './query';
@@ -54,7 +55,7 @@ const ReceiptScreen = ({ placeCode, todayReceipt }: any) => {
       }))
 
   useEffect(() => {
-    const wasSuccessRequest = requestTodayReceipt(parseInt(placeCode));
+    const wasSuccessRequest = requestTodayReceipt(parseInt('1'));
     if (wasSuccessRequest) {
       store.dispatch({
         type: 'SET_LOADING',
@@ -94,7 +95,7 @@ const ReceiptScreen = ({ placeCode, todayReceipt }: any) => {
               <Text style={{fontFamily: 'Manrope_400Regular', fontSize: 10, color: '#686354', marginRight: 20}}>  Anulado</Text>
 
               <Icon type='octicon' name='primitive-dot' color='#17D6D8' size={14} />
-              <Text style={{fontFamily: 'Manrope_400Regular', fontSize: 10, color: '#686354'}}>  Ganancia</Text>
+              <Text style={{fontFamily: 'Manrope_400Regular', fontSize: 10, color: '#686354'}}>  Diferencia</Text>
             </View>
 
             <View style={{flex: 3, flexDirection: 'row'}}>
@@ -155,129 +156,126 @@ const ReceiptScreen = ({ placeCode, todayReceipt }: any) => {
               shadowOpacity: 0.25,
               shadowRadius: 3.84,
               elevation: 5,
-              height: 330,
               width: WWidth-40,
             }}
           >            
-            <View style={{flex: 1, justifyContent: "center"}}>
+            <View style={{height: 80, justifyContent: "center"}}>
               <View style={{paddingHorizontal: 20, flex: 1, flexDirection: "row"}}>
-                <View style={{flex: 1, justifyContent: 'center'}}>
+                <View style={{flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between'}}>
                   <Text style={{fontFamily: 'Manrope_400Regular', color: '#686354'}}>Reporte</Text>
-                </View>
-
-                <View style={{paddingHorizontal: 5, flex: 1, justifyContent: 'center'}} >
-                  <TouchableOpacity onPress={() => {setShowInitialPicker(true)}}>
-                  <View style={{ height: 25, paddingHorizontal: 5, flexDirection: 'row', justifyContent: "center", alignItems: "center", borderColor: '#686354', borderRadius: 20, borderWidth: 1}}>
-                    <Icon name='calendar' type='octicon' size={12} />
-                    <Text style={{fontFamily: 'Manrope_400Regular', color: '#686354', fontSize: 10}} >  Fecha inicial</Text>
-                    { showInitialPicker && (
-                      <DateTimePicker
-                        testID="dateTimePickerOne"
-                        value={initialDate}
-                        mode={'date'}
-                        display="default"
-                        onChange={(_, selected) => { onChangeInitialDateHandler(_, selected) }}
-                      />
-                    )}
-                  </View>
-                  </TouchableOpacity>
-                </View>
-
-                <View style={{paddingHorizontal: 5, flex: 1, justifyContent: 'center'}} >
-                  <TouchableOpacity onPress={() => {setShowEndPicker(true)}}>
-                  <View style={{ height: 25, paddingHorizontal: 5, flexDirection: 'row', justifyContent: "center", alignItems: "center", borderColor: '#686354', borderRadius: 20, borderWidth: 1}}>
-                    <Icon name='calendar' type='octicon' size={12} />
-                    <Text style={{fontFamily: 'Manrope_400Regular', color: '#686354', fontSize: 10}} >  Fecha final</Text>
-                    { showEndPicker && (
-                      <DateTimePicker
-                        testID="dateTimePickerOne"
-                        value={endDate}
-                        mode={'date'}
-                        display="default"
-                        onChange={(evn, selected) => { onChangeEndDateHandler(evn, selected) }}
-                      />
-                    )}
-                  </View>
-                  </TouchableOpacity>
+                  <DropDownPicker
+                    activeLabelStyle={{color: '#59AD42'}}
+                    arrowColor="#686354"
+                    items={[
+                      {label: 'Hoy', value: '1', icon: () => <Icon size={15} name='calendar' type='font-awesome' color='#686354' />},
+                      {label: 'Ayer', value: '2', icon: () => <Icon size={15} name='calendar' type='font-awesome' color='#686354' />},
+                      {label: 'Semana actual', value: '3', icon: () => <Icon size={15} name='calendar' type='font-awesome' color='#686354' />},
+                      {label: 'Semana pasada', value: '4', icon: () => <Icon size={15} name='calendar' type='font-awesome' color='#686354' />},
+                      {label: 'Mes actual', value: '5', icon: () => <Icon size={15} name='calendar' type='font-awesome' color='#686354' />},
+                      {label: 'Mes pasado', value: '6', icon: () => <Icon size={15} name='calendar' type='font-awesome' color='#686354' />},
+                    ]}
+                    defaultValue={'1'}
+                    containerStyle={{height:40, width: 170}}
+                    style={{backgroundColor: '#FFF', borderColor: '#F0F0F0'}}
+                    itemStyle={{
+                      justifyContent: 'flex-start',
+                      borderColor: '#F0F0F0'
+                    }}
+                    labelStyle={{
+                      color: '#686354',
+                      fontFamily: 'Manrope_400Regular',
+                      fontSize: 12,
+                    }}
+                    dropDownStyle={{backgroundColor: '#FFF', borderColor: '#F0F0F0'}}
+                    onChangeItem={ item => {} }
+                  />
                 </View>
               </View>
             </View>
 
-            <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-              <View>
-                <Text style={{fontFamily: 'Manrope_400Regular', fontWeight: 'bold', color: '#686354'}}>
-                  Bogotá,
-                </Text>
-              </View>
-            </View>
 
-            <View style={{flex: 1, justifyContent: "center"}}>
-              <View style={{flex:1, justifyContent: "center", paddingHorizontal: 20}}>
-                <View style={{paddingBottom: 20, height:30, flexDirection: "row"}}>
-                  <View style={{flex: 1}}>
-                    <Text style={{fontFamily: 'Manrope_400Regular', color: '#686354'}}>Valor</Text>
+            {
+              todayReceipt ? todayReceipt.map((element: any, key: number) => (
+                <View style={{marginVertical: 30, height: 220}} key={key} >
+                  <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+                    <Text style={{fontFamily: 'Manrope_400Regular', fontWeight: 'bold', color: '#686354', textTransform: 'capitalize', fontSize: 11}} >
+                      { element.NOMBRE_CENATE.trim() }
+                    </Text>
                   </View>
 
-                  <View style={{flex: 1, alignItems: 'flex-end'}}>
-                    <Text style={{fontFamily: 'Manrope_400Regular', color: '#686354'}}>100%</Text>
+                  <View style={{flex: 6, justifyContent: "center"}}>
+                    <View style={{flex:1, justifyContent: "center", paddingHorizontal: 20}}>
+                      <View style={{paddingBottom: 15, height:30, flexDirection: "row"}}>
+                        <View style={{flex: 1}}>
+                          <Text style={{fontFamily: 'Manrope_400Regular', color: '#686354'}}>Valor</Text>
+                        </View>
+      
+                        <View style={{flex: 1, alignItems: 'flex-end'}}>
+                          <Text style={{fontFamily: 'Manrope_400Regular', color: '#686354'}}>100%</Text>
+                        </View>
+                      </View>
+      
+                      <Progress.Bar
+                        progress={1}
+                        width={null}
+                        height={5}
+                        borderRadius={6}
+                        color="#5553F7"
+                        useNativeDriver/>
+                    </View>
+
+                    <View style={{flex: 1, justifyContent: "center"}}>
+                      <View style={{flex:1, justifyContent: "center", paddingHorizontal: 20}}>
+                        <View style={{paddingBottom: 15, height:30, flexDirection: "row"}}>
+                          <View style={{flex: 1}}>
+                            <Text style={{fontFamily: 'Manrope_400Regular', color: '#686354'}} >Valor</Text>
+                          </View>
+        
+                          <View style={{flex: 1, alignItems: 'flex-end'}}>
+                            <Text style={{fontFamily: 'Manrope_400Regular', color: '#686354'}} >20%</Text>
+                          </View>
+                        </View>
+        
+                        <Progress.Bar 
+                          progress={0.2} 
+                          width={null} 
+                          height={5} 
+                          borderRadius={6} 
+                          color="#FFC85B" 
+                          useNativeDriver
+                        />
+                      </View>
+                    </View>
+
+                    <View style={{flex: 1, justifyContent: "center"}}>
+                      <View style={{flex:1, justifyContent: "center", paddingHorizontal: 20}}>
+                        <View style={{paddingBottom: 15, height:30, flexDirection: "row"}}>
+                          <View style={{flex: 1}}>
+                            <Text style={{fontFamily: 'Manrope_400Regular', color: '#686354'}} >Valor</Text>
+                          </View>
+        
+                          <View style={{flex: 1, alignItems: 'flex-end'}}>
+                            <Text style={{fontFamily: 'Manrope_400Regular', color: '#686354'}} >60%</Text>
+                          </View>
+                        </View>
+
+                        <Progress.Bar
+                          progress={0.8} 
+                          width={null} 
+                          height={5} 
+                          borderRadius={6} 
+                          color="#17D6D8" 
+                          useNativeDriver
+                        />
+                      </View>
+                    </View>
+
                   </View>
                 </View>
 
-                <Progress.Bar
-                  progress={1}
-                  width={null}
-                  height={5}
-                  borderRadius={6}
-                  color="#5553F7"
-                  useNativeDriver/>
-              </View>
-            </View>
+              )) : undefined
+            }
 
-            <View style={{flex: 1, justifyContent: "center"}}>
-              <View style={{flex:1, justifyContent: "center", paddingHorizontal: 20}}>
-                <View style={{paddingBottom: 20, height:30, flexDirection: "row"}}>
-                  <View style={{flex: 1}}>
-                    <Text style={{fontFamily: 'Manrope_400Regular', color: '#686354'}} >Valor</Text>
-                  </View>
-
-                  <View style={{flex: 1, alignItems: 'flex-end'}}>
-                    <Text style={{fontFamily: 'Manrope_400Regular', color: '#686354'}} >20%</Text>
-                  </View>
-                </View>
-
-                <Progress.Bar 
-                  progress={0.2} 
-                  width={null} 
-                  height={5} 
-                  borderRadius={6} 
-                  color="#FFC85B" 
-                  useNativeDriver
-                />
-              </View>
-            </View>
-
-            <View style={{flex: 1, justifyContent: "center"}}>
-              <View style={{flex:1, justifyContent: "center", paddingHorizontal: 20, paddingBottom: 30}}>
-                <View style={{paddingBottom: 20, height:30, flexDirection: "row"}}>
-                  <View style={{flex: 1}}>
-                    <Text style={{fontFamily: 'Manrope_400Regular', color: '#686354'}} >Valor</Text>
-                  </View>
-
-                  <View style={{flex: 1, alignItems: 'flex-end'}}>
-                    <Text style={{fontFamily: 'Manrope_400Regular', color: '#686354'}} >60%</Text>
-                  </View>
-                </View>
-
-                <Progress.Bar
-                  progress={0.8} 
-                  width={null} 
-                  height={5} 
-                  borderRadius={6} 
-                  color="#17D6D8" 
-                  useNativeDriver
-                />
-              </View>
-            </View>
           </View>
         </View>
       </ScrollView>
