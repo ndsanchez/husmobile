@@ -207,11 +207,13 @@ const ReceiptScreen = ({ placeCode, todayReceipt }: any) => {
                     <View style={{flex:1, justifyContent: "center", paddingHorizontal: 20}}>
                       <View style={{paddingBottom: 15, height:30, flexDirection: "row"}}>
                         <View style={{flex: 1}}>
-                          <Text style={{fontFamily: 'Manrope_400Regular', color: '#686354'}}>Valor</Text>
+                          <Text style={{fontFamily: 'Manrope_400Regular', color: '#686354'}}>
+                            <FormatedNumber value={parseFloat(element.TOTAL_FACTURADO)} />
+                          </Text>
                         </View>
       
                         <View style={{flex: 1, alignItems: 'flex-end'}}>
-                          <Text style={{fontFamily: 'Manrope_400Regular', color: '#686354'}}>100%</Text>
+                          <Text style={{fontFamily: 'Manrope_400Regular', color: '#686354'}}>{100}%</Text>
                         </View>
                       </View>
       
@@ -228,16 +230,20 @@ const ReceiptScreen = ({ placeCode, todayReceipt }: any) => {
                       <View style={{flex:1, justifyContent: "center", paddingHorizontal: 20}}>
                         <View style={{paddingBottom: 15, height:30, flexDirection: "row"}}>
                           <View style={{flex: 1}}>
-                            <Text style={{fontFamily: 'Manrope_400Regular', color: '#686354'}} >Valor</Text>
+                            <Text style={{fontFamily: 'Manrope_400Regular', color: '#686354'}} >
+                              <FormatedNumber value={parseFloat(element.TOTAL_ANULADO)} />
+                            </Text>
                           </View>
         
                           <View style={{flex: 1, alignItems: 'flex-end'}}>
-                            <Text style={{fontFamily: 'Manrope_400Regular', color: '#686354'}} >20%</Text>
+                            <Text style={{fontFamily: 'Manrope_400Regular', color: '#686354'}} >
+                              {(100 * (parseFloat(element.TOTAL_ANULADO) / parseFloat(element.TOTAL_FACTURADO))).toFixed(5) }%
+                            </Text>
                           </View>
                         </View>
         
                         <Progress.Bar 
-                          progress={0.2} 
+                          progress={parseFloat(element.TOTAL_ANULADO) / parseFloat(element.TOTAL_FACTURADO)} 
                           width={null} 
                           height={5} 
                           borderRadius={6} 
@@ -251,16 +257,20 @@ const ReceiptScreen = ({ placeCode, todayReceipt }: any) => {
                       <View style={{flex:1, justifyContent: "center", paddingHorizontal: 20}}>
                         <View style={{paddingBottom: 15, height:30, flexDirection: "row"}}>
                           <View style={{flex: 1}}>
-                            <Text style={{fontFamily: 'Manrope_400Regular', color: '#686354'}} >Valor</Text>
+                            <Text style={{fontFamily: 'Manrope_400Regular', color: '#686354'}} >
+                              <FormatedNumber value={parseFloat(element.TOTAL_DIFERENCIA)} />  
+                            </Text>
                           </View>
         
                           <View style={{flex: 1, alignItems: 'flex-end'}}>
-                            <Text style={{fontFamily: 'Manrope_400Regular', color: '#686354'}} >60%</Text>
+                            <Text style={{fontFamily: 'Manrope_400Regular', color: '#686354'}} >
+                              { 100 * (parseFloat(element.TOTAL_DIFERENCIA) / parseFloat(element.TOTAL_FACTURADO)) }%
+                            </Text>
                           </View>
                         </View>
 
                         <Progress.Bar
-                          progress={0.8} 
+                          progress={parseFloat(element.TOTAL_DIFERENCIA) / parseFloat(element.TOTAL_FACTURADO)} 
                           width={null} 
                           height={5} 
                           borderRadius={6} 
