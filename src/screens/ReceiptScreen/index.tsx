@@ -133,190 +133,95 @@ const ReceiptScreen = ({ placeCode, todayReceipt }: any) => {
             </View>
           </View>
 
-          <View
-            style={{
-              backgroundColor: '#FFF',
-              borderRadius: 20, shadowColor: '#000',
-              shadowOffset: {height: 2, width:0},
-              shadowOpacity: 0.25,
-              shadowRadius: 3.84,
-              elevation: 5,
-              height: 330,
-              width: WWidth-40,
-              marginBottom: 20,
-            }}
-          >
-            <View style={{flex: 1, justifyContent: 'center'}}>
-              <View style={{paddingHorizontal: 20}}>
-                <Text style={{fontFamily: 'Manrope_400Regular', color: '#555'}}>Hoy, {todayReceipt.hoy}</Text>
-              </View>
-            </View>
 
-            <View style={{flex: 3, flexDirection: 'row'}}>
-              <View style={{flex:4}}>
-                <View style={{flex: 1}}>
-                  <View style={{flex: 1, paddingHorizontal: 20, justifyContent: 'flex-end'}}>
-                    <View style={{flexDirection: 'row', paddingBottom: 20, alignItems: 'center'}}>
-                      <Icon type='octicon' name='primitive-dot' color='#5553F7' size={14} />
-                      <Icon type='material-community' name="arrow-top-right" color='#00CF96' size={14} />
-                      <Text style={{fontFamily: 'Manrope_400Regular', fontSize: 10, fontWeight: 'bold', color: '#AAA'}}>
-                        + <FormatedNumber value={todayReceipt.totalFacturadoHoy} />
-                      </Text>
-                    </View>
-    
-                    <View style={{flexDirection: 'row', paddingBottom: 20, alignItems: 'center'}}>
-                      <Icon type='octicon' name='primitive-dot' color='#FFC85B' size={14} />
-                      <Icon type='material-community' name="arrow-bottom-right" color='#EB7070' size={14} />
-                      <Text style={{fontFamily: 'Manrope_400Regular', fontSize: 10, fontWeight: 'bold', color: '#AAA'}}>
-                        - <FormatedNumber value={todayReceipt.totalAnuladoHoy} />
-                      </Text>
-                    </View>
-                  </View>
-                </View>
-              </View>
-
-              <View style={{flex: 6, justifyContent: "center", alignItems: 'center'}}>
-                <ProgressChart
-                  data={dataSet.data}
-                  width={200}
-                  height={200}
-                  strokeWidth={5}
-                  radius={15}
-                  chartConfig={{
-                    backgroundColor: "#FFF",
-                    backgroundGradientFrom: "#FFF",
-                    backgroundGradientTo: "#FFF",
-                    decimalPlaces: 2, // optional, defaults to 2dp
-                    color: (opacity = 1, item: any) => {return item !== undefined ? `${dataSet.colors[item]} ${opacity})` : '#FFF'},
-                    labelColor: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
-                    style: {
-                      borderRadius: 16
-                    },
-                  }}
-                  style={{
-                    marginVertical: 8,
-                    borderRadius: 16
-                  }}
-                  hideLegend={true}
-                />
-              </View>
-            </View>
-
-            <View style={{flex: 1}}>
-              <View style={{paddingHorizontal: 20, flex: 1, flexDirection: 'row', alignItems: 'center'}}>
-                <Icon type='octicon' name='primitive-dot' color='#17D6D8' />
-                <Text style={{fontFamily: 'Manrope_400Regular', fontSize: 18, fontWeight: 'bold', color: '#686354', paddingLeft: 5}}>
-                  <FormatedNumber value={todayReceipt.totalGananciaHoy} />
-                </Text>
-              </View>
-            </View>
-          </View>
-          
-          
-          <View 
-            style={{
-              backgroundColor: '#FFF',
-              borderRadius: 20, shadowColor: '#000',
-              shadowOffset: {height: 2, width:0},
-              shadowOpacity: 0.25,
-              shadowRadius: 3.84,
-              elevation: 5,
-              width: WWidth-40,
-            }}
-          >
             {
               todayReceipt ? todayReceipt.map((element: any, key: number) => (
-                <View style={{marginVertical: 30, height: 220}} key={key} >
-                  <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-                    <Text style={{fontFamily: 'Manrope_400Regular', fontWeight: 'bold', color: '#686354', textTransform: 'capitalize', fontSize: 11}} >
-                      { element.NOMBRE_CENATE.trim() }
-                    </Text>
+                <View
+                  style={{
+                    backgroundColor: '#FFF',
+                    borderRadius: 20, shadowColor: '#000',
+                    shadowOffset: {height: 2, width:0},
+                    shadowOpacity: 0.25,
+                    shadowRadius: 3.84,
+                    elevation: 5,
+                    height: 290,
+                    width: WWidth-40,
+                    marginBottom: 20,
+                  }}
+                >
+                  <View style={{height: 70, justifyContent: 'center', backgroundColor: 'transparent'}} >
+                    <View style={{paddingHorizontal: 20}}>
+                      <Text style={{fontFamily: 'Manrope_400Regular', fontSize: 12, color: '#555', textTransform: 'capitalize', fontWeight: 'bold'}} >
+                        {element.NOMBRE_CENATE.trim()}
+                      </Text>
+                    </View>
                   </View>
 
-                  <View style={{flex: 6, justifyContent: "center"}}>
-                    <View style={{flex:1, justifyContent: "center", paddingHorizontal: 20}}>
-                      <View style={{paddingBottom: 15, height:30, flexDirection: "row"}}>
-                        <View style={{flex: 1}}>
-                          <Text style={{fontFamily: 'Manrope_400Regular', color: '#686354'}}>
-                            <FormatedNumber value={parseFloat(element.TOTAL_FACTURADO)} />
-                          </Text>
+                  <View style={{height: 150, flexDirection: 'row'}}>
+                    <View style={{flex: 4}}>
+                      <View style={{flex: 1}}>
+                        <View style={{flex: 1, paddingHorizontal: 20, justifyContent: 'flex-end'}}>
+
+                          <View style={{flexDirection: 'row', paddingBottom: 20, alignItems: 'center'}}>
+                            <Icon type='octicon' name='primitive-dot' color='#5553F7' size={14} />
+                            <Icon type='material-community' name="arrow-top-right" color='#00CF96' size={14} />
+                            <Text style={{fontFamily: 'Manrope_400Regular', fontSize: 11, fontWeight: 'bold', color: '#AAA'}}>
+                              + <FormatedNumber value={parseFloat(element.TOTAL_FACTURADO)} />
+                            </Text>
+                          </View>
+          
+                          <View style={{flexDirection: 'row', paddingBottom: 20, alignItems: 'center'}}>
+                            <Icon type='octicon' name='primitive-dot' color='#FFC85B' size={14} />
+                            <Icon type='material-community' name="arrow-bottom-right" color='#EB7070' size={14} />
+                            <Text style={{fontFamily: 'Manrope_400Regular', fontSize: 11, fontWeight: 'bold', color: '#AAA'}}>
+                              - <FormatedNumber value={parseFloat(element.TOTAL_ANULADO)} />
+                            </Text>
+                          </View>
+
                         </View>
+                      </View>
+                    </View>
       
-                        <View style={{flex: 1, alignItems: 'flex-end'}}>
-                          <Text style={{fontFamily: 'Manrope_400Regular', color: '#686354'}}>{100}%</Text>
-                        </View>
-                      </View>
-      
-                      <Progress.Bar
-                        progress={1}
-                        width={null}
-                        height={5}
-                        borderRadius={6}
-                        color="#5553F7"
-                        useNativeDriver/>
+                    <View style={{flex: 6, justifyContent: "center", alignItems: 'center'}}>
+                      <ProgressChart
+                        data={dataSet.data}
+                        width={200}
+                        height={150}
+                        strokeWidth={6}
+                        radius={38}
+                        chartConfig={{
+                          backgroundColor: "#FFF",
+                          backgroundGradientFrom: "#FFF",
+                          backgroundGradientTo: "#FFF",
+                          decimalPlaces: 2, // optional, defaults to 2dp
+                          color: (opacity = 1, item: any) => {return item !== undefined ? `${dataSet.colors[item]} ${opacity})` : '#FFF'},
+                          labelColor: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
+                          style: {
+                            borderRadius: 16
+                          },
+                        }}
+                        style={{
+                          marginVertical: 8,
+                          borderRadius: 16
+                        }}
+                        hideLegend={true}
+                      />
                     </View>
+                  </View>
 
-                    <View style={{flex: 1, justifyContent: "center"}}>
-                      <View style={{flex:1, justifyContent: "center", paddingHorizontal: 20}}>
-                        <View style={{paddingBottom: 15, height:30, flexDirection: "row"}}>
-                          <View style={{flex: 1}}>
-                            <Text style={{fontFamily: 'Manrope_400Regular', color: '#686354'}} >
-                              <FormatedNumber value={parseFloat(element.TOTAL_ANULADO)} />
-                            </Text>
-                          </View>
-        
-                          <View style={{flex: 1, alignItems: 'flex-end'}}>
-                            <Text style={{fontFamily: 'Manrope_400Regular', color: '#686354'}} >
-                              {(100 * (parseFloat(element.TOTAL_ANULADO) / parseFloat(element.TOTAL_FACTURADO))).toFixed(5) }%
-                            </Text>
-                          </View>
-                        </View>
-        
-                        <Progress.Bar 
-                          progress={parseFloat(element.TOTAL_ANULADO) / parseFloat(element.TOTAL_FACTURADO)} 
-                          width={null} 
-                          height={5} 
-                          borderRadius={6} 
-                          color="#FFC85B" 
-                          useNativeDriver
-                        />
-                      </View>
+                  <View style={{height: 70}}>
+                    <View style={{paddingHorizontal: 20, flex: 1, flexDirection: 'row', alignItems: 'center'}}>
+                      <Icon type='octicon' name='primitive-dot' color='#17D6D8' />
+                      <Text style={{fontFamily: 'Manrope_400Regular', fontSize: 18, fontWeight: 'bold', color: '#686354', paddingLeft: 5}}>
+                        <FormatedNumber value={parseFloat(element.TOTAL_DIFERENCIA)} />
+                      </Text>
                     </View>
-
-                    <View style={{flex: 1, justifyContent: "center"}}>
-                      <View style={{flex:1, justifyContent: "center", paddingHorizontal: 20}}>
-                        <View style={{paddingBottom: 15, height:30, flexDirection: "row"}}>
-                          <View style={{flex: 1}}>
-                            <Text style={{fontFamily: 'Manrope_400Regular', color: '#686354'}} >
-                              <FormatedNumber value={parseFloat(element.TOTAL_DIFERENCIA)} />  
-                            </Text>
-                          </View>
-        
-                          <View style={{flex: 1, alignItems: 'flex-end'}}>
-                            <Text style={{fontFamily: 'Manrope_400Regular', color: '#686354'}} >
-                              { 100 * (parseFloat(element.TOTAL_DIFERENCIA) / parseFloat(element.TOTAL_FACTURADO)) }%
-                            </Text>
-                          </View>
-                        </View>
-
-                        <Progress.Bar
-                          progress={parseFloat(element.TOTAL_DIFERENCIA) / parseFloat(element.TOTAL_FACTURADO)} 
-                          width={null} 
-                          height={5} 
-                          borderRadius={6} 
-                          color="#17D6D8" 
-                          useNativeDriver
-                        />
-                      </View>
-                    </View>
-
                   </View>
                 </View>
 
               )) : undefined
             }
 
-          </View>
         </View>
       </ScrollView>
     </View>
