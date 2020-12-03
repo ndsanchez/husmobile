@@ -7,6 +7,8 @@ import { PieChart } from 'react-native-svg-charts';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import DropDownPicker from 'react-native-dropdown-picker';
 import FormatedNumber from '../../components/FormatedNumber';
+import { ProgressChart, } from "react-native-chart-kit";
+import FontawesomeIcon from 'react-native-vector-icons/FontAwesome5';
 
 import { requestTodayReceipt } from './query';
 import store from '../../store';
@@ -26,6 +28,10 @@ const ReceiptScreen = ({ placeCode, todayReceipt }: any) => {
   const data = [earningPercentage, annulmentPercentage];
   console.log('Percentages: ', data);
   const colors = ['#17D6D8', '#FFC85B',];
+  const dataSet = {
+    colors: ['rgba(247, 193, 27,', 'rgba(23, 214, 216,', 'rgba(113, 83, 237,'],
+    data: [0, 1, 1]
+  };
  
   const onChangeInitialDateHandler = (evn: any, selectedDate: Date | undefined) => {
     setShowInitialPicker(false);
@@ -68,6 +74,65 @@ const ReceiptScreen = ({ placeCode, todayReceipt }: any) => {
     <View style={{flex: 1}}>
       <ScrollView style={{flex: 1}}>
         <View style={{ paddingVertical: 20, paddingHorizontal: 20 }}>
+
+          <View 
+            style={{
+              backgroundColor: '#FFF',
+              borderRadius: 20, shadowColor: '#000',
+              shadowOffset: {height: 2, width:0},
+              shadowOpacity: 0.25,
+              shadowRadius: 3.84,
+              elevation: 6,
+              width: WWidth-40,
+              marginBottom: 20
+            }}
+          >            
+            <View style={{height: 150, justifyContent: "center"}}>
+              <View style={{paddingHorizontal: 20, flex: 1}}>
+                <View style={{flex: 1, flexDirection: 'row', paddingTop: 30, justifyContent: 'space-between'}}>
+                  <Text style={{fontFamily: 'Manrope_400Regular', color: '#686354'}}>Reporte</Text>
+                  <DropDownPicker
+                    activeLabelStyle={{color: '#59AD42'}}
+                    arrowColor="#686354"
+                    items={[
+                      {label: 'Hoy', value: '1', icon: () => <Icon size={18} name='calendar-today' type='material-community' color='#686354' />},
+                      {label: 'Ayer', value: '2', icon: () => <Icon size={18} name='calendar' type='material-community' color='#686354' />},
+                      {label: 'Semana actual', value: '3', icon: () => <Icon size={18} name='calendar-week' type='material-community' color='#686354' />},
+                      {label: 'Semana pasada', value: '4', icon: () => <Icon size={18} name='calendar-range-outline' type='material-community' color='#686354' />},
+                      {label: 'Mes actual', value: '5', icon: () => <Icon size={18} name='calendar-month-outline' type='material-community' color='#686354' />},
+                      {label: 'Mes pasado', value: '6', icon: () => <Icon size={18} name='calendar-month' type='material-community' color='#686354' />},
+                    ]}
+                    defaultValue={'1'}
+                    containerStyle={{height:30, width: 170}}
+                    style={{backgroundColor: '#FFF', borderColor: '#F0F0F0'}}
+                    itemStyle={{
+                      justifyContent: 'flex-start',
+                      borderColor: '#F0F0F0'
+                    }}
+                    labelStyle={{
+                      color: '#686354',
+                      fontFamily: 'Manrope_400Regular',
+                      fontSize: 12,
+                    }}
+                    dropDownStyle={{backgroundColor: '#FFF', borderColor: '#F0F0F0'}}
+                    onChangeItem={ item => {} }
+                    dropDownMaxHeight={100}
+                  />
+                </View>
+                <View style={{ flex: 1, flexDirection: 'row', alignItems: "center", justifyContent: "center"}}>
+                  <Icon type='octicon' name='primitive-dot' color='#5553F7' size={14} />
+                  <Text style={{fontFamily: 'Manrope_400Regular', fontSize: 10, color: '#686354', marginRight: 20}}>  Facturado</Text>
+
+                  <Icon type='octicon' name='primitive-dot' color='#FFC85B' size={14} />
+                  <Text style={{fontFamily: 'Manrope_400Regular', fontSize: 10, color: '#686354', marginRight: 20}}>  Anulado</Text>
+    
+                  <Icon type='octicon' name='primitive-dot' color='#17D6D8' size={14} />
+                  <Text style={{fontFamily: 'Manrope_400Regular', fontSize: 10, color: '#686354'}}>  Diferencia</Text>
+                </View>
+              </View>
+            </View>
+          </View>
+
           <View
             style={{
               backgroundColor: '#FFF',
@@ -85,17 +150,6 @@ const ReceiptScreen = ({ placeCode, todayReceipt }: any) => {
               <View style={{paddingHorizontal: 20}}>
                 <Text style={{fontFamily: 'Manrope_400Regular', color: '#555'}}>Hoy, {todayReceipt.hoy}</Text>
               </View>
-            </View>
-
-            <View style={{ flex: 1, flexDirection: 'row', alignItems: "center", justifyContent: "center"}}>
-              <Icon type='octicon' name='primitive-dot' color='#5553F7' size={14} />
-              <Text style={{fontFamily: 'Manrope_400Regular', fontSize: 10, color: '#686354', marginRight: 20}}>  Facturado</Text>
-
-              <Icon type='octicon' name='primitive-dot' color='#FFC85B' size={14} />
-              <Text style={{fontFamily: 'Manrope_400Regular', fontSize: 10, color: '#686354', marginRight: 20}}>  Anulado</Text>
-
-              <Icon type='octicon' name='primitive-dot' color='#17D6D8' size={14} />
-              <Text style={{fontFamily: 'Manrope_400Regular', fontSize: 10, color: '#686354'}}>  Diferencia</Text>
             </View>
 
             <View style={{flex: 3, flexDirection: 'row'}}>
@@ -122,18 +176,29 @@ const ReceiptScreen = ({ placeCode, todayReceipt }: any) => {
               </View>
 
               <View style={{flex: 6, justifyContent: "center", alignItems: 'center'}}>
-                <PieChart style={{ height: 180, width: 170 }} data={pieData} innerRadius="60%" />
-                <Text
+                <ProgressChart
+                  data={dataSet.data}
+                  width={200}
+                  height={200}
+                  strokeWidth={5}
+                  radius={15}
+                  chartConfig={{
+                    backgroundColor: "#FFF",
+                    backgroundGradientFrom: "#FFF",
+                    backgroundGradientTo: "#FFF",
+                    decimalPlaces: 2, // optional, defaults to 2dp
+                    color: (opacity = 1, item: any) => {return item !== undefined ? `${dataSet.colors[item]} ${opacity})` : '#FFF'},
+                    labelColor: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
+                    style: {
+                      borderRadius: 16
+                    },
+                  }}
                   style={{
-                    fontFamily: 'Manrope_400Regular',
-                    color: '#686354',
-                    fontWeight: 'bold',
-                    fontSize: 10,
-                    position: 'absolute',
-                    textAlign: 'center'
-                  }}>
-                    <FormatedNumber value={todayReceipt.totalFacturadoHoy} />
-                </Text>
+                    marginVertical: 8,
+                    borderRadius: 16
+                  }}
+                  hideLegend={true}
+                />
               </View>
             </View>
 
@@ -158,42 +223,7 @@ const ReceiptScreen = ({ placeCode, todayReceipt }: any) => {
               elevation: 5,
               width: WWidth-40,
             }}
-          >            
-            <View style={{height: 80, justifyContent: "center"}}>
-              <View style={{paddingHorizontal: 20, flex: 1, flexDirection: "row"}}>
-                <View style={{flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between'}}>
-                  <Text style={{fontFamily: 'Manrope_400Regular', color: '#686354'}}>Reporte</Text>
-                  <DropDownPicker
-                    activeLabelStyle={{color: '#59AD42'}}
-                    arrowColor="#686354"
-                    items={[
-                      {label: 'Hoy', value: '1', icon: () => <Icon size={15} name='calendar' type='font-awesome' color='#686354' />},
-                      {label: 'Ayer', value: '2', icon: () => <Icon size={15} name='calendar' type='font-awesome' color='#686354' />},
-                      {label: 'Semana actual', value: '3', icon: () => <Icon size={15} name='calendar' type='font-awesome' color='#686354' />},
-                      {label: 'Semana pasada', value: '4', icon: () => <Icon size={15} name='calendar' type='font-awesome' color='#686354' />},
-                      {label: 'Mes actual', value: '5', icon: () => <Icon size={15} name='calendar' type='font-awesome' color='#686354' />},
-                      {label: 'Mes pasado', value: '6', icon: () => <Icon size={15} name='calendar' type='font-awesome' color='#686354' />},
-                    ]}
-                    defaultValue={'1'}
-                    containerStyle={{height:40, width: 170}}
-                    style={{backgroundColor: '#FFF', borderColor: '#F0F0F0'}}
-                    itemStyle={{
-                      justifyContent: 'flex-start',
-                      borderColor: '#F0F0F0'
-                    }}
-                    labelStyle={{
-                      color: '#686354',
-                      fontFamily: 'Manrope_400Regular',
-                      fontSize: 12,
-                    }}
-                    dropDownStyle={{backgroundColor: '#FFF', borderColor: '#F0F0F0'}}
-                    onChangeItem={ item => {} }
-                  />
-                </View>
-              </View>
-            </View>
-
-
+          >
             {
               todayReceipt ? todayReceipt.map((element: any, key: number) => (
                 <View style={{marginVertical: 30, height: 220}} key={key} >
