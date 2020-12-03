@@ -23,14 +23,8 @@ const ReceiptScreen = ({ placeCode, todayReceipt }: any) => {
   const [showInitialPicker, setShowInitialPicker]: any = useState(false);
   const [showEndPicker, setShowEndPicker]: any = useState(false);
 
-  const annulmentPercentage: number = parseFloat(todayReceipt.totalAnuladoHoy) / parseFloat(todayReceipt.totalFacturadoHoy);
-  const earningPercentage: number = parseFloat(todayReceipt.totalGananciaHoy) / parseFloat(todayReceipt.totalFacturadoHoy); 
-  const data = [earningPercentage, annulmentPercentage];
-  console.log('Percentages: ', data);
-  const colors = ['#17D6D8', '#FFC85B',];
   const dataSet = {
     colors: ['rgba(247, 193, 27,', 'rgba(23, 214, 216,', 'rgba(113, 83, 237,'],
-    data: [0, 1, 1]
   };
  
   const onChangeInitialDateHandler = (evn: any, selectedDate: Date | undefined) => {
@@ -47,18 +41,13 @@ const ReceiptScreen = ({ placeCode, todayReceipt }: any) => {
     }
   };
 
-  const randomColor = (index: number) => (colors[index])
- 
-  const pieData = data
-      .filter((value) => value > 0)
-      .map((value, index) => ({
-          value,
-          svg: {
-              fill: randomColor(index),
-              onPress: () => console.log('press', index),
-          },
-          key: `pie-${index}`,
-      }))
+  const onChangeItemHandler = (item: any) => {
+    store.dispatch({
+      type: 'SET_LOADING',
+      payload: true
+    });
+    requestTodayReceipt(parseInt(item.value));
+  };
 
   useEffect(() => {
     const wasSuccessRequest = requestTodayReceipt(parseInt('1'));
@@ -115,7 +104,7 @@ const ReceiptScreen = ({ placeCode, todayReceipt }: any) => {
                       fontSize: 12,
                     }}
                     dropDownStyle={{backgroundColor: '#FFF', borderColor: '#F0F0F0'}}
-                    onChangeItem={ item => {} }
+                    onChangeItem={ item => onChangeItemHandler(item) }
                     dropDownMaxHeight={100}
                   />
                 </View>
@@ -137,6 +126,7 @@ const ReceiptScreen = ({ placeCode, todayReceipt }: any) => {
             {
               todayReceipt ? todayReceipt.map((element: any, key: number) => (
                 <View
+                  key={key}
                   style={{
                     backgroundColor: '#FFF',
                     borderRadius: 20, shadowColor: '#000',
@@ -184,7 +174,11 @@ const ReceiptScreen = ({ placeCode, todayReceipt }: any) => {
       
                     <View style={{flex: 6, justifyContent: "center", alignItems: 'center'}}>
                       <ProgressChart
-                        data={dataSet.data}
+                        data={[
+                          parseFloat(element.TOTAL_ANULADO) / parseFloat(element.TOTAL_FACTURADO),
+                          parseFloat(element.TOTAL_DIFERENCIA) / parseFloat(element.TOTAL_FACTURADO),
+                          1
+                        ]}
                         width={200}
                         height={150}
                         strokeWidth={6}

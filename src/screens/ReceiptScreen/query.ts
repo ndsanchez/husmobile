@@ -10,6 +10,10 @@ const requestTodayReceipt = (dateIndicator: number) => {
           type: 'FETCH_TODAY_RECEIPT',
           payload: response.data
         });
+        store.dispatch({
+          type: 'SET_LOADING',
+          payload: false
+        });
       }
       else {
         console.log('error: ', response.data);
