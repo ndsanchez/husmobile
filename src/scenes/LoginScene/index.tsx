@@ -1,12 +1,15 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { LinearGradient } from "expo-linear-gradient";
-import { Text, View, Image  } from 'react-native';
+import { Dimensions, Text, View, Image  } from 'react-native';
 import { Button, Input } from 'react-native-elements';
+import InputPasswordToggle from 'react-native-toggle-password-visibility-expo';
 import { styles } from './style';
 import { setUsername, setPassword } from '../../store/actions/loginAction';
 import store from '../../store';
 import { connect } from 'react-redux';
 import { loginRequest } from './query';
+
+const WWidth = Dimensions.get('window').width;
 
 interface Istate {
   username: string,
@@ -28,26 +31,28 @@ const LoginView = ({ loginError, password, username }: Istate) => {
 
             <Input
               placeholder="Usuario"
+              placeholderTextColor={'#D9D9D9'}
               leftIcon={{ type: 'font-awesome', name: 'user', color: '#FFF' }}
               containerStyle={styles.input_text}
               inputContainerStyle={{borderColor: '#FFF'}}
               inputStyle={styles.inputStyle}
-              placeholderTextColor={'#F8F8F8'}
               onChangeText={value => store.dispatch(setUsername(value))}
               errorStyle={{color:'#EFA314'}}
               errorMessage={loginError}
               value={username}
             />
-            <Input
-              containerStyle={styles.input_text}
-              placeholder='Contraseña'
-              secureTextEntry={true}
-              inputContainerStyle={{borderColor: '#FFF'}}
-              inputStyle={styles.inputStyle}
-              leftIcon={{ type: 'font-awesome', name: 'lock', color: '#FFF' }}
-              placeholderTextColor={'#F8F8F8'}
-              onChangeText={psw =>  store.dispatch(setPassword(psw))}
-            />
+            <View style={{borderBottomWidth: 1, borderBottomColor: '#FFF', marginBottom: 50, width: WWidth - 150, paddingBottom: 10}} >
+              <InputPasswordToggle
+                placeholder="Contraseña"
+                placeholderTextColor={'#D9D9D9'}
+                inputStyle={styles.inputStyle}
+                icon='lock'
+                iconColor='#FFF'
+                iconSize={20}
+                value={password}
+                onChangeText={(psw: string) => store.dispatch({ type: 'SET_PASSWORD', payload: psw })}
+              />
+            </View>
             <Button
               titleStyle={{color: '#FFF', fontFamily: 'Manrope_400Regular', fontSize: 12}}
               buttonStyle={ styles.btnLogin }

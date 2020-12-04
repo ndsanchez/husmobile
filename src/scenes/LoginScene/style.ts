@@ -34,25 +34,21 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   input_text: {
-    padding: 5,
-    marginBottom: 10,
-    color: '#FFF',
-    borderRadius: 15,
-    fontSize: 20,
-    width: width/1.5,
+    width: width - 150,
+    marginHorizontal: 0,
+    paddingHorizontal: 0,
   },
   inputStyle: {
+    paddingHorizontal: 15,
     color: '#FFF',
-    paddingLeft: 10,
     fontSize: 12,
     fontFamily: 'Manrope_400Regular',
-    borderColor: '#FFF'
-    
+    borderColor: '#FFF',
   },
   btnLogin: {
     borderColor: '#FFF',
     borderRadius: 20,
-    width: width/1.5,
+    width: width - 150,
   },
   btn_label: {
     textTransform: 'capitalize',
