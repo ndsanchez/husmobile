@@ -1,26 +1,25 @@
-import axios from 'axios';
 import store from '../../store';
-import { loginFailed, loginSuccess, setLoading } from '../../store/actions/loginAction';
 
-const loginRequest = (username: string, password: string) => {
-    store.dispatch(setLoading(true));
-    axios.post('http://172.16.10.150/husapp/api/login', {
-      username,
-      password,
-    })
-    .then((response) => {
-      if (response.data.hasOwnProperty('error')) {
-        console.log(response.data);
-        store.dispatch(loginFailed(response.data));
-      }
-      else {
-        console.log('Success')
-        store.dispatch(loginSuccess(response.data));
-      }
-    })
-    .catch((error) => {
-      console.log(error);
-    });
+const loginRequest = async (username: string, password: string) => {
+
+  await fetch('http://172.16.10.150/husapp/api/login', {
+    method: 'POST',
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      username: username,
+      password: password
+    }),
+  })
+  .then(response => response.json())
+  .then(res => {
+    res.hasOwnProperty('error')
+      ? store.dispatch({ type: 'LOGIN_SUCCESS', payload: res })
+      : store.dispatch({ type: 'LOGIN_FAILED', payload: res });
+  })
+  .catch(err => {console.log(err)});
 };
 
 export { loginRequest };
