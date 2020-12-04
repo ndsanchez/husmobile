@@ -26,8 +26,6 @@ const requestTodayReceipt = (dateIndicator: number) => {
     .catch((error) => {
       console.log(error);
     });
-
-    return true;
 };
 
 export { requestTodayReceipt };

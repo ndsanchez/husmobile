@@ -22,6 +22,7 @@ const ReceiptScreen = ({ placeCode, todayReceipt }: any) => {
   const [endDate, setEndDate]: any = useState(new Date());
   const [showInitialPicker, setShowInitialPicker]: any = useState(false);
   const [showEndPicker, setShowEndPicker]: any = useState(false);
+  const [selectedOption, setSelectedOption]: any = useState('1');
 
   const dataSet = {
     colors: ['rgba(247, 193, 27,', 'rgba(23, 214, 216,', 'rgba(113, 83, 237,'],
@@ -42,6 +43,7 @@ const ReceiptScreen = ({ placeCode, todayReceipt }: any) => {
   };
 
   const onChangeItemHandler = (item: any) => {
+    setSelectedOption(item.value);
     store.dispatch({
       type: 'SET_LOADING',
       payload: true
@@ -50,13 +52,7 @@ const ReceiptScreen = ({ placeCode, todayReceipt }: any) => {
   };
 
   useEffect(() => {
-    const wasSuccessRequest = requestTodayReceipt(parseInt('1'));
-    if (wasSuccessRequest) {
-      store.dispatch({
-        type: 'SET_LOADING',
-        payload: false
-      });
-    }
+    requestTodayReceipt(parseInt('1'));
   }, []);
 
   return (
@@ -64,6 +60,8 @@ const ReceiptScreen = ({ placeCode, todayReceipt }: any) => {
       <ScrollView style={{flex: 1}}>
         <View style={{ paddingVertical: 20, paddingHorizontal: 20 }}>
 
+        {
+          todayReceipt.length > 0 && (
           <View 
             style={{
               backgroundColor: '#FFF',
@@ -84,14 +82,14 @@ const ReceiptScreen = ({ placeCode, todayReceipt }: any) => {
                     activeLabelStyle={{color: '#59AD42'}}
                     arrowColor="#686354"
                     items={[
-                      {label: 'Hoy', value: '1', icon: () => <Icon size={18} name='calendar-today' type='material-community' color='#686354' />},
+                      {label: `Hoy, ${todayReceipt[0].TODAY}`, value: '1', icon: () => <Icon size={18} name='calendar-today' type='material-community' color='#686354' />},
                       {label: 'Ayer', value: '2', icon: () => <Icon size={18} name='calendar' type='material-community' color='#686354' />},
                       {label: 'Semana actual', value: '3', icon: () => <Icon size={18} name='calendar-week' type='material-community' color='#686354' />},
                       {label: 'Semana pasada', value: '4', icon: () => <Icon size={18} name='calendar-range-outline' type='material-community' color='#686354' />},
                       {label: 'Mes actual', value: '5', icon: () => <Icon size={18} name='calendar-month-outline' type='material-community' color='#686354' />},
                       {label: 'Mes pasado', value: '6', icon: () => <Icon size={18} name='calendar-month' type='material-community' color='#686354' />},
                     ]}
-                    defaultValue={'1'}
+                    defaultValue={selectedOption}
                     containerStyle={{height:30, width: 170}}
                     style={{backgroundColor: '#FFF', borderColor: '#F0F0F0'}}
                     itemStyle={{
@@ -121,10 +119,12 @@ const ReceiptScreen = ({ placeCode, todayReceipt }: any) => {
               </View>
             </View>
           </View>
+          )
+        }
 
 
             {
-              todayReceipt ? todayReceipt.map((element: any, key: number) => (
+              todayReceipt.length > 0 ? todayReceipt.map((element: any, key: number) => (
                 <View
                   key={key}
                   style={{
@@ -143,6 +143,9 @@ const ReceiptScreen = ({ placeCode, todayReceipt }: any) => {
                     <View style={{paddingHorizontal: 20}}>
                       <Text style={{fontFamily: 'Manrope_400Regular', fontSize: 12, color: '#555', textTransform: 'capitalize', fontWeight: 'bold'}} >
                         {element.NOMBRE_CENATE.trim()}
+                      </Text>
+                      <Text style={{fontFamily: 'Manrope_400Regular', color: '#AAA', fontSize: 11}}>
+                        { element.END_DATE ? `${element.START_DATE} al ${element.END_DATE}` : element.START_DATE }
                       </Text>
                     </View>
                   </View>
