@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, View } from 'react-native';
+import { Dimensions, Image, ImageBackground, Text, View } from 'react-native';
 import { Button, Divider, Icon } from 'react-native-elements';
 import { Avatar, Card, ListItem } from 'react-native-elements';
 import { connect } from 'react-redux';
@@ -8,8 +8,43 @@ import DropDownPicker from 'react-native-dropdown-picker';
 import { setPlace } from '../../store/actions/generalAction';
 import store from '../../store';
 
+const windowWidth = Dimensions.get('window').width;
+
 const SettingScene = ({ placeCode, user }: any) => {
     return (
+      <View style={{flex: 1}} >
+        <View style={{position: 'absolute', top: windowWidth / 4, alignItems: 'center', elevation: 6}} >
+          <View style={{alignItems: 'center', width: windowWidth, height: 40}} >
+            <Image style={{width: 125, height: 125}} source={require('../../assets/images/user.png')} />
+          </View>
+        </View>
+
+        <View style={{flex: 1}}>
+          <ImageBackground source={require('../../assets/images/circles.png')} style={{flex: 1, backgroundColor: '#034B8F'}} >
+            
+          </ImageBackground>
+        </View>
+
+        <View style={{flex: 3, alignItems: 'center'}} >
+          <View
+            style={{
+              backgroundColor: '#FAFAFA',
+              borderRadius: 20, shadowColor: '#000',
+              shadowOffset: {height: 2, width:0},
+              shadowOpacity: 0.25,
+              shadowRadius: 3.84,
+              elevation: 5,
+              flex: 1,
+              width: windowWidth - 40,
+              marginBottom: 10,
+              justifyContent: 'center'
+            }}
+            >
+          </View>
+        </View>
+      </View>
+
+      /*
       <View style={{flex: 1}}>
         <View style={{flex: 2, backgroundColor: '#F0F0F0'}}>
           <ListItem key={1} bottomDivider>
@@ -66,6 +101,7 @@ const SettingScene = ({ placeCode, user }: any) => {
           </View>
         </View>
       </View>
+      */
     );
 };
 
