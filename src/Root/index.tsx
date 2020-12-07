@@ -9,6 +9,7 @@ import HomeScene from '../scenes/HomeScene';
 import LoginScene from '../scenes/LoginScene';
 import { loadResources } from './query';
 import LoadingIndicator from '../components/LoadingIndicator';
+import PrimaryLoadingIndicator from '../components/PrimaryLoadingIndicator';
 
 interface Istate {
     username: string,
@@ -28,12 +29,7 @@ const Root = ({ bearer, isLoading }: Istate) => {
     });
 
     if (!fontsLoaded) {
-      return (
-        <View style={{flex:1,justifyContent:"center", alignItems:'center', backgroundColor: '#034B8F'}} >
-          <Image style={{ width: 120, height: 120, marginBottom:40 }} source={require('../assets/images/logo.png')} />
-          <ActivityIndicator size='large' color='#F8F8F8' />
-        </View>
-      );
+      return <PrimaryLoadingIndicator />;
     }
 
     return (

@@ -1,7 +1,5 @@
 import React from 'react';
-import { View } from 'react-native';
-import { ActivityIndicator } from 'react-native-paper';
-
+import { ActivityIndicator, View } from 'react-native';
 const LoadingIndicator = () => (
   <View style={{
     position: 'absolute',

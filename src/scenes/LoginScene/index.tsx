@@ -8,6 +8,7 @@ import { setUsername, setPassword } from '../../store/actions/loginAction';
 import store from '../../store';
 import { connect } from 'react-redux';
 import { loginRequest } from './query';
+import PrimaryLoadingIndicator from '../../components/PrimaryLoadingIndicator';
 
 const WWidth = Dimensions.get('window').width;
 
@@ -15,14 +16,17 @@ interface Istate {
   username: string,
   password: string,
   loginError: string,
+  showPrimaryLoadingIndicator: boolean
 }
 
-const LoginView = ({ loginError, password, username }: Istate) => {
+const LoginView = ({ loginError, password, username, showPrimaryLoadingIndicator }: Istate) => {
     return (
       <View style={styles.container}>
-        <LinearGradient
-          colors={["#2D3141", '#034B8F', '#2D3141']}
-          start={[0 , 0]}
+        {showPrimaryLoadingIndicator
+        ? <PrimaryLoadingIndicator />
+        : (<LinearGradient
+          colors={["#034B8F", '#034B8F', '#034B8F']}
+          start={[0, 0]}
           style={styles.linearGradient}
         >
           <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}} >
@@ -44,7 +48,7 @@ const LoginView = ({ loginError, password, username }: Istate) => {
               inputContainerStyle={{borderColor: '#FFF'}}
               inputStyle={styles.inputStyle}
               onChangeText={value => store.dispatch(setUsername(value))}
-              errorStyle={{color:'#EFA314'}}
+              errorStyle={{color:'#F8B739', fontWeight: 'bold', fontSize: 9}}
               errorMessage={loginError}
               value={username}
             />
@@ -69,6 +73,7 @@ const LoginView = ({ loginError, password, username }: Istate) => {
             />
           </View>
           </LinearGradient>
+          )}
       </View>
     )
 };
@@ -78,6 +83,7 @@ const mapStateToProps = (state:any) => {
     username: state.loginReducer.username,
     password: state.loginReducer.password,
     loginError: state.loginReducer.login.error,
+    showPrimaryLoadingIndicator: state.loginReducer.showPrimaryLoadingIndicator,
   };
 };
 

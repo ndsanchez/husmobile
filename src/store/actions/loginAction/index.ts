@@ -2,7 +2,8 @@ const SET_USERNAME = 'SET_USERNAME';
 const SET_PASSWORD = 'SET_PASSWORD';
 const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 const LOGIN_FAILED = 'LOGIN_FAILED';
-const SET_LOADING = 'SET_LOADIN';
+const SET_LOADING = 'SET_LOADING';
+const SHOW_PRIMARY_LOADING_INDICATOR = 'SHOW_PRIMARY_LOADING_INDICATOR';
 const LOGOUT = 'LOGOUT';
 
 interface IAction {
@@ -52,4 +53,11 @@ const setLoading = (flag:boolean): IAction => {
     };
 };
 
-export { setUsername, setPassword, loginFailed, loginSuccess, setLoading, logOut };
+const showPrimaryLoadingIndicator = (flag:boolean): IAction => {
+    return {
+        type: SHOW_PRIMARY_LOADING_INDICATOR,
+        payload: flag,
+    };
+};
+
+export { setUsername, setPassword, loginFailed, loginSuccess, setLoading, logOut, showPrimaryLoadingIndicator };

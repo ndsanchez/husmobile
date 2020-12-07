@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { View, Text, Dimensions, ImageBackground, TouchableOpacity } from 'react-native';
 import { Icon, ListItem, Avatar } from 'react-native-elements';
 import { ScrollView } from 'react-native-gesture-handler';
@@ -16,7 +16,12 @@ const onPressHandler = (navigation: any, item:any) => {
   setTimeout(() => {navigation.navigate(item)}, 1);
 };
 
+
 const HomeScreen = ({ navigation }: any) => {
+  useEffect(() => {
+    store.dispatch({type: 'SHOW_PRIMARY_LOADING_INDICATOR', payload: false});
+  },[]);
+
     const list = [
       {
         icon: 'solution1',
@@ -33,17 +38,6 @@ const HomeScreen = ({ navigation }: any) => {
   ];
     return (
       <View style={{flex: 1}}>
-        {/*
-          list.map((item, i) => (
-            <ListItem key={i} bottomDivider onPress={ () => onPressHandler(navigation, item) }>
-              <Icon type={item.type} name={item.icon} />
-              <ListItem.Content>
-                <ListItem.Title>{item.title}</ListItem.Title>
-              </ListItem.Content>
-              <ListItem.Chevron />
-            </ListItem>
-          ))
-          */}
         <ScrollView style={{flex: 1}}>
           <View style={{ paddingVertical: 20, paddingHorizontal: 20 }}>
             <LinearGradient
