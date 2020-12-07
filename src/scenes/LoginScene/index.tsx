@@ -20,15 +20,22 @@ interface Istate {
 const LoginView = ({ loginError, password, username }: Istate) => {
     return (
       <View style={styles.container}>
-          <LinearGradient
-            colors={["#034B8F", '#034B8F']}
-            start={[0, 0]}
-            style={styles.linearGradient}
-          >
-            <Image style={styles.logo} source={require('../../assets/images/logo.png')}/>
-            <Text style={styles.title} >HUS</Text>
-            <Text style={styles.subtitle} >Hospital Universitario de la Samaritana</Text>
+        <LinearGradient
+          colors={["#2D3141", '#034B8F', '#2D3141']}
+          start={[0 , 0]}
+          style={styles.linearGradient}
+        >
+          <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}} >
+            <Image style={styles.logo} source={require('../../assets/images/logo.png')} />
+            <Text style={styles.title} >
+              HUS
+            </Text>
+            <Text style={styles.subtitle} >
+              Hospital Universitario de la Samaritana
+            </Text>
+          </View>
 
+          <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
             <Input
               placeholder="Usuario"
               placeholderTextColor={'#D9D9D9'}
@@ -60,6 +67,7 @@ const LoginView = ({ loginError, password, username }: Istate) => {
               type="outline"
               onPress={() => { loginRequest(username, password)}}
             />
+          </View>
           </LinearGradient>
       </View>
     )

@@ -49,6 +49,7 @@ const styles = StyleSheet.create({
     borderColor: '#FFF',
     borderRadius: 20,
     width: width - 150,
+    zIndex: 20000
   },
   btn_label: {
     textTransform: 'capitalize',
