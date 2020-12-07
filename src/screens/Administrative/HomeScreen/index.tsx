@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { View, Text, Dimensions, ImageBackground, TouchableOpacity } from 'react-native';
 import { Icon, ListItem, Avatar } from 'react-native-elements';
 import { ScrollView } from 'react-native-gesture-handler';
-import store from '../../store';
+import store from '../../../store';
 import { LinearGradient } from 'expo-linear-gradient';
 
 const WWidth = Dimensions.get('window').width;
@@ -53,32 +53,31 @@ const HomeScreen = ({ navigation }: any) => {
                 shadowRadius: 3.84,
                 elevation: 5,
               }}>
-              <ImageBackground source={require('../../assets/images/circles.png')} resizeMode='cover' style={{flex:1, justifyContent: 'center'}}>
+              <ImageBackground source={require('../../../assets/images/circles.png')} resizeMode='cover' style={{flex:1, justifyContent: 'center'}}>
                 <View style={{ backgroundColor: 'transparent', height: 250, width: WWidth-40 }}>
                   <View style={{flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-evenly' }}>
-                    
-                    <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
-                      <TouchableOpacity onPress={() => {onPressHandler(navigation, 'Interconsultas_feed')}} >
-                        <View
-                          style={{
-                            backgroundColor: '#FAFAFA',
-                            borderRadius: 20, shadowColor: '#000',
-                            shadowOffset: {height: 2, width:0},
-                            shadowOpacity: 0.25,
-                            shadowRadius: 3.84,
-                            elevation: 5,
-                            height: 80,
-                            width: 80,
-                            marginBottom: 10,
-                            justifyContent: 'center'
-                          }}
-                          >
-                          <Icon name='solution1' type='antdesign' size={30} color='#686354' />
-                        </View>
-                      </TouchableOpacity>
-                      <Text style={{fontFamily: 'Manrope_400Regular', color: '#FFF', fontSize: 9}}>Interconsultas pendientes</Text>
-                    </View>
 
+                    <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
+                      <TouchableOpacity onPress={() => {onPressHandler(navigation, 'receipt_feed')}} >
+                      <View
+                        style={{
+                          backgroundColor: '#FAFAFA',
+                          borderRadius: 20, shadowColor: '#000',
+                          shadowOffset: {height: 2, width:0},
+                          shadowOpacity: 0.25,
+                          shadowRadius: 3.84,
+                          elevation: 5,
+                          height: 80,
+                          width: 80,
+                          marginBottom: 10,
+                          justifyContent: 'center'
+                        }}
+                      >
+                        <Icon name='receipt' type='material-community' size={30} color='#686354' />
+                      </View>
+                      </TouchableOpacity>
+                      <Text style={{fontFamily: 'Manrope_400Regular', color: '#FFF', fontSize: 9}}>Facturación</Text>
+                    </View>
                   </View>
                 </View>
               </ImageBackground>

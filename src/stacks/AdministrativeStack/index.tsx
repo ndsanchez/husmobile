@@ -1,17 +1,15 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { createStackNavigator } from '@react-navigation/stack';
-import HomeScreen from '../../screens/HomeScreen';
-import { HospitalIndicator } from '../../components/Header';
-import InterconsultationScene from '../../scenes/InterconsultationScene';
+import HomeScreen from '../../screens/Administrative/HomeScreen';
 import InterconsultationStackScreen from '../InterconsultationStackScreen';
 import ReceiptStackScreen from '../ReceiptStackScreen';
 
-interface HomeStackScreenProps {
+interface AdministrativeStackProps {
   place: string,
 }
 
-const HomeStack = createStackNavigator();
+const Stack = createStackNavigator();
 
 const headerOptions = {
     headerBackTitleStyle: {
@@ -28,24 +26,24 @@ const headerOptions = {
     headerTintColor:'#FFF'
 };
 
-const HomeStackScreen: React.FC<HomeStackScreenProps> = ({ place }: HomeStackScreenProps) => {
+const AdministrativeStack: React.FC<AdministrativeStackProps> = ({ place }: AdministrativeStackProps) => {
   return (
-    <HomeStack.Navigator>
-      <HomeStack.Screen
+    <Stack.Navigator>
+      <Stack.Screen
         name="Asistencial"
         component={HomeScreen}
         options={{
           ...headerOptions,
-          headerTitle: "Asistencial",
+          headerTitle: "Administrativo",
           headerTitleStyle: {...headerOptions.headerTitleStyle, alignSelf: "center"}
         }}
       />
-      <HomeStack.Screen
-        name="Interconsultas_feed"
-        component={InterconsultationStackScreen}
+      <Stack.Screen
+        name="receipt_feed"
+        component={ReceiptStackScreen}
         options={{ headerShown: false }}
       />
-    </HomeStack.Navigator>
+    </Stack.Navigator>
   );
 }
 
@@ -55,4 +53,4 @@ const mapStateToProps = (state:any) => {
     };
 };
 
-export default connect(mapStateToProps, null)(HomeStackScreen);
+export default connect(mapStateToProps, null)(AdministrativeStack);

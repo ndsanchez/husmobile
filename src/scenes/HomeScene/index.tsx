@@ -5,6 +5,7 @@ import SettingScene from '../SettingScene';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import HomeStackScreen from '../../stacks/HomeStackScreen';
+import AdministrativeStack from '../../stacks/AdministrativeStack';
 
 const headerOptions = {
   headerBackTitleStyle: {
@@ -51,17 +52,29 @@ const HomeScene = () => {
         >
           <Tab.Screen
             name="Feed"
-            component={HomeStackScreen}
+            component={ HomeStackScreen }
             options={{
-              tabBarLabel: 'Inicio',
+              tabBarLabel: 'Asistencial',
               tabBarIcon: ({ color }) => (
                 <Icon name="layers-outline" type="material-community" color={color} size={24} />
               ),
             }}
           />
+
+          <Tab.Screen
+            name="administrative"
+            component={ AdministrativeStack }
+            options={{
+              tabBarLabel: 'Administrativo',
+              tabBarIcon: ({ color }) => (
+                <Icon name="grid" type='feather' color={color} size={24} />
+              ),
+            }}
+          />
+
           <Tab.Screen
             name="setting"
-            component={SettingsStackScreen}
+            component={ SettingsStackScreen }
             options={{
               tabBarLabel: 'Ajustes',
               tabBarIcon: ({ color }) => (
