@@ -48,7 +48,7 @@ const HomeScene = () => {
         <Tab.Navigator
           initialRouteName="Feed"
           barStyle={{ backgroundColor: '#FFF'}}
-          activeColor="#59AD42"
+          activeColor='#86cc37'
         >
           <Tab.Screen
             name="Feed"

@@ -1,113 +1,173 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Dimensions, Image, ImageBackground, Text, View } from 'react-native';
-import { Button, Divider, Icon } from 'react-native-elements';
-import { Avatar, Card, ListItem } from 'react-native-elements';
+import { Avatar, Button, Card, Divider, Icon, ListItem, Overlay } from 'react-native-elements';
 import { connect } from 'react-redux';
 import { style } from './style';
 import DropDownPicker from 'react-native-dropdown-picker';
 import { setPlace } from '../../store/actions/generalAction';
 import store from '../../store';
+import { LinearGradient } from 'expo-linear-gradient';
 
 const windowWidth = Dimensions.get('window').width;
+const windowHeigth = Dimensions.get('window').height;
 
-const SettingScene = ({ placeCode, user }: any) => {
+const list = [
+  {
+    title: 'Centro de atención',
+    icon: 'hospital-o',
+    iconType: 'font-awesome'
+  }
+]
+
+const cenate = [
+  {
+    name: 'Bogotá',
+    icon: 'hospital-o',
+    iconType: 'font-awesome',
+    value: '4'
+  },
+  {
+    name: 'Funcional',
+    icon: 'hospital-o',
+    iconType: 'font-awesome',
+    value: '5'
+  },
+  {
+    name: 'Regional',
+    icon: 'hospital-o',
+    iconType: 'font-awesome',
+    value: '13'
+  }
+]
+
+const SettingScene = ({ cenateName, user }: any) => {
+    const [visible, setVisible] = useState(false);
+
+    const toggleOverlay = () => {
+      setVisible(!visible);
+    };
+
+    const onPressHandlerCenate = (item: any) => {
+      toggleOverlay();
+      store.dispatch(setPlace({'code': item.value, 'name': item.name}))
+    };
+
     return (
       <View style={{flex: 1}} >
-        <View style={{position: 'absolute', top: windowWidth / 4, alignItems: 'center', elevation: 6}} >
+        {/* user circular logo */}
+        <View style={{position: 'absolute', top: 85, alignItems: 'center', elevation: 6}} >
           <View style={{alignItems: 'center', width: windowWidth, height: 40}} >
             <Image style={{width: 125, height: 125}} source={require('../../assets/images/user.png')} />
           </View>
         </View>
 
-        <View style={{flex: 1}}>
-          <ImageBackground source={require('../../assets/images/circles.png')} style={{flex: 1, backgroundColor: '#034B8F'}} >
-            
-          </ImageBackground>
-        </View>
-
-        <View style={{flex: 3, alignItems: 'center'}} >
-          <View
-            style={{
-              backgroundColor: '#FAFAFA',
-              borderRadius: 20, shadowColor: '#000',
-              shadowOffset: {height: 2, width:0},
-              shadowOpacity: 0.25,
-              shadowRadius: 3.84,
-              elevation: 5,
-              flex: 1,
-              width: windowWidth - 40,
-              marginBottom: 10,
-              justifyContent: 'center'
-            }}
-            >
+        {/* user information container */}
+        <View
+          style={{
+            position: 'absolute',
+            backgroundColor: '#FFF',
+            borderRadius: 20, shadowColor: '#000',
+            shadowOffset: {height: 2, width:0},
+            shadowOpacity: 0.25,
+            shadowRadius: 3.84,
+            elevation: 5,
+            top: 150,
+            left: 20,
+            height: 350,
+            width: windowWidth - 40,
+            marginBottom: 10,
+          }}
+        >
+          <View style={{paddingTop: 70, alignItems: 'center'}} >
+            <Text style={{fontFamily: 'Manrope_400Regular', fontWeight: 'bold', color: '#686354', fontSize: 17, textTransform: 'capitalize'}} >
+              {user.name}
+            </Text>
+            <Text style={{color: '#7C7F84', fontFamily: 'Manrope_400Regular', fontSize: 11, textTransform: 'lowercase'}} >
+              {user.username}
+            </Text>
           </View>
-        </View>
-      </View>
 
-      /*
-      <View style={{flex: 1}}>
-        <View style={{flex: 2, backgroundColor: '#F0F0F0'}}>
-          <ListItem key={1} bottomDivider>
-              <Avatar rounded icon={{name: 'user', type: 'font-awesome', color: '#59AD42'}} overlayContainerStyle={{backgroundColor: '#F0F0F0'}}/>
-              <ListItem.Content>
-                <ListItem.Title>{user.name}</ListItem.Title>
-                <ListItem.Subtitle>{user.username}</ListItem.Subtitle>
-              </ListItem.Content>
-          </ListItem>
+          <Divider style={{ backgroundColor: '#CCC', marginVertical: 20 }} />
 
-          <DropDownPicker
-            activeLabelStyle={{color: '#59AD42'}}
-            arrowColor="#000"
-            items={[
-              {label: 'Bogotá', value: '4', icon: () => <Icon size={20} name='hospital-o' type='font-awesome' color='#000' />},
-              {label: 'UFZ', value: '5', icon: () => <Icon size={20} name='hospital-o' type='font-awesome' color='#000' />},
-              {label: 'Regional', value: '13', icon: () => <Icon size={20} name='hospital-o' type='font-awesome' color='#000' />},
-            ]}
-            defaultValue={placeCode}
-            containerStyle={{height:80}}
-            style={{backgroundColor: '#FFF', borderColor: '#F0F0F0', paddingLeft: 30}}
-            itemStyle={{
-              justifyContent: 'flex-start',
-              paddingLeft: 40,
-              borderColor: '#F0F0F0'
-            }}
-            labelStyle={{
-              color: '#000',
-              fontFamily: 'Manrope_400Regular',
-              fontSize: 14,
-              paddingLeft: 15,
-            }}
-            dropDownStyle={{backgroundColor: '#FFF', borderColor: '#F0F0F0'}}
-            onChangeItem={ item => {store.dispatch(setPlace({'code': item.value, 'name': item.label}))} }
-          />
+          {
+            list.map((item, i) => (
+              <ListItem key={i} bottomDivider onPress={toggleOverlay} >
+                <Icon name={item.icon} type={item.iconType} color='#686354' size={30} />
+                <ListItem.Content>
+                  <ListItem.Title style={{fontFamily: 'Manrope_400Regular', color: '#686354', fontSize: 13, fontWeight: 'bold'}}>
+                    {item.title}
+                  </ListItem.Title>
+                  <ListItem.Subtitle style={{fontFamily: 'Manrope_400Regular', color: '#AAA', fontSize: 10}}>
+                    {cenateName}
+                  </ListItem.Subtitle>
+                </ListItem.Content>
+                <ListItem.Chevron />
+              </ListItem>
+            ))
+          }
         </View>
-        <View style={{ flex: 1 }}>
-          <View style={{flex: 1, flexDirection: 'column', justifyContent: 'flex-end', alignItems: "center", backgroundColor: '#F0F0F0', paddingBottom: 40}}>
+        
+        {/* Modal to display all choosable atention centers */}
+        <Overlay isVisible={visible} onBackdropPress={toggleOverlay} overlayStyle={{width: windowWidth - 40, borderRadius: 20}}>
+          <View>
+            {
+              cenate.map((item, i) => (
+                <ListItem key={i} bottomDivider onPress={() => onPressHandlerCenate(item)} >
+                  <Icon name={item.icon} type={item.iconType} color='#686354' size={25} />
+                  <ListItem.Content>
+                    <ListItem.Title style={{fontFamily: 'Manrope_400Regular', color: '#686354', fontSize: 11, fontWeight: 'bold'}}>
+                      {item.name}
+                    </ListItem.Title>
+                  </ListItem.Content>
+                  <ListItem.Chevron />
+                </ListItem>
+              ))
+            }
+          </View>
+        </Overlay>
+
+        {/* Container for close session button and app version text */}
+        <View style={{position: 'absolute', bottom: 30, alignItems: "center", width: windowWidth}} >
           <Button
             icon={
-              <Icon
-                type="font-awesome"
-                name="power-off"
-                size={15}
-                color="black"
-              />
+              <Icon type="font-awesome" name="power-off" size={15} color="#86CC37" />
             }
-            titleStyle={{color: '#000', fontFamily: 'Manrope_400Regular', fontSize: 12, paddingLeft: 10}}
+            titleStyle={{color: '#86CC37', fontFamily: 'Manrope_400Regular', fontSize: 12, paddingLeft: 10, fontWeight: 'bold'}}
             buttonStyle={ style.btnLogin }
             title='Cerrar Sesión'
             type="outline"
             onPress={() => { store.dispatch({type: 'LOGOUT', payload: []})}}
           />
-          </View>
+          <Text style={{paddingVertical: 10, fontSize: 10, color: '#7C7F84', fontFamily: 'Manrope_400Regular'}}>
+            Versión 1.0.0.1
+          </Text>
+        </View>
+
+        {/* blue background with image */}
+        <View style={{flex: 1}}>
+          <ImageBackground
+            source={require('../../assets/images/circles.png')}
+            style={{
+              flex: 1,
+              backgroundColor: '#034B8F',
+              borderBottomLeftRadius: 50,
+              borderBottomRightRadius: 50,
+            }}
+          >
+          </ImageBackground>
+        </View>
+
+        {/* gray background */}
+        <View style={{flex: 2, alignItems: 'center'}} >
+          
         </View>
       </View>
-      */
     );
 };
 
 const mapStateToProps = (state: any) => {
   return {
-    placeCode: state.generalReducer.place.code,
+    cenateName: state.generalReducer.place.name,
     user: state.loginReducer.login.user,
   };
 };

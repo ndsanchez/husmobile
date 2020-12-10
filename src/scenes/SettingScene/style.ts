@@ -4,9 +4,10 @@ let { height, width } = Dimensions.get('window');
 
 const style = StyleSheet.create({
     btnLogin: {
-      borderColor: '#000',
+      borderColor: '#86CC37',
+      borderWidth: 2,
       borderRadius: 20,
-      width: width/1.8,
+      paddingHorizontal: 20,
     },
     btn_label: {
       textTransform: 'capitalize',
