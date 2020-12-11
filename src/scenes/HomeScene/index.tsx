@@ -65,7 +65,7 @@ const HomeScene = () => {
             name="administrative"
             component={ AdministrativeStack }
             options={{
-              tabBarLabel: 'Administrativo',
+              tabBarLabel: 'Administrativa',
               tabBarIcon: ({ color }) => (
                 <Icon name="grid" type='feather' color={color} size={24} />
               ),

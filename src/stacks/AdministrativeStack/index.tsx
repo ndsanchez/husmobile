@@ -30,11 +30,11 @@ const AdministrativeStack: React.FC<AdministrativeStackProps> = ({ place }: Admi
   return (
     <Stack.Navigator>
       <Stack.Screen
-        name="Asistencial"
+        name="Administrativa"
         component={HomeScreen}
         options={{
           ...headerOptions,
-          headerTitle: "Administrativo",
+          headerTitle: "Hospital Universitario de la Samaritana",
           headerTitleStyle: {...headerOptions.headerTitleStyle, alignSelf: "center"}
         }}
       />
