@@ -1,107 +1,68 @@
 import React, { useEffect } from 'react';
-import { View, Text, Dimensions, ImageBackground, TouchableOpacity } from 'react-native';
-import { Icon, ListItem, Avatar } from 'react-native-elements';
+import { Dimensions, View } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import store from '../../../store';
-import { LinearGradient } from 'expo-linear-gradient';
+import BackgroundComponent from '../../../components/BackgroundComponent';
+import MiniCardComponent from '../../../components/MiniCardComponent';
+import TitleComponent from '../../../components/TitleComponent';
 
 const WWidth = Dimensions.get('window').width;
-
-const onPressHandler = (navigation: any, item:any) => {
-  store.dispatch({
-    type: 'SET_LOADING',
-    payload: true
-  });
-
-  setTimeout(() => {navigation.navigate(item)}, 1);
-};
-
+const windowHeight = Dimensions.get('window').height;
 
 const HomeScreen = ({ navigation }: any) => {
   useEffect(() => {
-    store.dispatch({type: 'SHOW_PRIMARY_LOADING_INDICATOR', payload: false});
+    store.dispatch({
+      type: 'SHOW_PRIMARY_LOADING_INDICATOR',
+      payload: false
+    });
+
   },[]);
 
-    const list = [
-      {
-        icon: 'solution1',
-        screen: 'Interconsultas_feed',
-        title: 'Interconsultas pendientes',
-        type: 'antdesign',
-      },
-      {
-        icon: 'receipt',
-        screen: 'receipt_feed',
-        title: 'Facturación',
-        type: 'material-community',
-      },
+  const miniCards = [
+    {
+      title: 'Facturación',
+      iconName: 'receipt',
+      iconType: 'material-community',
+      screenName: 'receipt_feed',
+    },
   ];
-    return (
-      <View style={{flex: 1}}>
-        <ScrollView style={{flex: 1}}>
-          <View style={{ paddingVertical: 20, paddingHorizontal: 20 }}>
-            <LinearGradient
-              start= {{x: 0.9, y: 0}}
-              colors={['#2E226F', '#034B8F', '#02D3E7']}
-              style={{
-                borderRadius: 15,
-                marginBottom: 20,
-                backgroundColor: '#FFF',
-                shadowColor: '#000',
-                shadowOffset: {height: 2, width:0},
-                shadowOpacity: 0.25,
-                shadowRadius: 3.84,
-                elevation: 5,
-              }}>
-              <ImageBackground source={require('../../../assets/images/circles.png')} resizeMode='cover' style={{flex:1, justifyContent: 'center'}}>
-                <View style={{ backgroundColor: 'transparent', height: 250, width: WWidth-40 }}>
-                  <View style={{flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-evenly' }}>
 
-                    <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
-                      <TouchableOpacity onPress={() => {onPressHandler(navigation, 'receipt_feed')}} >
-                      <View
-                        style={{
-                          backgroundColor: '#FAFAFA',
-                          borderRadius: 20, shadowColor: '#000',
-                          shadowOffset: {height: 2, width:0},
-                          shadowOpacity: 0.25,
-                          shadowRadius: 3.84,
-                          elevation: 5,
-                          height: 80,
-                          width: 80,
-                          marginBottom: 10,
-                          justifyContent: 'center'
-                        }}
-                      >
-                        <Icon name='receipt' type='material-community' size={30} color='#686354' />
-                      </View>
-                      </TouchableOpacity>
-                      <Text style={{fontFamily: 'Manrope_400Regular', color: '#FFF', fontSize: 9}}>Facturación</Text>
-                    </View>
-                  </View>
+  return (
+    <View style={{flex: 1}}>
+      <ScrollView style={{flex: 1}}>
+
+        {/* Background screeen */}
+        <BackgroundComponent />
+
+        {/* title container */}
+        <TitleComponent text={'Administrativa'} />
+
+        {/* cards container */}
+        <View
+          style={{
+            position: 'absolute',
+            backgroundColor: 'transparent',
+            elevation: 5,
+            height: 2 * windowHeight / 3,
+            top: 100,
+            left: 20,
+            width: WWidth - 40,
+          }}
+        >
+          <View style={{flex: 1, flexDirection: 'row'}}>
+            {
+              miniCards.map((item, key) => (
+                <View key={key}>
+                  <MiniCardComponent attribute={item} navigation={navigation} />
                 </View>
-              </ImageBackground>
-            </LinearGradient>
-            
-
-            <View
-              style={{
-                backgroundColor: '#FAFAFA',
-                borderRadius: 20, shadowColor: '#000',
-                shadowOffset: {height: 2, width:0},
-                shadowOpacity: 0.25,
-                shadowRadius: 3.84,
-                elevation: 5,
-                height: 400,
-                width: WWidth-40,
-                marginBottom: 20,
-              }}
-            >
-            </View>
+              ))
+            }
           </View>
-        </ScrollView>
-      </View>
-    );
+
+        </View>
+      </ScrollView>
+    </View>
+  );
 }
 
 export default HomeScreen;
