@@ -1,9 +1,8 @@
 import React, { useEffect } from 'react';
-import { View, Text, Dimensions, Image, ImageBackground, TouchableOpacity } from 'react-native';
-import { Icon, ListItem, Avatar } from 'react-native-elements';
+import { Dimensions, View } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import store from '../../store';
-import { LinearGradient } from 'expo-linear-gradient';
+import BackgroundComponent from '../../components/BackgroundComponent';
 import MiniCardComponent from '../../components/MiniCardComponent';
 import TitleComponent from '../../components/TitleComponent';
 
@@ -33,19 +32,7 @@ const HomeScreen = ({ navigation }: any) => {
       <ScrollView style={{flex: 1}}>
 
         {/* Background screeen */}
-        <LinearGradient
-          colors={['#034B8F', '#034B8F']}
-          style={{
-            height: windowHeight / 3,
-            width: WWidth,
-            borderBottomLeftRadius: 100,
-          }}
-        >
-          <ImageBackground source={require('../../assets/images/circles.png')} style={{flex: 1}}  >
-          </ImageBackground>
-        </LinearGradient>
-        <View style={{width: WWidth, height: 2 * windowHeight / 3}}>
-        </View>
+        <BackgroundComponent />
 
         {/* title container */}
         <TitleComponent text={'Asistencial'} />
