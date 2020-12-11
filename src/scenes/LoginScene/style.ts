@@ -19,19 +19,19 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   logo: {
-    width: 120,
-    height: 120,
+    width: 110,
+    height: 110,
   },
   title: {
     fontSize: 30,
-    color: '#D9D9D9',
+    color: '#FFF',
     fontFamily: 'Spectral_400Regular',
   },
   subtitle: {
     fontSize: 10,
-    color: '#D9D9D9',
+    color: '#FFF',
     fontFamily: 'Manrope_400Regular',
-    marginBottom: 20,
+    marginBottom: 50,
   },
   input_text: {
     width: width - 150,
@@ -43,10 +43,10 @@ const styles = StyleSheet.create({
     color: '#FFF',
     fontSize: 12,
     fontFamily: 'Manrope_400Regular',
-    borderColor: '#FFF',
   },
   btnLogin: {
-    borderColor: '#FFF',
+    backgroundColor: '#5bab43',
+    borderColor: '#5bab43',
     borderRadius: 20,
     width: width - 150,
     zIndex: 20000
