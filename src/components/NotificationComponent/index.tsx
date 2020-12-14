@@ -16,17 +16,20 @@ interface Props {
 const NotificationComponent: React.FC<Props> = ({ background, iconName, iconType, isVisible, text }: Props) => {
 
   return (
-    <View style={{position: 'absolute', top: 0, left: 0, right: 0, height: 100}}>
+    <View style={{position: 'absolute', top: 0, left: 0, right: 0, height: 100, elevation: 10}}>
       <Modal
         isVisible={isVisible}
         swipeDirection={['left', 'right']}
         coverScreen={false}
         hasBackdrop={false}
         animationIn={'slideInLeft'}
-        onSwipeComplete={ _ => store.dispatch({
-          type: 'DISPLAY_NOTIFICATION',
-          payload: {background, iconName, iconType, isVisible: !isVisible, text}
-        })}
+        animationOut={'slideOutRight'}
+        onModalShow={() => {
+          setTimeout(() => store.dispatch({
+            type: 'DISPLAY_NOTIFICATION',
+            payload: {background, iconName, iconType, isVisible: !isVisible, text}
+          }), 2000)
+        }}
       >
         <View style={{ backgroundColor: background, flex: 1, borderRadius: 20}}>
           <View style={{flex: 1, flexDirection: 'row', alignItems: 'center', paddingHorizontal: 30}}>

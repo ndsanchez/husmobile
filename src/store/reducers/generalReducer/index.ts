@@ -21,7 +21,6 @@ interface IAction {
 const generalReducer = (state = generalInitialState, action:IAction) => {
   switch (action.type) {
       case 'DISPLAY_NOTIFICATION':
-        
         return {
           ...state,
           notification: action.payload

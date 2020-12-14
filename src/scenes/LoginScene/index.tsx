@@ -9,7 +9,6 @@ import store from '../../store';
 import { connect } from 'react-redux';
 import { loginRequest } from './query';
 import PrimaryLoadingIndicator from '../../components/PrimaryLoadingIndicator';
-import NotificationComponent from '../../components/NotificationComponent';
 
 const WWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
@@ -28,7 +27,6 @@ interface Istate {
 const LoginView = ({ loginError, password, username, showPrimaryLoadingIndicator }: Istate) => {
     return (
       <View style={styles.container}>
-        <NotificationComponent />
         {
           showPrimaryLoadingIndicator
           ? <PrimaryLoadingIndicator />
