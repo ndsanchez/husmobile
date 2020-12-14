@@ -14,7 +14,7 @@ import store from '../../store';
 
 const WWidth = Dimensions.get('window').width;
 
-const ReceiptScreen = ({ bearer, placeCode, todayReceipt }: any) => {
+const ReceiptScreen = ({ bearer, navigation, placeCode, todayReceipt }: any) => {
   LogBox.ignoreAllLogs(true);
 
   const [initialDate, setInitialDate]: any = useState(new Date());
@@ -47,11 +47,11 @@ const ReceiptScreen = ({ bearer, placeCode, todayReceipt }: any) => {
       type: 'SET_LOADING',
       payload: true
     });
-    requestTodayReceipt(parseInt(item.value), bearer);
+    requestTodayReceipt(parseInt(item.value), bearer, navigation);
   };
 
   useEffect(() => {
-    requestTodayReceipt(parseInt('1'), bearer);
+    requestTodayReceipt(parseInt('1'), bearer, navigation);
   }, []);
 
   return (

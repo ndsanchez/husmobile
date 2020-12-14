@@ -1,7 +1,23 @@
 import axios from 'axios';
 import store from '../../store';
 
-const requestTodayReceipt = (dateIndicator: number, bearer: string) => {
+const UnauthenticatedErrorHandler = (navigation: any) => {
+  store.dispatch({
+    type: 'DISPLAY_ALERT',
+    payload: {
+      iconColor: '#DE4258',
+      iconName: 'close-octagon-outline',
+      iconType: 'material-community',
+      isVisible: true,
+      title: 'Su sesión caducó',
+      subtitle: 'No se pudo verificar su identidad.'
+    }
+  });
+  navigation.goBack();
+  store.dispatch({type: 'SET_LOADING', payload: false});
+};
+
+const requestTodayReceipt = (dateIndicator: number, bearer: string, navigation: any) => {
 
   const headers = {
     'Accept': 'application/json',
@@ -22,7 +38,7 @@ const requestTodayReceipt = (dateIndicator: number, bearer: string) => {
     .catch(error => {
       switch (error.response.status) {
         case 401:
-          console.log('Access denied');
+          UnauthenticatedErrorHandler(navigation);
           break;
 
         default:

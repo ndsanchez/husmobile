@@ -8,16 +8,16 @@ const generalInitialState = {
     background: '#DE4258',
     iconName: 'hand-stop-o',
     iconType: 'font-awesome',
-    isVisible: true,
+    isVisible: false,
     text: '¡Acceso denegado!',
   },
   alert: {
     iconColor: '#DE4258',
     iconName: 'close-octagon-outline',
     iconType: 'material-community',
-    isVisible: true,
+    isVisible: false,
     title: 'Su sesión caducó',
-    subtitle: 'Por favor, inicie sesión nuevamente'
+    subtitle: 'No se pudo verificar su identidad.'
   }
 };
 
