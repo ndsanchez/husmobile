@@ -9,13 +9,12 @@ import DropDownPicker from 'react-native-dropdown-picker';
 import FormatedNumber from '../../components/FormatedNumber';
 import { ProgressChart, } from "react-native-chart-kit";
 import FontawesomeIcon from 'react-native-vector-icons/FontAwesome5';
-
 import { requestTodayReceipt } from './query';
 import store from '../../store';
 
 const WWidth = Dimensions.get('window').width;
 
-const ReceiptScreen = ({ placeCode, todayReceipt }: any) => {
+const ReceiptScreen = ({ bearer, placeCode, todayReceipt }: any) => {
   LogBox.ignoreAllLogs(true);
 
   const [initialDate, setInitialDate]: any = useState(new Date());
@@ -48,11 +47,11 @@ const ReceiptScreen = ({ placeCode, todayReceipt }: any) => {
       type: 'SET_LOADING',
       payload: true
     });
-    requestTodayReceipt(parseInt(item.value));
+    requestTodayReceipt(parseInt(item.value), bearer);
   };
 
   useEffect(() => {
-    requestTodayReceipt(parseInt('1'));
+    requestTodayReceipt(parseInt('1'), bearer);
   }, []);
 
   return (
@@ -229,6 +228,7 @@ const mapStateToProps = (state: any) => {
   return {
     placeCode: state.generalReducer.place.code,
     todayReceipt: state.receiptReducer.todayReceipt,
+    bearer: state.loginReducer.login.Bearer
   };
 };
 
