@@ -10,6 +10,14 @@ const generalInitialState = {
     iconType: 'font-awesome',
     isVisible: true,
     text: '¡Acceso denegado!',
+  },
+  alert: {
+    iconColor: '#DE4258',
+    iconName: 'close-octagon-outline',
+    iconType: 'material-community',
+    isVisible: true,
+    title: 'Su sesión caducó',
+    subtitle: 'Por favor, inicie sesión nuevamente'
   }
 };
 
@@ -20,6 +28,12 @@ interface IAction {
 
 const generalReducer = (state = generalInitialState, action:IAction) => {
   switch (action.type) {
+      case 'DISPLAY_ALERT':
+        return {
+          ...state,
+          alert: action.payload
+        };
+
       case 'DISPLAY_NOTIFICATION':
         return {
           ...state,

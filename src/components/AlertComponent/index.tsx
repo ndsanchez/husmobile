@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Button, Dimensions, View, Text } from 'react-native';
 import { Icon } from 'react-native-elements';
 import Modal from 'react-native-modal';
@@ -9,9 +9,16 @@ import SolidButton from '../SolidButton';
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
 
-const AlertComponent = () => {
+interface Props {
+  iconColor: string,
+  iconName: string,
+  iconType: string,
+  isVisible: boolean,
+  subtitle: string
+  title: string,
+}
 
-  const [isVisible, setIsVisible] = useState(true);
+const AlertComponent: React.FC<Props> = ({ iconColor, iconName, iconType, isVisible, subtitle, title }: Props) => {
 
   return (
     <View
@@ -36,7 +43,7 @@ const AlertComponent = () => {
         animationOutTiming={1000}
       >
         <View style={{ backgroundColor: '#FFF', borderRadius: 20, paddingVertical: 30, paddingHorizontal: 30, alignItems: 'center'}}>
-          <Icon name={'close-circle'} type={'material-community'} color={'#DE4258'} size={70} />
+          <Icon name={iconName} type={iconType} color={iconColor} size={70} />
           <Text
             style={{
               fontFamily: 'Manrope_400Regular',
@@ -45,7 +52,7 @@ const AlertComponent = () => {
               fontSize: 20,
             }}
           >
-            { 'Sesion expirada' }
+            { title }
           </Text>
           <Text
             style={{
@@ -54,9 +61,15 @@ const AlertComponent = () => {
               marginBottom: 20
             }}
           >
-            { 'Por favor, inicie sesion nuevamente' }
+            { subtitle }
           </Text>
-          <SolidButton text={'Ok'} onPresshandler={() => setIsVisible(!isVisible)} />
+          <SolidButton
+            text={'Ok'}
+            onPresshandler={() => store.dispatch({
+              type: 'DISPLAY_ALERT',
+              payload: { iconColor, iconName, iconType, isVisible: !isVisible, subtitle, title }
+            })}
+          />
         </View>
       </Modal>
     </View>
@@ -65,10 +78,12 @@ const AlertComponent = () => {
 
 const mapStateToProps = (state: any) => {
   return {
-    background: state.generalReducer.notification.background,
-    iconName: state.generalReducer.notification.iconName,
-    iconType: state.generalReducer.notification.iconType,
-    isVisible: state.generalReducer.notification.isVisible,
+    iconColor: state.generalReducer.alert.iconColor,
+    iconName: state.generalReducer.alert.iconName,
+    iconType: state.generalReducer.alert.iconType,
+    isVisible: state.generalReducer.alert.isVisible,
+    subtitle: state.generalReducer.alert.subtitle,
+    title: state.generalReducer.alert.title,
   };
 };
 

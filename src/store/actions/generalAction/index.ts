@@ -1,5 +1,6 @@
 const SET_PLACE = 'SET_PLACE';
 const DISPLAY_NOTIFICATION = 'DISPLAY_NOTIFICATION';
+const DISPLAY_ALERT = 'DISPLAY_ALERT';
 
 interface IAction {
     type: string,
@@ -9,6 +10,13 @@ interface IAction {
 type placeType = {
     code: string,
     name: string,
+};
+
+const displayAlert = (payload: boolean ): IAction => {
+    return {
+        type: DISPLAY_ALERT,
+        payload,
+    };
 };
 
 const displayNotification = (payload: boolean ): IAction => {
@@ -25,4 +33,4 @@ const setPlace = (place:placeType ): IAction => {
     };
 };
 
-export { setPlace, displayNotification };
+export { setPlace, displayNotification, displayAlert };
