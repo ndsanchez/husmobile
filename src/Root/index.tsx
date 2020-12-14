@@ -11,6 +11,7 @@ import { loadResources } from './query';
 import LoadingIndicator from '../components/LoadingIndicator';
 import PrimaryLoadingIndicator from '../components/PrimaryLoadingIndicator';
 import NotificationComponent from '../components/NotificationComponent';
+import AlertComponent from '../components/AlertComponent';
 
 interface Istate {
     username: string,
@@ -36,6 +37,7 @@ const Root = ({ bearer, isLoading }: Istate) => {
     return (
         /*bearer*/ true ?
           <View style={{flex: 1, top: 0, bottom: 0, left: 0, right: 0}} >
+            <AlertComponent />
             <NotificationComponent />
             <HomeScene />
             { isLoading && (<LoadingIndicator />) }
