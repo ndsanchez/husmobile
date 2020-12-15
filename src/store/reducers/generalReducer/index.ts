@@ -17,7 +17,8 @@ const generalInitialState = {
     iconType: 'material-community',
     isVisible: false,
     title: 'Su sesión caducó',
-    subtitle: 'No se pudo verificar su identidad.'
+    subtitle: 'No se pudo verificar su identidad.',
+    btnHandler: () => {}
   }
 };
 
@@ -28,6 +29,15 @@ interface IAction {
 
 const generalReducer = (state = generalInitialState, action:IAction) => {
   switch (action.type) {
+      case 'CLOSE_ALERT':
+        return {
+          ...state,
+          alert: {
+            ...state.alert,
+            isVisible: action.payload
+          }
+        };
+
       case 'DISPLAY_ALERT':
         return {
           ...state,

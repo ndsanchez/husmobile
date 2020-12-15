@@ -16,9 +16,10 @@ interface Props {
   isVisible: boolean,
   subtitle: string
   title: string,
+  btnHandler: () => void
 }
 
-const AlertComponent: React.FC<Props> = ({ iconColor, iconName, iconType, isVisible, subtitle, title }: Props) => {
+const AlertComponent: React.FC<Props> = ({ iconColor, iconName, iconType, isVisible, subtitle, title, btnHandler }: Props) => {
 
   return (
     <View
@@ -65,10 +66,7 @@ const AlertComponent: React.FC<Props> = ({ iconColor, iconName, iconType, isVisi
           </Text>
           <SolidButton
             text={'Ok'}
-            onPresshandler={() => store.dispatch({
-              type: 'DISPLAY_ALERT',
-              payload: { iconColor, iconName, iconType, isVisible: !isVisible, subtitle, title }
-            })}
+            onPresshandler={btnHandler}
           />
         </View>
       </Modal>
@@ -84,6 +82,7 @@ const mapStateToProps = (state: any) => {
     isVisible: state.generalReducer.alert.isVisible,
     subtitle: state.generalReducer.alert.subtitle,
     title: state.generalReducer.alert.title,
+    btnHandler: state.generalReducer.alert.btnHandler
   };
 };
 

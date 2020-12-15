@@ -10,7 +10,11 @@ const UnauthenticatedErrorHandler = (navigation: any) => {
       iconType: 'material-community',
       isVisible: true,
       title: 'Su sesión caducó',
-      subtitle: 'No se pudo verificar su identidad.'
+      subtitle: 'No se pudo verificar su identidad.',
+      btnHandler: () => store.dispatch({
+        type: 'CLOSE_ALERT',
+        payload: false
+      })
     }
   });
   navigation.goBack();
