@@ -1,16 +1,7 @@
 const assistanceInitialState = {
   interconsultation: {
     activeSpeciality: {},
-    fetched: [/*
-      {
-        'NOMBRE': 'NEIL DAVID SANCHEZ QUINTANA',
-        'HISTORIA': '105416846'
-      },
-      {
-        'NOMBRE': 'ANA GOMEZ',
-        'HISTORIA': '10578946'
-      },
-    */]
+    fetched: [],
   },
   speciality: {
       all: [],
@@ -33,11 +24,16 @@ const AssistanceReducer = (state = assistanceInitialState, action:IAction) => {
                     fetched: action.payload
                 }
             };
+
         case 'LIST_SPECIALITIES':
             return {
                 ...state,
                 speciality: action.payload
             };
+
+        case 'RESET_ASSISTANCE_STATE':
+            return assistanceInitialState;
+
         case 'SET_SPECIALITY':
             console.log('payload: ', action.payload);
             return {

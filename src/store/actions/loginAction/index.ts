@@ -4,7 +4,7 @@ const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 const LOGIN_FAILED = 'LOGIN_FAILED';
 const SET_LOADING = 'SET_LOADING';
 const SHOW_PRIMARY_LOADING_INDICATOR = 'SHOW_PRIMARY_LOADING_INDICATOR';
-const LOGOUT = 'LOGOUT';
+const RESET_LOGIN_STATE = 'RESET_LOGIN_STATE';
 
 interface IAction {
     type: string,
@@ -13,7 +13,7 @@ interface IAction {
 
 const logOut = () => {
     return {
-        type: LOGOUT,
+        type: RESET_LOGIN_STATE,
         payload: [],
     };
 };

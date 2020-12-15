@@ -14,6 +14,10 @@ const receiptReducer = (state = receiptInitialState, action:IAction) => {
           ...state,
           todayReceipt: action.payload,
         }
+
+      case 'RESET_RECEIPT_STATE':
+        return receiptInitialState;
+
       default:
         return state;
   }

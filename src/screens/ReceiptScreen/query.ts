@@ -2,6 +2,8 @@ import axios from 'axios';
 import store from '../../store';
 
 const UnauthenticatedErrorHandler = (navigation: any) => {
+  store.dispatch({ type: 'RESET_RECEIPT_STATE', payload: [] });
+  navigation.goBack();
   store.dispatch({
     type: 'DISPLAY_ALERT',
     payload: {
@@ -11,13 +13,12 @@ const UnauthenticatedErrorHandler = (navigation: any) => {
       isVisible: true,
       title: 'Su sesión caducó',
       subtitle: 'No se pudo verificar su identidad.',
-      btnHandler: () => store.dispatch({
-        type: 'CLOSE_ALERT',
-        payload: false
-      })
+      btnHandler: () => {
+        store.dispatch({ type: 'CLOSE_ALERT', payload: false });
+        store.dispatch({ type: 'RESET_LOGIN_STATE', payload: [] });
+      }
     }
   });
-  navigation.goBack();
   store.dispatch({type: 'SET_LOADING', payload: false});
 };
 

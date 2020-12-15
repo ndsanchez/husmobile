@@ -4,6 +4,7 @@ const LIST_SPECIALITIES = 'LIST_SPECIALITIES';
 const SET_SPECIALITY = 'SET_SPECIALITY';
 const SET_SPECIALITY_OPTIONS = 'SET_SPECIALITY_OPTIONS';
 const LIST_INTERCONSULTATIONS = 'LIST_INTERCONSULTATIONS';
+const RESET_ASSISTANCE_STATE = 'RESET_ASSISTANCE_STATE';
 
 interface IAction {
   type: string,
@@ -31,6 +32,13 @@ const setSpeciality = (speciality:specialityType ): IAction => {
     };
 };
 
+const resetAssistanceState = () => {
+    return {
+        type: RESET_ASSISTANCE_STATE,
+        payload: [],
+    };
+};
+
 const setSpecialityOptions = (options:any ): IAction => {
     return {
         type: SET_SPECIALITY_OPTIONS,
@@ -39,4 +47,4 @@ const setSpecialityOptions = (options:any ): IAction => {
 };
 
 
-export { listSpecialities, setSpeciality, setSpecialityOptions };
+export { listInterconsultations, listSpecialities, resetAssistanceState, setSpeciality, setSpecialityOptions };
