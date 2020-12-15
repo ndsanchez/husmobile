@@ -1,11 +1,12 @@
-import React from 'react';
-import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
-import { Icon } from 'react-native-elements';
-import SettingScene from '../SettingScene';
-import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
-import HomeStackScreen from '../../stacks/HomeStackScreen';
 import AdministrativeStack from '../../stacks/AdministrativeStack';
+import HomeStackScreen from '../../stacks/HomeStackScreen';
+import { Icon } from 'react-native-elements';
+import { NavigationContainer } from '@react-navigation/native';
+import React from 'react';
+import SettingScene from '../SettingScene';
+import { connect } from 'react-redux';
+import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
+import { createStackNavigator } from '@react-navigation/stack';
 
 const headerOptions = {
   headerBackTitleStyle: {
@@ -42,7 +43,11 @@ function SettingsStackScreen() {
   );
 }
 
-const HomeScene = () => {
+interface Props {
+  permissions: string[],
+}
+
+const HomeScene: React.FC<Props> = ({ permissions }: Props) => {
     return (
       <NavigationContainer>
         <Tab.Navigator
@@ -61,16 +66,20 @@ const HomeScene = () => {
             }}
           />
 
-          <Tab.Screen
-            name="administrative"
-            component={ AdministrativeStack }
-            options={{
-              tabBarLabel: 'Administrativa',
-              tabBarIcon: ({ color }) => (
-                <Icon name="grid" type='feather' color={color} size={24} />
-              ),
-            }}
-          />
+          {
+            permissions.includes('administrative:access') && (
+              <Tab.Screen
+                name="administrative"
+                component={ AdministrativeStack }
+                options={{
+                  tabBarLabel: 'Administrativa',
+                  tabBarIcon: ({ color }) => (
+                    <Icon name="grid" type='feather' color={color} size={24} />
+                  ),
+                }}
+              />
+            )
+          }
 
           <Tab.Screen
             name="setting"
@@ -87,4 +96,10 @@ const HomeScene = () => {
     );
 };
 
-export default HomeScene;
+const mapStateToProps = (state: any) => {
+  return {
+    permissions: state.loginReducer.login.permissions,
+  };
+};
+
+export default connect(mapStateToProps, null)(HomeScene);

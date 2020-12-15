@@ -1,12 +1,13 @@
-import React, { useState } from 'react';
-import { Dimensions, Image, ImageBackground, Text, View } from 'react-native';
 import { Avatar, Button, Card, Divider, Icon, ListItem, Overlay } from 'react-native-elements';
-import { connect } from 'react-redux';
-import { style } from './style';
+import { Dimensions, Image, ImageBackground, Text, View } from 'react-native';
+import React, { useState } from 'react';
+
 import DropDownPicker from 'react-native-dropdown-picker';
+import { LinearGradient } from 'expo-linear-gradient';
+import { connect } from 'react-redux';
 import { setPlace } from '../../store/actions/generalAction';
 import store from '../../store';
-import { LinearGradient } from 'expo-linear-gradient';
+import { style } from './style';
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeigth = Dimensions.get('window').height;
@@ -136,7 +137,7 @@ const SettingScene = ({ cenateName, user }: any) => {
             buttonStyle={ style.btnLogin }
             title='Cerrar Sesión'
             type="outline"
-            onPress={() => { store.dispatch({type: 'LOGOUT', payload: []})}}
+            onPress={_ => store.dispatch({ type: 'RESET_LOGIN_STATE', payload: [] })}
           />
           <Text style={{paddingVertical: 10, fontSize: 10, color: '#7C7F84', fontFamily: 'Manrope_400Regular'}}>
             Versión 1.0.0.1
