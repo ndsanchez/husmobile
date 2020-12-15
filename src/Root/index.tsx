@@ -1,26 +1,28 @@
-import React, { useState, useEffect } from 'react';
-import { LinearGradient } from "expo-linear-gradient";
-import { useFonts, Manrope_400Regular } from '@expo-google-fonts/manrope';
-import { Spectral_400Regular } from '@expo-google-fonts/spectral';
-import { ActivityIndicator, View, Image  } from 'react-native';
-import { setUsername, setPassword, setLoading } from '../store/actions/loginAction';
-import { connect } from 'react-redux';
-import HomeScene from '../scenes/HomeScene';
-import LoginScene from '../scenes/LoginScene';
-import { loadResources } from './query';
-import LoadingIndicator from '../components/LoadingIndicator';
-import PrimaryLoadingIndicator from '../components/PrimaryLoadingIndicator';
-import NotificationComponent from '../components/NotificationComponent';
+import { ActivityIndicator, Image, View } from 'react-native';
+import { Manrope_400Regular, useFonts } from '@expo-google-fonts/manrope';
+import React, { useEffect, useState } from 'react';
+import { setLoading, setPassword, setUsername } from '../store/actions/loginAction';
+
 import AlertComponent from '../components/AlertComponent';
+import HomeScene from '../scenes/HomeScene';
+import { LinearGradient } from "expo-linear-gradient";
+import LoadingIndicator from '../components/LoadingIndicator';
+import LoginScene from '../scenes/LoginScene';
+import NotificationComponent from '../components/NotificationComponent';
+import PrimaryLoadingIndicator from '../components/PrimaryLoadingIndicator';
+import { Spectral_400Regular } from '@expo-google-fonts/spectral';
+import { connect } from 'react-redux';
+import { loadResources } from './query';
 
 interface Istate {
-    username: string,
-    password: string,
     bearer: string,
     isLoading: boolean,
+    password: string,
+    showUpAlert: boolean,
+    username: string,
 }
 
-const Root = ({ bearer, isLoading }: Istate) => {
+const Root = ({ bearer, isLoading, showUpAlert }: Istate) => {
     useEffect(() => {
 
     });
@@ -37,7 +39,7 @@ const Root = ({ bearer, isLoading }: Istate) => {
     return (
       bearer ?
         <View style={{flex: 1, top: 0, bottom: 0, left: 0, right: 0}} >
-          <AlertComponent />
+          { showUpAlert && <AlertComponent /> }
           <NotificationComponent />
           <HomeScene />
           { isLoading && (<LoadingIndicator />) }
@@ -50,6 +52,7 @@ const mapStateToProps = (state:any) => {
   return {
     bearer: state.loginReducer.login.Bearer,
     isLoading: state.generalReducer.isLoading,
+    showUpAlert: state.generalReducer.alert.isVisible,
   };
 };
 

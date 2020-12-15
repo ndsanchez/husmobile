@@ -7,6 +7,7 @@ const LoginInitialState = {
         Bearer: '',
         user: {},
         error: '',
+        permissions: []
     },
     showPrimaryLoadingIndicator: false
 };

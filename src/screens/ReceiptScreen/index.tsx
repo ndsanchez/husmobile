@@ -1,20 +1,22 @@
-import React, { useEffect, useState } from 'react';
-import { Icon } from 'react-native-elements';
-import {  Dimensions, LogBox, ScrollView, Text, TouchableOpacity, View } from 'react-native';
 import * as Progress from 'react-native-progress';
-import { connect } from 'react-redux';
-import { PieChart } from 'react-native-svg-charts';
+
+import { Dimensions, LogBox, ScrollView, Text, TouchableOpacity, View } from 'react-native';
+import React, { useEffect, useState } from 'react';
+
 import DateTimePicker from '@react-native-community/datetimepicker';
 import DropDownPicker from 'react-native-dropdown-picker';
-import FormatedNumber from '../../components/FormatedNumber';
-import { ProgressChart, } from "react-native-chart-kit";
 import FontawesomeIcon from 'react-native-vector-icons/FontAwesome5';
-import { requestTodayReceipt } from './query';
+import FormatedNumber from '../../components/FormatedNumber';
+import { Icon } from 'react-native-elements';
+import { PieChart } from 'react-native-svg-charts';
+import { ProgressChart, } from "react-native-chart-kit";
+import { connect } from 'react-redux';
+import { fetchReceipt } from './query';
 import store from '../../store';
 
 const WWidth = Dimensions.get('window').width;
 
-const ReceiptScreen = ({ bearer, navigation, placeCode, todayReceipt }: any) => {
+const ReceiptScreen = ({ bearer, navigation, placeCode, permissions, todayReceipt }: any) => {
   LogBox.ignoreAllLogs(true);
 
   const [initialDate, setInitialDate]: any = useState(new Date());
@@ -47,11 +49,11 @@ const ReceiptScreen = ({ bearer, navigation, placeCode, todayReceipt }: any) => 
       type: 'SET_LOADING',
       payload: true
     });
-    requestTodayReceipt(parseInt(item.value), bearer, navigation);
+    fetchReceipt(parseInt(item.value), bearer, navigation);
   };
 
   useEffect(() => {
-    requestTodayReceipt(parseInt('1'), bearer, navigation);
+    fetchReceipt(parseInt('1'), bearer, navigation);
   }, []);
 
   return (
@@ -228,7 +230,8 @@ const mapStateToProps = (state: any) => {
   return {
     placeCode: state.generalReducer.place.code,
     todayReceipt: state.receiptReducer.todayReceipt,
-    bearer: state.loginReducer.login.Bearer
+    bearer: state.loginReducer.login.Bearer,
+    permissions: state.loginReducer.login.permissions
   };
 };
 
