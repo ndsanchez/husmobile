@@ -1,6 +1,6 @@
 import React from 'react';
 import { LinearGradient } from "expo-linear-gradient";
-import { Dimensions, Text, View, Image, ImageBackground  } from 'react-native';
+import { Dimensions, StyleSheet, Text, View, Image, ImageBackground  } from 'react-native';
 import { Button, Input } from 'react-native-elements';
 import InputPasswordToggle from 'react-native-toggle-password-visibility-expo';
 import { styles } from './style';
@@ -10,7 +10,7 @@ import { connect } from 'react-redux';
 import { loginRequest } from './query';
 import PrimaryLoadingIndicator from '../../components/PrimaryLoadingIndicator';
 
-const WWidth = Dimensions.get('window').width;
+const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 const colors = {
   green: '#5bab43',
@@ -27,12 +27,18 @@ interface Istate {
 const LoginView = ({ loginError, password, username, showPrimaryLoadingIndicator }: Istate) => {
     return (
       <View style={styles.container}>
+
+<View style={style.container}>
+
+<View style={style.triangleCorner}></View>
+ <View style={style.triangleCorner1}></View>
+
+</View>
+
         {
           showPrimaryLoadingIndicator
           ? <PrimaryLoadingIndicator />
-          : <LinearGradient
-            colors={['#034B8F', '#034B8F', '#1a87ed']}
-            start={[0.9, 0.1]}
+          : <View
             style={styles.linearGradient}
           >
 
@@ -40,7 +46,7 @@ const LoginView = ({ loginError, password, username, showPrimaryLoadingIndicator
               style={{
                 flex: 1,
                 alignItems: 'center',
-                justifyContent: 'flex-end'
+                justifyContent: 'center'
               }}
             >
               <View style={{backgroundColor: '#FFF', borderRadius: 200, padding: 3}}>
@@ -53,26 +59,35 @@ const LoginView = ({ loginError, password, username, showPrimaryLoadingIndicator
                 Hospital Universitario de la Samaritana
               </Text>
             </View>
-            <View style={{flex: 1}}>
+            <View style={{flex: 1, justifyContent: 'flex-end'}}>
               <Input
                 placeholder="Usuario"
-                placeholderTextColor={'#FFF'}
-                leftIcon={{ type: 'font-awesome', name: 'user', color: 'white' }}
+                placeholderTextColor={'#686354'}
+                leftIcon={{ type: 'font-awesome', name: 'user', color: '#686354' }}
                 containerStyle={styles.input_text}
-                inputContainerStyle={{borderColor: '#FFF'}}
+                inputContainerStyle={{ backgroundColor: 'rgba(0, 0, 0, 0.2)', borderRadius: 30, paddingHorizontal: 20}}
                 inputStyle={styles.inputStyle}
                 onChangeText={value => store.dispatch(setUsername(value))}
                 errorStyle={{color:'#F8B739', fontWeight: 'bold', fontSize: 9}}
                 errorMessage={loginError}
                 value={username}
               />
-              <View style={{borderBottomWidth: 1, borderBottomColor: '#FFF', marginBottom: 50, width: WWidth - 150, paddingBottom: 10}} >
+              <View
+                style={{
+                  marginBottom: 50,
+                  width: windowWidth - 150,
+                  paddingVertical: 10,
+                  paddingHorizontal: 20,
+                  backgroundColor: 'rgba(0, 0, 0, 0.2)',
+                  borderRadius: 30,
+                }}
+              >
                 <InputPasswordToggle
                   placeholder="Contraseña"
-                  placeholderTextColor={'#FFF'}
+                  placeholderTextColor={'#686354'}
                   inputStyle={styles.inputStyle}
                   icon='lock'
-                  iconColor={'white'}
+                  iconColor={'#686354'}
                   iconSize={20}
                   value={password}
                   onChangeText={(psw: string) => store.dispatch({ type: 'SET_PASSWORD', payload: psw })}
@@ -87,11 +102,43 @@ const LoginView = ({ loginError, password, username, showPrimaryLoadingIndicator
               />
             </View>
             
-          </LinearGradient>
+          </View>
         }
       </View>
     )
 };
+
+const style = StyleSheet.create({
+  container: {
+    position: 'absolute',
+    height: 100,
+    width: windowWidth,
+    top: 0,
+    backgroundColor: 'transparent',
+  },triangleCorner1: {
+    position: 'absolute',
+    top: 0,
+    right:0,
+    width: windowWidth,
+    backgroundColor: 'transparent',
+    borderStyle: 'solid',
+    borderLeftWidth: 30,
+    borderTopWidth: 20,
+    borderLeftColor: 'transparent',
+    borderTopColor: '#394E99'
+  },triangleCorner: {
+    position: 'absolute',
+    top: 20,
+    right:0,
+    width: windowWidth - 100,
+    backgroundColor: 'transparent',
+    borderStyle: 'solid',
+    borderLeftWidth: 30,
+    borderTopWidth: 20,
+    borderLeftColor: 'transparent',
+    borderTopColor: '#5bab43'
+  }
+});
 
 const mapStateToProps = (state:any) => {
   return {

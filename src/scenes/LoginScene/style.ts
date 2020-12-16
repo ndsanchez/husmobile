@@ -12,9 +12,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   linearGradient: {
-    width: '100%',
-    height: '100%',
-    opacity: 0.95,
+    flex: 1,
     justifyContent: 'center',
     alignItems: 'center'
   },
@@ -24,12 +22,12 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 30,
-    color: '#FFF',
+    color: '#686354',
     fontFamily: 'Spectral_400Regular',
   },
   subtitle: {
     fontSize: 10,
-    color: '#FFF',
+    color: '#686354',
     fontFamily: 'Manrope_400Regular',
     marginBottom: 50,
   },
@@ -37,10 +35,11 @@ const styles = StyleSheet.create({
     width: width - 150,
     marginHorizontal: 0,
     paddingHorizontal: 0,
+    borderWidth: 0,
   },
   inputStyle: {
     paddingHorizontal: 15,
-    color: '#FFF',
+    color: '#686354',
     fontSize: 12,
     fontFamily: 'Manrope_400Regular',
   },
