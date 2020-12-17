@@ -1,8 +1,8 @@
-import { ActivityIndicator, Image, View } from 'react-native';
+import { Platform, StatusBar as notificationBar, View } from 'react-native';
 import { Manrope_400Regular, useFonts } from '@expo-google-fonts/manrope';
 import React, { useEffect, useState } from 'react';
 import { setLoading, setPassword, setUsername } from '../store/actions/loginAction';
-
+import { StatusBar } from 'expo-status-bar';
 import AlertComponent from '../components/AlertComponent';
 import HomeScene from '../scenes/HomeScene';
 import { LinearGradient } from "expo-linear-gradient";
@@ -22,6 +22,10 @@ interface Istate {
     username: string,
 }
 
+const statusBarHeight = Platform.OS === 'android'
+  ? notificationBar.currentHeight || (Platform.Version < 23 ? 25 : 24)
+  : 0;
+
 const Root = ({ bearer, isLoading, showUpAlert }: Istate) => {
     useEffect(() => {
 
@@ -39,12 +43,19 @@ const Root = ({ bearer, isLoading, showUpAlert }: Istate) => {
     return (
       /*bearer*/ true ?
         <View style={{flex: 1, top: 0, bottom: 0, left: 0, right: 0}} >
+          <StatusBar style="light" />
           { showUpAlert && <AlertComponent /> }
           <NotificationComponent />
           <HomeScene />
           { isLoading && (<LoadingIndicator />) }
         </View>
-      : <LoginScene />
+      : (
+        <View style={{flex: 1, paddingTop: statusBarHeight}}>
+          <StatusBar style="dark" />
+          <LoginScene />
+        </View>
+      )
+        
     );
   };
 
