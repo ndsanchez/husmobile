@@ -70,6 +70,7 @@ const InterconsultationScene = ({ interconsultation, navigation, placeCode, spec
     <SafeAreaView style={{flex: 1}}>
       {/* Background screen */}
       <BackgroundComponent />
+
         <View style={{
           padding: 20,
           borderRadius: 30,
