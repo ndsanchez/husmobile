@@ -12,10 +12,10 @@ const PrimaryLoadingIndicator = () => (
       alignItems: 'center',
       justifyContent: 'center',
       zIndex: 10000,
-      backgroundColor: '#034B8F'}}
+      backgroundColor: '#FFF'}}
     >
-    <Image style={{ width: 120, height: 120, marginBottom:40 }} source={require('../../assets/images/logo.png')} />
-    <ActivityIndicator size='large' color='#F8F8F8' />
+    <Image style={{ width: 120, height: 120, marginBottom:40 }} source={require('../../assets/images/shield.png')} />
+    <ActivityIndicator size='large' color='#5BAB43' />
   </View>
 );
 

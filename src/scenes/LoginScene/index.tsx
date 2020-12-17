@@ -154,7 +154,7 @@ const LoginView = ({ loginError, password, username, showPrimaryLoadingIndicator
               <Text style={{fontFamily: 'Manrope_400Regular', fontSize: 11, color: '#686354'}} >
                 {'¿Como obtengo mi '}
               </Text>
-              <Text style={{fontFamily: 'Manrope_400Regular', fontSize: 11, fontWeight: 'bold', color: '#5bab43'}} >
+              <Text style={{fontFamily: 'Manrope_400Regular', fontSize: 11, fontWeight: 'bold', color: '#5bab43', textDecorationLine: 'underline'}} >
                 {'usuario?'}
               </Text>
             </View>
