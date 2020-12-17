@@ -13,7 +13,7 @@ const headerOptions = {
     color: "#FFF",
   },
   headerStyle: {
-    backgroundColor: '#034B8F', //#034B8F
+    backgroundColor: '#394E99', //#034B8F
   },
   headerTitleStyle: {
     color: '#FFF',

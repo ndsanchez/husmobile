@@ -6,6 +6,7 @@ import { HospitalIndicator } from '../../components/Header';
 import InterconsultationScene from '../../scenes/InterconsultationScene';
 import InterconsultationStackScreen from '../InterconsultationStackScreen';
 import ReceiptStackScreen from '../ReceiptStackScreen';
+import HeaderComponent from '../../components/HeaderComponent';
 
 interface HomeStackScreenProps {
   place: string,
@@ -18,7 +19,7 @@ const headerOptions = {
       color: "#FFF",
     },
     headerStyle: {
-      backgroundColor: '#034B8F',
+      backgroundColor: 'transparent',
     },
     headerTitleStyle: {
       color: '#FFF',
@@ -37,7 +38,8 @@ const HomeStackScreen: React.FC<HomeStackScreenProps> = ({ place }: HomeStackScr
         options={{
           ...headerOptions,
           headerTitle: "Hospital Universitario de la Samaritana",
-          headerTitleStyle: {...headerOptions.headerTitleStyle, alignSelf: "center"}
+          headerTitleStyle: {...headerOptions.headerTitleStyle, alignSelf: "center"},
+          header: () => <HeaderComponent title={'Asistencial'} />
         }}
       />
       <HomeStack.Screen

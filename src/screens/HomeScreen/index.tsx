@@ -34,9 +34,6 @@ const HomeScreen = ({ navigation }: any) => {
         {/* Background screeen */}
         <BackgroundComponent />
 
-        {/* title container */}
-        <TitleComponent text={'Asistencial'} />
-
         {/* cards container */}
         <View
           style={{
