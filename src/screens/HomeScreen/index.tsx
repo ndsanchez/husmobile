@@ -41,7 +41,7 @@ const HomeScreen = ({ navigation }: any) => {
             backgroundColor: 'transparent',
             elevation: 5,
             height: 2 * windowHeight / 3,
-            top: 100,
+            top: 120,
             left: 20,
             width: WWidth - 40,
           }}
