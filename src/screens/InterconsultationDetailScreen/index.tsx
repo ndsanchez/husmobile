@@ -3,8 +3,10 @@ import { Dimensions, ScrollView,Text, View, ImageBackground } from 'react-native
 import { Divider, Avatar } from 'react-native-elements';
 import { LinearGradient } from 'expo-linear-gradient';
 import store from '../../store';
+import BackgroundComponent from '../../components/BackgroundComponent';
 
 const windowWidth = Dimensions.get('window').width;
+const windowHeight = Dimensions.get('window').height;
 const InterconsultationDetailScreen = ({ navigation, route }: any) => {
 
   const { item } = route.params;
@@ -18,12 +20,14 @@ const InterconsultationDetailScreen = ({ navigation, route }: any) => {
 
   return (
     <View style={{flex: 1, paddingTop: 20, paddingBottom: 5, backgroundColor: '#FAFAFA'}}>
-      <ScrollView>
-      <LinearGradient
+      {/* ScrBackground*/}
+      <BackgroundComponent />
+
+      <View style={{flex: 1, top: 120}}>
+        <LinearGradient
           start= {{x: 0.9, y: 0}}
-          colors={['#2E226F', '#034B8F', '#02D3E7']}
+          colors={['transparent', 'transparent', 'transparent']}
           style={{borderRadius: 15, marginHorizontal: 5}}>
-          <ImageBackground source={require('../../assets/images/circles.png')} resizeMode='cover' style={{flex:1, justifyContent: 'center'}}>
             <View style={{flex: 1, width: windowWidth, alignItems: 'center'}}>
               <View style={{flex: 1, flexDirection: 'row', paddingVertical: 25, width: windowWidth*0.8}}>
                 <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
@@ -35,11 +39,28 @@ const InterconsultationDetailScreen = ({ navigation, route }: any) => {
                 </View>
               </View>
             </View>
-          </ImageBackground>
         </LinearGradient>
-        <View style={{backgroundColor: '#FFF', marginHorizontal: 5, marginTop: 10, borderRadius: 15}}>
+
+        <View style={{
+          backgroundColor: '#FFF',
+          marginHorizontal: 5,
+          marginVertical: 30,
+          borderRadius: 30,
+          shadowColor: '#000',
+          shadowOffset: {
+            height: 50,
+            width: 0
+          },
+          shadowOpacity: 0.58,
+          shadowRadius: 20,
+          elevation: 5,
+          height: windowHeight,
+          top: 110
+          }}
+        >
           <View style={{flex:1, flexDirection: 'column', marginVertical: 20, marginHorizontal: 20}}>
             <View style={{flex: 1}}>
+            <ScrollView>
               <Text style={{fontFamily: 'Manrope_400Regular', fontWeight: 'bold', paddingVertical: 5}}>Información de solicitud</Text>
               <Divider />
               <View style={{paddingVertical: 20}}>
@@ -51,7 +72,9 @@ const InterconsultationDetailScreen = ({ navigation, route }: any) => {
 
                 <View style={{flex: 1, flexDirection: "row"}}>
                   <Text style={{fontFamily: 'Manrope_400Regular', fontSize:12, fontWeight: 'bold', paddingVertical: 5}}>Cama: </Text>
-                  <Text style={{fontFamily: 'Manrope_400Regular', fontSize:12, paddingVertical: 5}}>{item.CAMA ? item.CAMA : 'No asignada'}</Text>
+                  <Text style={{fontFamily: 'Manrope_400Regular', fontSize:12, paddingVertical: 5}}>
+                    {item.CAMA ? item.CAMA : 'No asignada'}
+                  </Text>
                 </View>
                 <Divider />
 
@@ -78,10 +101,11 @@ const InterconsultationDetailScreen = ({ navigation, route }: any) => {
                 </View>
                 <Divider />
               </View>
+            </ScrollView>
             </View>
           </View>
         </View>
-      </ScrollView>
+      </View>
     </View>
   );
 }

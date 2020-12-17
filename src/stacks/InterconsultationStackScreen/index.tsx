@@ -41,8 +41,7 @@ const InterconsultationStackScreen: React.FC<HomeStackScreenProps> = ({ place }:
         name="Detalle de Interconsulta"
         component={InterconsultationDetailScreen}
         options={{
-          ...headerOptions,
-        headerRight: () => (<HospitalIndicator place={place} />),
+          header: () => <HeaderComponent title={'Datos interconsulta'} canBack={true} />
         }}
       />
     </Stack.Navigator>
