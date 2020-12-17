@@ -35,7 +35,6 @@ const styles = StyleSheet.create({
     width: width - 150,
     marginHorizontal: 0,
     paddingHorizontal: 0,
-    borderWidth: 0,
   },
   inputStyle: {
     paddingHorizontal: 15,
@@ -47,8 +46,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#5bab43',
     borderColor: '#5bab43',
     borderRadius: 20,
-    width: width - 150,
-    zIndex: 20000
+    width: width - 150
   },
   btn_label: {
     textTransform: 'capitalize',

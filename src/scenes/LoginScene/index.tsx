@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { LinearGradient } from "expo-linear-gradient";
-import { Dimensions, StyleSheet, Text, View, Image, ImageBackground  } from 'react-native';
-import { Button, Input } from 'react-native-elements';
+import { Dimensions, Keyboard, StyleSheet, Text, View, Image, ImageBackground  } from 'react-native';
+import { Button, Divider, Input } from 'react-native-elements';
 import InputPasswordToggle from 'react-native-toggle-password-visibility-expo';
 import { styles } from './style';
 import { setUsername, setPassword } from '../../store/actions/loginAction';
@@ -25,15 +25,35 @@ interface Istate {
 }
 
 const LoginView = ({ loginError, password, username, showPrimaryLoadingIndicator }: Istate) => {
-    return (
-      <View style={styles.container}>
 
-<View style={style.container}>
+  const [keyboardHidden, setKeyboardHidden] = useState(false);
 
-<View style={style.triangleCorner}></View>
- <View style={style.triangleCorner1}></View>
+  useEffect(() => {
+    Keyboard.addListener('keyboardDidShow', _keyboardDidShow);
+    Keyboard.addListener('keyboardDidHide', _keyboardDidHide);
 
-</View>
+    // cleanup function
+    return () => {
+      Keyboard.removeListener('keyboardDidShow', _keyboardDidShow);
+      Keyboard.removeListener('keyboardDidHide', _keyboardDidHide);
+    };
+  }, []);
+
+  const _keyboardDidShow = () => {
+    setKeyboardHidden(true);
+  };
+
+  const _keyboardDidHide = () => {
+    setKeyboardHidden(false);
+  };
+
+  return (
+    <View style={styles.container}>
+
+      <View style={style.container}>
+        <View style={style.triangleCorner}></View>
+        <View style={style.triangleCorner1}></View>
+      </View>
 
         {
           showPrimaryLoadingIndicator
@@ -44,9 +64,9 @@ const LoginView = ({ loginError, password, username, showPrimaryLoadingIndicator
 
             <View
               style={{
-                flex: 1,
                 alignItems: 'center',
-                justifyContent: 'center'
+                justifyContent: 'center',
+                display: keyboardHidden ? 'none' : 'flex' 
               }}
             >
               <View style={{backgroundColor: '#FFF', borderRadius: 200, padding: 3}}>
@@ -59,13 +79,26 @@ const LoginView = ({ loginError, password, username, showPrimaryLoadingIndicator
                 Hospital Universitario de la Samaritana
               </Text>
             </View>
-            <View style={{flex: 1, justifyContent: 'flex-end'}}>
+            <View style={{justifyContent: 'flex-start'}}>
               <Input
                 placeholder="Usuario"
                 placeholderTextColor={'#686354'}
                 leftIcon={{ type: 'font-awesome', name: 'user', color: '#686354' }}
                 containerStyle={styles.input_text}
-                inputContainerStyle={{ backgroundColor: 'rgba(0, 0, 0, 0.2)', borderRadius: 30, paddingHorizontal: 20}}
+                inputContainerStyle={{
+                  backgroundColor: 'rgba(0, 0, 0, 0.1)',
+                  borderRadius: 30,
+                  paddingHorizontal: 20,
+                  borderColor: 'transparent',
+                  shadowColor: '#000',
+                  shadowOffset: {
+                    height: 50,
+                    width: 0
+                  },
+                  shadowOpacity: 0.58,
+                  shadowRadius: 20,
+                  elevation: 30,
+                }}
                 inputStyle={styles.inputStyle}
                 onChangeText={value => store.dispatch(setUsername(value))}
                 errorStyle={{color:'#F8B739', fontWeight: 'bold', fontSize: 9}}
@@ -74,12 +107,19 @@ const LoginView = ({ loginError, password, username, showPrimaryLoadingIndicator
               />
               <View
                 style={{
-                  marginBottom: 50,
                   width: windowWidth - 150,
                   paddingVertical: 10,
                   paddingHorizontal: 20,
-                  backgroundColor: 'rgba(0, 0, 0, 0.2)',
+                  backgroundColor: 'rgba(0, 0, 0, 0.1)',
                   borderRadius: 30,
+                  shadowColor: '#000',
+                  shadowOffset: {
+                    height: 50,
+                    width: 0
+                  },
+                  shadowOpacity: 0.58,
+                  shadowRadius: 20,
+                  elevation: 30,
                 }}
               >
                 <InputPasswordToggle
@@ -93,6 +133,13 @@ const LoginView = ({ loginError, password, username, showPrimaryLoadingIndicator
                   onChangeText={(psw: string) => store.dispatch({ type: 'SET_PASSWORD', payload: psw })}
                 />
               </View>
+              
+              <View style={{width: windowWidth - 150, justifyContent: 'center', alignItems: 'center', paddingVertical: 30}}>
+                <Text style={{fontFamily: 'Manrope_400Regular', fontSize: 11, color: '#686354', textDecorationLine: 'underline'}} >
+                  ¿Olvidaste tu contraseña?
+                </Text>
+              </View>
+
               <Button
                 titleStyle={{color: '#FFF', fontFamily: 'Manrope_400Regular', fontSize: 12, fontWeight: 'bold'}}
                 buttonStyle={ styles.btnLogin }
@@ -100,6 +147,16 @@ const LoginView = ({ loginError, password, username, showPrimaryLoadingIndicator
                 type="outline"
                 onPress={() => { loginRequest(username, password)}}
               />
+
+            </View>
+
+            <View style={{flexDirection: 'row', width: windowWidth - 150, justifyContent: 'center', paddingTop: 30}}>
+              <Text style={{fontFamily: 'Manrope_400Regular', fontSize: 11, color: '#686354'}} >
+                {'¿Como obtengo mi '}
+              </Text>
+              <Text style={{fontFamily: 'Manrope_400Regular', fontSize: 11, fontWeight: 'bold', color: '#5bab43'}} >
+                {'usuario?'}
+              </Text>
             </View>
             
           </View>
@@ -109,6 +166,9 @@ const LoginView = ({ loginError, password, username, showPrimaryLoadingIndicator
 };
 
 const style = StyleSheet.create({
+  displayNone: {
+    display: 'none'
+  },
   container: {
     position: 'absolute',
     height: 100,
