@@ -4,6 +4,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { HospitalIndicator } from '../../components/Header';
 import InterconsultationScene from '../../scenes/InterconsultationScene';
 import InterconsultationDetailScreen from '../../screens/InterconsultationDetailScreen';
+import HeaderComponent from '../../components/HeaderComponent';
 
 interface HomeStackScreenProps {
   place: string,
@@ -33,8 +34,7 @@ const InterconsultationStackScreen: React.FC<HomeStackScreenProps> = ({ place }:
         name="Interconsultas"
         component={InterconsultationScene}
         options={{
-          ...headerOptions,
-        headerRight: () => (<HospitalIndicator place={place} />),
+          header: () => <HeaderComponent title={'Interconsultas'} canBack={true} />
         }}
       />
       <Stack.Screen

@@ -6,7 +6,7 @@ const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
 
 const BackgroundComponent = () => (
-  <View>
+  <View style={{position: 'absolute', top: 0, left: 0}}>
     <LinearGradient
       colors={['#394E99', '#162559']}
       style={{

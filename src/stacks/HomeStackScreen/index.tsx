@@ -36,9 +36,6 @@ const HomeStackScreen: React.FC<HomeStackScreenProps> = ({ place }: HomeStackScr
         name="Asistencial"
         component={HomeScreen}
         options={{
-          ...headerOptions,
-          headerTitle: "Hospital Universitario de la Samaritana",
-          headerTitleStyle: {...headerOptions.headerTitleStyle, alignSelf: "center"},
           header: () => <HeaderComponent title={'Asistencial'} canBack={false} />
         }}
       />

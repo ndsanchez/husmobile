@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react';
-import { Dimensions, Text, View, StyleSheet, ScrollView } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { Dimensions, Text, View, SafeAreaView, StyleSheet, ScrollView } from 'react-native';
 import DropDownPicker from 'react-native-dropdown-picker';
 import { Avatar, Icon, ListItem } from 'react-native-elements';
 import { connect } from 'react-redux';
@@ -10,16 +10,16 @@ import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import { loadResources } from '../../Root/query';
 import NothingToShow from '../../components/NothingToShow';
 import { fetchInterconsultation } from './query';
+import BackgroundComponent from '../../components/BackgroundComponent';
 
 const windowWidth = Dimensions.get('window').width;
+const windowHeight = Dimensions.get('window').height;
 
 type itemType = {
   label: string,
   value: string,
   icon?: (() => JSX.Element) | undefined,
 }
-
-const Picker = DropDownPicker;
 
 interface InterconsultationSceneProps {
   specialities: [specialityType] | []
@@ -67,72 +67,86 @@ const InterconsultationScene = ({ interconsultation, navigation, placeCode, spec
   });
   
   return (
-    <View style={{flex: 1, flexDirection: 'column'}}>
-      <View style={{flex: 1}}>
-        <View style={{paddingBottom: 5, /*zIndex: 10*/}}>
-          <DropDownPicker
-            items={specialities.map((item: any) => {
-              return {
-                label: item.GEEDESCRI.charAt(0).toUpperCase() + item.GEEDESCRI.slice(1).toLowerCase(),
-                value: item.OID,
-                icon: () => <Icon size={14} name='chevron-right' type='entypo' color='#000' />
+    <SafeAreaView style={{flex: 1}}>
+      {/* Background screen */}
+      <BackgroundComponent />
+        <View style={{
+          padding: 20,
+          borderRadius: 30,
+          backgroundColor: '#FFF',
+          elevation: 5,
+          top: 180,
+          left: 20,
+          height: windowHeight - 210,
+          marginBottom: 100,
+          width: windowWidth - 40,
+        }}>
+            <View style={{flex: 1}}>
+              <DropDownPicker
+                items={specialities.map((item: any) => {
+                  return {
+                    label: item.GEEDESCRI.charAt(0).toUpperCase() + item.GEEDESCRI.slice(1).toLowerCase(),
+                    value: item.OID,
+                    icon: () => <Icon size={14} name='chevron-right' type='entypo' color='#000' />
+                  }
+                  })
+                }
+                containerStyle={{height: 50}}
+                style={{backgroundColor: '#FFF', borderColor: '#FFF'}}
+                itemStyle={{
+                  justifyContent: 'flex-start',
+                  borderBottomColor: '#000',
+                }}
+                labelStyle={{
+                  color: '#000',
+                  fontFamily: 'Manrope_400Regular',
+                  fontSize: 11,
+                }}
+                selectedLabelStyle={{fontWeight: 'bold'}}
+                activeLabelStyle={{color: '#59AD42', fontWeight: 'bold'}}
+                dropDownMaxHeight={windowHeight - 300}
+                dropDownStyle={{
+                  backgroundColor: '#FFF',
+                  borderColor: 'transparent',
+                  //borderWidth: 3,
+                  maxWidth: windowWidth
+                }}
+                placeholder="Seleccione una especialidad"
+                searchable={true}
+                searchableError={() => <NothingToShow />}
+                searchablePlaceholder="Buscar"
+                onChangeItem={ selected => onChangeItemHandler(selected) }
+                onOpen={() => onOpenHandler()}
+              />
+              {
+                interconsultation.length < 1 ?
+                  <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
+                    <NothingToShow />
+                  </View>
+                : (
+                  <ScrollView>
+                    {
+                      interconsultation.map((patient:any, key:any) => (
+                        <ListItem bottomDivider key={key} onPress={() => onPressHandler(navigation, 'Detalle de Interconsulta', patient)} >
+                          <Icon type="octicon" name="primitive-dot" size={16} color="rgba(255, 193, 7, 1)" />
+                          <ListItem.Content>
+                            <ListItem.Title style={{fontFamily: 'Manrope_400Regular', textTransform: 'capitalize', fontSize: 12}}>
+                              { patient.NOMBRE }
+                            </ListItem.Title>
+                            <ListItem.Subtitle style={{fontFamily: 'Manrope_400Regular', fontSize: 10}}>
+                              { patient.HISTORIA }
+                            </ListItem.Subtitle>
+                          </ListItem.Content>
+                          <ListItem.Chevron />
+                        </ListItem>
+                      ))
+                    }
+                  </ScrollView>
+                )
               }
-              })
-            }
-            containerStyle={{height: 50}}
-            style={{backgroundColor: '#FFF', borderColor: '#FFF'}}
-            itemStyle={{
-              justifyContent: 'flex-start',
-              borderBottomColor: '#000',
-            }}
-            labelStyle={{
-              color: '#000',
-              fontFamily: 'Manrope_400Regular',
-              fontSize: 11,
-            }}
-            selectedLabelStyle={{fontWeight: 'bold'}}
-            activeLabelStyle={{color: '#59AD42', fontWeight: 'bold'}}
-            dropDownMaxHeight={600}
-            dropDownStyle={{backgroundColor: '#FFF', borderColor: '#FAFAFA', borderWidth: 3, maxWidth: windowWidth}}
-            placeholder="Seleccione una especialidad"
-            searchable={true}
-            searchableError={() => <NothingToShow />}
-            searchablePlaceholder="Buscar especialidad"
-            onChangeItem={ selected => onChangeItemHandler(selected) }
-            onOpen={() => onOpenHandler()}
-          />
+            </View>
         </View>
-        <View style={{flex: 1}}>
-          {
-            interconsultation.length < 1 ?
-              <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
-                <NothingToShow />
-              </View>
-            : undefined
-          }
-          <ScrollView>
-            {
-              interconsultation.length > 0 ?
-                interconsultation.map((patient:any, key:any) => (
-                      <ListItem bottomDivider key={key} onPress={() => onPressHandler(navigation, 'Detalle de Interconsulta', patient)} >
-                        <Icon type="octicon" name="primitive-dot" size={16} color="rgba(255, 193, 7, 1)" />
-                        <ListItem.Content>
-                          <ListItem.Title style={{fontFamily: 'Manrope_400Regular', textTransform: 'capitalize', fontSize: 12}}>
-                            { patient.NOMBRE }
-                          </ListItem.Title>
-                          <ListItem.Subtitle style={{fontFamily: 'Manrope_400Regular', fontSize: 10}}>
-                            { patient.HISTORIA }
-                          </ListItem.Subtitle>
-                        </ListItem.Content>
-                        <ListItem.Chevron />
-                      </ListItem>
-                ))
-                : undefined
-            }
-          </ScrollView>
-          </View>
-      </View>
-    </View>
+      </SafeAreaView>
   );
 };
 

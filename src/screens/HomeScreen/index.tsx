@@ -37,11 +37,10 @@ const HomeScreen = ({ navigation }: any) => {
         {/* cards container */}
         <View
           style={{
-            position: 'absolute',
             backgroundColor: 'transparent',
             elevation: 5,
             height: 2 * windowHeight / 3,
-            top: 120,
+            top: 150,
             left: 20,
             width: WWidth - 40,
           }}
