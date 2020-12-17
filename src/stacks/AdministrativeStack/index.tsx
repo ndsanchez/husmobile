@@ -4,6 +4,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import HomeScreen from '../../screens/Administrative/HomeScreen';
 import InterconsultationStackScreen from '../InterconsultationStackScreen';
 import ReceiptStackScreen from '../ReceiptStackScreen';
+import HeaderComponent from '../../components/HeaderComponent';
 
 interface AdministrativeStackProps {
   place: string,
@@ -33,9 +34,7 @@ const AdministrativeStack: React.FC<AdministrativeStackProps> = ({ place }: Admi
         name="Administrativa"
         component={HomeScreen}
         options={{
-          ...headerOptions,
-          headerTitle: "Hospital Universitario de la Samaritana",
-          headerTitleStyle: {...headerOptions.headerTitleStyle, alignSelf: "center"}
+          header: () => <HeaderComponent title={'Asistencial'} canBack={false} />
         }}
       />
       <Stack.Screen
