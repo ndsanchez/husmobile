@@ -183,18 +183,18 @@ const style = StyleSheet.create({
     backgroundColor: 'transparent',
     borderStyle: 'solid',
     borderRightWidth: 30,
-    borderBottomWidth: 20,
+    borderBottomWidth: 15,
     borderRightColor: 'transparent',
     borderBottomColor: '#5bab43'
   },triangleCorner: {
     position: 'absolute',
-    top: 20,
+    top: 14,
     left:0,
     width: windowWidth,
     backgroundColor: 'transparent',
     borderStyle: 'solid',
     borderRightWidth: 30,
-    borderBottomWidth: 20,
+    borderBottomWidth: 15,
     borderRightColor: 'transparent',
     borderBottomColor: '#394E99'
   }
