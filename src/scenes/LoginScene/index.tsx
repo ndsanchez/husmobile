@@ -49,16 +49,21 @@ const LoginView = ({ loginError, password, username, showPrimaryLoadingIndicator
 
   return (
     <View style={styles.container}>
-
+      {
+        /* decorative Lines 
       <View style={style.container}>
         <View style={style.triangleCorner}></View>
         <View style={style.triangleCorner1}></View>
       </View>
+        */
+      }
 
         {
           showPrimaryLoadingIndicator
           ? <PrimaryLoadingIndicator />
-          : <View
+          : <LinearGradient
+            colors={['#FFF', '#FFF', '#FFF']}
+            start={[0.1, 0.9]}
             style={styles.linearGradient}
           >
 
@@ -159,7 +164,7 @@ const LoginView = ({ loginError, password, username, showPrimaryLoadingIndicator
               </Text>
             </View>
             
-          </View>
+          </LinearGradient>
         }
       </View>
     )
