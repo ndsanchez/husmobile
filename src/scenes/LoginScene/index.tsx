@@ -9,6 +9,7 @@ import store from '../../store';
 import { connect } from 'react-redux';
 import { loginRequest } from './query';
 import PrimaryLoadingIndicator from '../../components/PrimaryLoadingIndicator';
+import ButtonComponent from '../../components/ButtonComponent';
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
@@ -145,12 +146,11 @@ const LoginView = ({ loginError, password, username, showPrimaryLoadingIndicator
                 </Text>
               </View>
 
-              <Button
-                titleStyle={{color: '#FFF', fontFamily: 'Manrope_400Regular', fontSize: 12, fontWeight: 'bold'}}
-                buttonStyle={ styles.btnLogin }
-                title='Ingresar'
-                type="outline"
-                onPress={() => { loginRequest(username, password)}}
+              <ButtonComponent
+                text='Ingresar'
+                onPressHandler={() => { loginRequest(username, password)}}
+                iconName={'enter'}
+                iconType={'antdesign'}
               />
 
             </View>

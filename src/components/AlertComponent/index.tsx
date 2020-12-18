@@ -4,7 +4,7 @@ import { Icon } from 'react-native-elements';
 import Modal from 'react-native-modal';
 import { connect } from 'react-redux';
 import store from '../../store';
-import SolidButton from '../SolidButton';
+import ButtonComponent from '../ButtonComponent';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -64,9 +64,9 @@ const AlertComponent: React.FC<Props> = ({ iconColor, iconName, iconType, isVisi
           >
             { subtitle }
           </Text>
-          <SolidButton
+          <ButtonComponent
             text={'Ok'}
-            onPresshandler={btnHandler}
+            onPressHandler={btnHandler}
           />
         </View>
       </Modal>
