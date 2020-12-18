@@ -8,6 +8,7 @@ import { connect } from 'react-redux';
 import { setPlace } from '../../store/actions/generalAction';
 import store from '../../store';
 import { style } from './style';
+import BackgroundComponent from '../../components/BackgroundComponent';
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeigth = Dimensions.get('window').height;
@@ -55,8 +56,12 @@ const SettingScene = ({ cenateName, user }: any) => {
 
     return (
       <View style={{flex: 1}} >
+        
+        {/** Screen Background */}
+        <BackgroundComponent />
+
         {/* user circular logo */}
-        <View style={{position: 'absolute', top: 85, alignItems: 'center', elevation: 6}} >
+        <View style={{position: 'absolute', top: 125, alignItems: 'center', elevation: 6}} >
           <View style={{alignItems: 'center', width: windowWidth, height: 40}} >
             <Image style={{width: 125, height: 125}} source={require('../../assets/images/user.png')} />
           </View>
@@ -72,7 +77,7 @@ const SettingScene = ({ cenateName, user }: any) => {
             shadowOpacity: 0.25,
             shadowRadius: 3.84,
             elevation: 5,
-            top: 150,
+            top: 190,
             left: 20,
             height: 350,
             width: windowWidth - 40,
@@ -144,24 +149,6 @@ const SettingScene = ({ cenateName, user }: any) => {
           </Text>
         </View>
 
-        {/* blue background with image */}
-        <View style={{flex: 1}}>
-          <ImageBackground
-            source={require('../../assets/images/circles.png')}
-            style={{
-              flex: 1,
-              backgroundColor: '#034B8F',
-              borderBottomLeftRadius: 50,
-              borderBottomRightRadius: 50,
-            }}
-          >
-          </ImageBackground>
-        </View>
-
-        {/* gray background */}
-        <View style={{flex: 2, alignItems: 'center'}} >
-          
-        </View>
       </View>
     );
 };

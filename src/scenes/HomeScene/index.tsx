@@ -7,6 +7,7 @@ import SettingScene from '../SettingScene';
 import { connect } from 'react-redux';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
+import HeaderComponent from '../../components/HeaderComponent';
 
 const headerOptions = {
   headerBackTitleStyle: {
@@ -34,9 +35,7 @@ function SettingsStackScreen() {
         name="Settings"
         component={SettingScene}
         options={{
-          ...headerOptions,
-          headerTitle: "Hospital Universitario de la Samaritana",
-          headerTitleStyle: {...headerOptions.headerTitleStyle, alignSelf: "center"}
+          header: () => <HeaderComponent title={'Perfil'} canBack={false} />
         }}
       />
     </SettingsStack.Navigator>
@@ -85,7 +84,7 @@ const HomeScene: React.FC<Props> = ({ permissions }: Props) => {
             name="setting"
             component={ SettingsStackScreen }
             options={{
-              tabBarLabel: 'Ajustes',
+              tabBarLabel: 'Perfil',
               tabBarIcon: ({ color }) => (
                 <Icon name="account-outline" type="material-community" color={color} size={24} />
               ),
