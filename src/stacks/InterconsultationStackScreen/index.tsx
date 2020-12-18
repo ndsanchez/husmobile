@@ -8,6 +8,7 @@ import HeaderComponent from '../../components/HeaderComponent';
 
 interface HomeStackScreenProps {
   place: string,
+  navigation: any
 }
 
 const Stack = createStackNavigator();
@@ -27,21 +28,28 @@ const headerOptions = {
     headerTintColor:'#FFF'
 };
 
-const InterconsultationStackScreen: React.FC<HomeStackScreenProps> = ({ place }: HomeStackScreenProps) => {
+const InterconsultationStackScreen: React.FC<HomeStackScreenProps> = ({ place, navigation }: HomeStackScreenProps) => {
   return (
     <Stack.Navigator>
       <Stack.Screen
         name="Interconsultas"
         component={InterconsultationScene}
         options={{
-          header: () => <HeaderComponent title={'Interconsultas'} canBack={true} />
+          header: () =>
+            <HeaderComponent title={'Interconsultas'} canBack={true} navigation={navigation} />
         }}
       />
       <Stack.Screen
         name="Detalle de Interconsulta"
         component={InterconsultationDetailScreen}
         options={{
-          header: () => <HeaderComponent title={'Datos interconsulta'} canBack={true} />
+          header: () => (
+            <HeaderComponent
+              title={'Datos interconsulta'}
+              canBack={true}
+              navigation={navigation}
+              previous={'Interconsultas'} />
+          )
         }}
       />
     </Stack.Navigator>

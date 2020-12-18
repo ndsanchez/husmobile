@@ -7,6 +7,7 @@ import HeaderComponent from '../../components/HeaderComponent';
 
 interface HomeStackScreenProps {
   place: string,
+  navigation: any
 }
 
 const Stack = createStackNavigator();
@@ -26,14 +27,14 @@ const headerOptions = {
     headerTintColor:'#FFF'
 };
 
-const InterconsultationStackScreen: React.FC<HomeStackScreenProps> = ({ place }: HomeStackScreenProps) => {
+const InterconsultationStackScreen: React.FC<HomeStackScreenProps> = ({ place, navigation }: HomeStackScreenProps) => {
   return (
     <Stack.Navigator>
       <Stack.Screen
         name="Facturacion"
         component={ReceiptScreen}
         options={{
-          header: () => <HeaderComponent title={'Facturación'} canBack={true} />
+          header: () => <HeaderComponent title={'Facturación'} canBack={true} navigation={navigation} />
         }}
       />
       {/**
