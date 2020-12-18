@@ -23,7 +23,7 @@ const InterconsultationDetailScreen = ({ navigation, route }: any) => {
       {/* ScrBackground*/}
       <BackgroundComponent />
 
-      <View style={{flex: 1, top: 120}}>
+      <View style={{flex: 1, top: 140}}>
         <LinearGradient
           start= {{x: 0.9, y: 0}}
           colors={['transparent', 'transparent', 'transparent']}
@@ -34,8 +34,8 @@ const InterconsultationDetailScreen = ({ navigation, route }: any) => {
                 <Avatar size='medium' rounded icon={{name: 'user-o', type: 'font-awesome', color: '#034B8F'}} overlayContainerStyle={{backgroundColor: '#FFF'}}/>
                 </View>
                 <View style={{flex: 3, justifyContent: 'center'}}>
-                  <Text style={{color: '#fff', fontFamily: 'Manrope_400Regular', fontWeight: 'bold', textTransform: 'capitalize', fontSize: 12}}>{item.NOMBRE}</Text>
-                  <Text style={{color: '#FFF', fontFamily: 'Manrope_400Regular', fontSize: 10, paddingTop: 5}}>No. Historia clínica: {item.HISTORIA}</Text>
+                  <Text style={{color: '#fff', fontFamily: 'Manrope_400Regular', fontWeight: 'bold', textTransform: 'capitalize', fontSize: 14}}>{item.NOMBRE}</Text>
+                  <Text style={{color: '#FFF', fontFamily: 'Manrope_400Regular', fontSize: 12, paddingTop: 5}}>No. Historia clínica: {item.HISTORIA}</Text>
                 </View>
               </View>
             </View>
@@ -54,13 +54,13 @@ const InterconsultationDetailScreen = ({ navigation, route }: any) => {
           shadowOpacity: 0.58,
           shadowRadius: 20,
           elevation: 5,
-          height: windowHeight,
-          top: 110
+          height: windowHeight - 320,
+          top: 90
           }}
         >
+        <ScrollView>
           <View style={{flex:1, flexDirection: 'column', marginVertical: 20, marginHorizontal: 20}}>
             <View style={{flex: 1}}>
-            <ScrollView>
               <Text style={{fontFamily: 'Manrope_400Regular', fontWeight: 'bold', paddingVertical: 5}}>Información de solicitud</Text>
               <Divider />
               <View style={{paddingVertical: 20}}>
@@ -101,9 +101,9 @@ const InterconsultationDetailScreen = ({ navigation, route }: any) => {
                 </View>
                 <Divider />
               </View>
-            </ScrollView>
             </View>
           </View>
+        </ScrollView>
         </View>
       </View>
     </View>
