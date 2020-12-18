@@ -231,7 +231,6 @@ const ReceiptScreen = ({ bearer, navigation, placeCode, permissions, todayReceip
                   </ScrollView>
                 ) : undefined
             }
-
         </View>
       </View>
     </View>
