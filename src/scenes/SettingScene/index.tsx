@@ -136,10 +136,10 @@ const SettingScene = ({ cenateName, user }: any) => {
         <View style={{position: 'absolute', bottom: 30, alignItems: "center", width: windowWidth}} >
           <Button
             icon={
-              <Icon type="font-awesome" name="power-off" size={15} color="#86CC37" />
+              <Icon type="font-awesome" name="power-off" size={15} color="#394E99" />
             }
-            titleStyle={{color: '#86CC37', fontFamily: 'Manrope_400Regular', fontSize: 12, paddingLeft: 10, fontWeight: 'bold'}}
-            buttonStyle={ style.btnLogin }
+            titleStyle={{color: '#394E99', fontFamily: 'Manrope_400Regular', fontSize: 12, paddingLeft: 10, fontWeight: 'bold'}}
+            buttonStyle={ style.logoutBtn }
             title='Cerrar Sesión'
             type="outline"
             onPress={_ => store.dispatch({ type: 'RESET_LOGIN_STATE', payload: [] })}
