@@ -13,8 +13,10 @@ import { ProgressChart, } from "react-native-chart-kit";
 import { connect } from 'react-redux';
 import { fetchReceipt } from './query';
 import store from '../../store';
+import BackgroundComponent from '../../components/BackgroundComponent';
 
-const WWidth = Dimensions.get('window').width;
+const windowWidth = Dimensions.get('window').width;
+const windowHeight = Dimensions.get('window').height;
 
 const ReceiptScreen = ({ bearer, navigation, placeCode, permissions, todayReceipt }: any) => {
   LogBox.ignoreAllLogs(true);
@@ -58,8 +60,12 @@ const ReceiptScreen = ({ bearer, navigation, placeCode, permissions, todayReceip
 
   return (
     <View style={{flex: 1}}>
-      <ScrollView style={{flex: 1}}>
-        <View style={{ paddingVertical: 20, paddingHorizontal: 20 }}>
+      {/* Screen background */}
+      <BackgroundComponent />
+
+      {/* Container of receipt boxes */}
+      <View style={{ top: 150, height: windowHeight - 150, borderRadius: 50 }}>
+        <View style={{flex: 1, paddingVertical: 20, paddingHorizontal: 20}}>
 
         {
           todayReceipt.length > 0 && (
@@ -71,7 +77,7 @@ const ReceiptScreen = ({ bearer, navigation, placeCode, permissions, todayReceip
               shadowOpacity: 0.25,
               shadowRadius: 3.84,
               elevation: 6,
-              width: WWidth-40,
+              width: windowWidth - 40,
               marginBottom: 20
             }}
           >            
@@ -125,103 +131,109 @@ const ReceiptScreen = ({ bearer, navigation, placeCode, permissions, todayReceip
 
 
             {
-              todayReceipt.length > 0 ? todayReceipt.map((element: any, key: number) => (
-                <View
-                  key={key}
-                  style={{
-                    backgroundColor: '#FFF',
-                    borderRadius: 20, shadowColor: '#000',
-                    shadowOffset: {height: 2, width:0},
-                    shadowOpacity: 0.25,
-                    shadowRadius: 3.84,
-                    elevation: 5,
-                    height: 290,
-                    width: WWidth-40,
-                    marginBottom: 20,
-                  }}
-                >
-                  <View style={{height: 70, justifyContent: 'center', backgroundColor: 'transparent'}} >
-                    <View style={{paddingHorizontal: 20}}>
-                      <Text style={{fontFamily: 'Manrope_400Regular', fontSize: 12, color: '#555', textTransform: 'capitalize', fontWeight: 'bold'}} >
-                        {element.NOMBRE_CENATE.trim()}
-                      </Text>
-                      <Text style={{fontFamily: 'Manrope_400Regular', color: '#AAA', fontSize: 11}}>
-                        { element.END_DATE ? `${element.START_DATE} al ${element.END_DATE}` : element.START_DATE }
-                      </Text>
-                    </View>
-                  </View>
-
-                  <View style={{height: 150, flexDirection: 'row'}}>
-                    <View style={{flex: 4}}>
-                      <View style={{flex: 1}}>
-                        <View style={{flex: 1, paddingHorizontal: 20, justifyContent: 'flex-end'}}>
-
-                          <View style={{flexDirection: 'row', paddingBottom: 20, alignItems: 'center'}}>
-                            <Icon type='octicon' name='primitive-dot' color='#5553F7' size={14} />
-                            <Icon type='material-community' name="arrow-top-right" color='#00CF96' size={14} />
-                            <Text style={{fontFamily: 'Manrope_400Regular', fontSize: 11, fontWeight: 'bold', color: '#AAA'}}>
-                              + <FormatedNumber value={parseFloat(element.TOTAL_FACTURADO)} />
-                            </Text>
+              todayReceipt.length > 0
+                ? (
+                  <ScrollView style={{flex: 1}}>
+                    {
+                      todayReceipt.map((element: any, key: number) => (
+                        <View
+                          key={key}
+                          style={{
+                            backgroundColor: '#FFF',
+                            borderRadius: 20, shadowColor: '#000',
+                            shadowOffset: {height: 2, width:0},
+                            shadowOpacity: 0.25,
+                            shadowRadius: 3.84,
+                            elevation: 5,
+                            height: 290,
+                            width: windowWidth-40,
+                            marginBottom: 20,
+                          }}
+                        >
+                          <View style={{height: 70, justifyContent: 'center', backgroundColor: 'transparent'}} >
+                            <View style={{paddingHorizontal: 20}}>
+                              <Text style={{fontFamily: 'Manrope_400Regular', fontSize: 12, color: '#555', textTransform: 'capitalize', fontWeight: 'bold'}} >
+                                {element.NOMBRE_CENATE.trim()}
+                              </Text>
+                              <Text style={{fontFamily: 'Manrope_400Regular', color: '#AAA', fontSize: 11}}>
+                                { element.END_DATE ? `${element.START_DATE} al ${element.END_DATE}` : element.START_DATE }
+                              </Text>
+                            </View>
                           </View>
+
+                          <View style={{height: 150, flexDirection: 'row'}}>
+                            <View style={{flex: 4}}>
+                              <View style={{flex: 1}}>
+                                <View style={{flex: 1, paddingHorizontal: 20, justifyContent: 'flex-end'}}>
           
-                          <View style={{flexDirection: 'row', paddingBottom: 20, alignItems: 'center'}}>
-                            <Icon type='octicon' name='primitive-dot' color='#FFC85B' size={14} />
-                            <Icon type='material-community' name="arrow-bottom-right" color='#EB7070' size={14} />
-                            <Text style={{fontFamily: 'Manrope_400Regular', fontSize: 11, fontWeight: 'bold', color: '#AAA'}}>
-                              - <FormatedNumber value={parseFloat(element.TOTAL_ANULADO)} />
-                            </Text>
+                                  <View style={{flexDirection: 'row', paddingBottom: 20, alignItems: 'center'}}>
+                                    <Icon type='octicon' name='primitive-dot' color='#5553F7' size={14} />
+                                    <Icon type='material-community' name="arrow-top-right" color='#00CF96' size={14} />
+                                    <Text style={{fontFamily: 'Manrope_400Regular', fontSize: 11, fontWeight: 'bold', color: '#AAA'}}>
+                                      + <FormatedNumber value={parseFloat(element.TOTAL_FACTURADO)} />
+                                    </Text>
+                                  </View>
+                  
+                                  <View style={{flexDirection: 'row', paddingBottom: 20, alignItems: 'center'}}>
+                                    <Icon type='octicon' name='primitive-dot' color='#FFC85B' size={14} />
+                                    <Icon type='material-community' name="arrow-bottom-right" color='#EB7070' size={14} />
+                                    <Text style={{fontFamily: 'Manrope_400Regular', fontSize: 11, fontWeight: 'bold', color: '#AAA'}}>
+                                      - <FormatedNumber value={parseFloat(element.TOTAL_ANULADO)} />
+                                    </Text>
+                                  </View>
+          
+                                </View>
+                              </View>
+                            </View>
+              
+                            <View style={{flex: 6, justifyContent: "center", alignItems: 'center'}}>
+                              <ProgressChart
+                                data={[
+                                  parseFloat(element.TOTAL_ANULADO) / parseFloat(element.TOTAL_FACTURADO),
+                                  parseFloat(element.TOTAL_DIFERENCIA) / parseFloat(element.TOTAL_FACTURADO),
+                                  1
+                                ]}
+                                width={200}
+                                height={150}
+                                strokeWidth={6}
+                                radius={38}
+                                chartConfig={{
+                                  backgroundColor: "#FFF",
+                                  backgroundGradientFrom: "#FFF",
+                                  backgroundGradientTo: "#FFF",
+                                  decimalPlaces: 2, // optional, defaults to 2dp
+                                  color: (opacity = 1, item: any) => {return item !== undefined ? `${dataSet.colors[item]} ${opacity})` : '#FFF'},
+                                  labelColor: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
+                                  style: {
+                                    borderRadius: 16
+                                  },
+                                }}
+                                style={{
+                                  marginVertical: 8,
+                                  borderRadius: 16
+                                }}
+                                hideLegend={true}
+                              />
+                            </View>
                           </View>
 
+                          <View style={{height: 70}}>
+                            <View style={{paddingHorizontal: 20, flex: 1, flexDirection: 'row', alignItems: 'center'}}>
+                              <Icon type='octicon' name='primitive-dot' color='#17D6D8' />
+                              <Text style={{fontFamily: 'Manrope_400Regular', fontSize: 18, fontWeight: 'bold', color: '#686354', paddingLeft: 5}}>
+                                <FormatedNumber value={parseFloat(element.TOTAL_DIFERENCIA)} />
+                              </Text>
+                            </View>
+                          </View>
                         </View>
-                      </View>
-                    </View>
-      
-                    <View style={{flex: 6, justifyContent: "center", alignItems: 'center'}}>
-                      <ProgressChart
-                        data={[
-                          parseFloat(element.TOTAL_ANULADO) / parseFloat(element.TOTAL_FACTURADO),
-                          parseFloat(element.TOTAL_DIFERENCIA) / parseFloat(element.TOTAL_FACTURADO),
-                          1
-                        ]}
-                        width={200}
-                        height={150}
-                        strokeWidth={6}
-                        radius={38}
-                        chartConfig={{
-                          backgroundColor: "#FFF",
-                          backgroundGradientFrom: "#FFF",
-                          backgroundGradientTo: "#FFF",
-                          decimalPlaces: 2, // optional, defaults to 2dp
-                          color: (opacity = 1, item: any) => {return item !== undefined ? `${dataSet.colors[item]} ${opacity})` : '#FFF'},
-                          labelColor: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
-                          style: {
-                            borderRadius: 16
-                          },
-                        }}
-                        style={{
-                          marginVertical: 8,
-                          borderRadius: 16
-                        }}
-                        hideLegend={true}
-                      />
-                    </View>
-                  </View>
-
-                  <View style={{height: 70}}>
-                    <View style={{paddingHorizontal: 20, flex: 1, flexDirection: 'row', alignItems: 'center'}}>
-                      <Icon type='octicon' name='primitive-dot' color='#17D6D8' />
-                      <Text style={{fontFamily: 'Manrope_400Regular', fontSize: 18, fontWeight: 'bold', color: '#686354', paddingLeft: 5}}>
-                        <FormatedNumber value={parseFloat(element.TOTAL_DIFERENCIA)} />
-                      </Text>
-                    </View>
-                  </View>
-                </View>
-
-              )) : undefined
+                      ))
+                    }
+                  </ScrollView>
+                ) : undefined
             }
 
         </View>
-      </ScrollView>
+      </View>
     </View>
   );
 };

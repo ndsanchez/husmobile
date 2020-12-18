@@ -1,10 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { createStackNavigator } from '@react-navigation/stack';
-import { HospitalIndicator } from '../../components/Header';
-import InterconsultationScene from '../../scenes/InterconsultationScene';
-import InterconsultationDetailScreen from '../../screens/InterconsultationDetailScreen';
 import ReceiptScreen from '../../screens/ReceiptScreen';
+import HeaderComponent from '../../components/HeaderComponent';
+
 
 interface HomeStackScreenProps {
   place: string,
@@ -34,18 +33,19 @@ const InterconsultationStackScreen: React.FC<HomeStackScreenProps> = ({ place }:
         name="Facturacion"
         component={ReceiptScreen}
         options={{
-          ...headerOptions,
-        headerRight: () => (<HospitalIndicator place={place} />),
+          header: () => <HeaderComponent title={'Facturación'} canBack={true} />
         }}
       />
+      {/**
+       * 
       <Stack.Screen
         name="Detalle de facturacion"
         component={ReceiptScreen}
         options={{
-          ...headerOptions,
-        headerRight: () => (<HospitalIndicator place={place} />),
+          header: () => <HeaderComponent title={'Detalle'} canBack={false} />,
         }}
       />
+       */}
     </Stack.Navigator>
   );
 }
