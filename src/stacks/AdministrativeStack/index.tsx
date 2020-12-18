@@ -34,7 +34,7 @@ const AdministrativeStack: React.FC<AdministrativeStackProps> = ({ place }: Admi
         name="Administrativa"
         component={HomeScreen}
         options={{
-          header: () => <HeaderComponent title={'Asistencial'} canBack={false} />
+          header: () => <HeaderComponent title={'Administrativa'} canBack={false} />
         }}
       />
       <Stack.Screen

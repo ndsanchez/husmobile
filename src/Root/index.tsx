@@ -41,7 +41,7 @@ const Root = ({ bearer, isLoading, showUpAlert }: Istate) => {
     }
 
     return (
-      /*bearer*/ true ?
+      bearer ?
         <View style={{flex: 1, top: 0, bottom: 0, left: 0, right: 0}} >
           <StatusBar style="light" />
           { showUpAlert && <AlertComponent /> }

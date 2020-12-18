@@ -34,17 +34,13 @@ const HomeScreen = ({ navigation }: any) => {
         {/* Background screeen */}
         <BackgroundComponent />
 
-        {/* title container */}
-        <TitleComponent text={'Administrativa'} />
-
         {/* cards container */}
         <View
           style={{
-            position: 'absolute',
             backgroundColor: 'transparent',
             elevation: 5,
             height: 2 * windowHeight / 3,
-            top: 100,
+            top: 150,
             left: 20,
             width: WWidth - 40,
           }}
