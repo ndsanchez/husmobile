@@ -178,25 +178,25 @@ const style = StyleSheet.create({
   },triangleCorner1: {
     position: 'absolute',
     top: 0,
-    right:0,
-    width: windowWidth,
-    backgroundColor: 'transparent',
-    borderStyle: 'solid',
-    borderLeftWidth: 30,
-    borderTopWidth: 20,
-    borderLeftColor: 'transparent',
-    borderTopColor: '#394E99'
-  },triangleCorner: {
-    position: 'absolute',
-    top: 20,
-    right:0,
+    left:0,
     width: windowWidth - 100,
     backgroundColor: 'transparent',
     borderStyle: 'solid',
-    borderLeftWidth: 30,
-    borderTopWidth: 20,
-    borderLeftColor: 'transparent',
-    borderTopColor: '#5bab43'
+    borderRightWidth: 30,
+    borderBottomWidth: 20,
+    borderRightColor: 'transparent',
+    borderBottomColor: '#5bab43'
+  },triangleCorner: {
+    position: 'absolute',
+    top: 20,
+    left:0,
+    width: windowWidth,
+    backgroundColor: 'transparent',
+    borderStyle: 'solid',
+    borderRightWidth: 30,
+    borderBottomWidth: 20,
+    borderRightColor: 'transparent',
+    borderBottomColor: '#394E99'
   }
 });
 

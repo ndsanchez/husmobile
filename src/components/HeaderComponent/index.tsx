@@ -2,7 +2,6 @@ import React from 'react';
 import { Platform, StatusBar, Text, View } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler'
 import { Icon } from 'react-native-elements';
-import { NavigationActions } from 'react-navigation';
 
 const statusBarHeight = Platform.OS === 'android'
   ? StatusBar.currentHeight || (Platform.Version < 23 ? 25 : 24)

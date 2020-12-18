@@ -43,8 +43,8 @@ const styles = StyleSheet.create({
     fontFamily: 'Manrope_400Regular',
   },
   btnLogin: {
-    backgroundColor: '#5bab43',
-    borderColor: '#5bab43',
+    backgroundColor: '#394E99',
+    borderColor: '#394E99',
     borderRadius: 20,
     width: width - 150
   },
