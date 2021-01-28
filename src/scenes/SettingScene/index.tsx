@@ -1,14 +1,12 @@
-import { Avatar, Button, Card, Divider, Icon, ListItem, Overlay } from 'react-native-elements';
-import { Dimensions, Image, ImageBackground, Text, View } from 'react-native';
+import { Avatar, Button, Divider, Icon, ListItem, Overlay } from 'react-native-elements';
+import { Dimensions, Image, Text, View } from 'react-native';
 import React, { useState } from 'react';
-
-import DropDownPicker from 'react-native-dropdown-picker';
-import { LinearGradient } from 'expo-linear-gradient';
 import { connect } from 'react-redux';
 import { setPlace } from '../../store/actions/generalAction';
 import store from '../../store';
 import { style } from './style';
 import BackgroundComponent from '../../components/BackgroundComponent';
+import Constanst from 'expo-constants';
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeigth = Dimensions.get('window').height;
@@ -145,7 +143,7 @@ const SettingScene = ({ cenateName, user }: any) => {
             onPress={_ => store.dispatch({ type: 'RESET_LOGIN_STATE', payload: [] })}
           />
           <Text style={{paddingVertical: 10, fontSize: 10, color: '#7C7F84', fontFamily: 'Manrope_400Regular'}}>
-            Versión 1.0.0.1
+            Versión { Constanst.manifest.version }
           </Text>
         </View>
 

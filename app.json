@@ -22,5 +22,10 @@
     "ios": {
       "supportsTablet": true
     }
+  },
+  "splash": {
+    "image": "./src/assets/images/shield.png",
+    "resizeMode": "contain",
+    "backgroundColor": "#FFFFFF"
   }
 }
