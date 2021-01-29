@@ -36,7 +36,7 @@ const InterconsultationStackScreen: React.FC<HomeStackScreenProps> = ({ place, n
         component={InterconsultationScene}
         options={{
           header: () =>
-            <HeaderComponent title={'Interconsultas'} canBack={true} navigation={navigation} />
+            <HeaderComponent title={'Interconsultas'} resetState="RESET_ASSISTANCE_STATE" canBack={true} navigation={navigation} />
         }}
       />
       <Stack.Screen
