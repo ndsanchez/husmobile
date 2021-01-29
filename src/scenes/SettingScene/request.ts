@@ -11,13 +11,11 @@ const breakSession = (token: string) => {
       Authorization: `Bearer ${token}`,
     }})
     .then((res) => {
-      console.log('revocated');
       store.dispatch({ type: 'SET_LOADING', payload: false })
       store.dispatch({ type: 'RESET_LOGIN_STATE', payload: [] })
     })
     .catch((error) => {
-      console.log('error');
-      server_error_alert()
+      server_error_alert(true)
       store.dispatch({ type: 'SET_LOADING', payload: false })
     });
   })

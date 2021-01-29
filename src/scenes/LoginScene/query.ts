@@ -28,7 +28,9 @@ const loginRequest = async (username: string, password: string) => {
       store.dispatch({type: 'SHOW_PRIMARY_LOADING_INDICATOR', payload: false});
     }
   })
-  .catch(err => { store.dispatch({type: 'SHOW_PRIMARY_LOADING_INDICATOR', payload: false}); console.log(err)});
+  .catch(err => {
+    store.dispatch({type: 'SHOW_PRIMARY_LOADING_INDICATOR', payload: false})
+  });
 };
 
 export { loginRequest };

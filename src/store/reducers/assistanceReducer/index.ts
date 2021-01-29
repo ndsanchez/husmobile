@@ -35,7 +35,6 @@ const AssistanceReducer = (state = assistanceInitialState, action:IAction) => {
             return assistanceInitialState;
 
         case 'SET_SPECIALITY':
-            console.log('payload: ', action.payload);
             return {
                 ...state,
                 interconsultation: {

@@ -1,7 +1,8 @@
 import axios from 'axios';
+import { server_error_alert, UnauthenticatedErrorHandler } from '../../services/indicators';
 import store from '../../store';
 
-const fetchInterconsultation = (token:string , OIDCENATE: number, OIDESPECI: number) => {
+const fetchInterconsultation = (token:string , OIDCENATE: number, OIDESPECI: number, navigation: any) => {
     //store.dispatch(setLoading(true));
     axios.get(`http://172.16.10.150/husapp/api/interconsultation/${OIDCENATE}/${OIDESPECI}`, { headers: {
       Accept: 'application/json',
@@ -9,22 +10,30 @@ const fetchInterconsultation = (token:string , OIDCENATE: number, OIDESPECI: num
     }})
     .then((response) => {
       if (response.data) {
-        console.log('yes: ', response.data)
         store.dispatch({
           type: 'LIST_INTERCONSULTATIONS',
           payload: response.data
         });
       }
       else {
-        console.log('error: ', response.data);
         store.dispatch({
           type: 'LIST_INTERCONSULTATIONS',
           payload: []
         });
       }
     })
-    .catch((error) => {
-      console.log(error);
+    .catch((err) => {
+      if (err.response) {
+        switch (err.response.status) {
+          case 401:
+            UnauthenticatedErrorHandler(navigation);
+            break;
+    
+          default:
+            server_error_alert(false)
+            break;
+        }
+      }
     });
 };
 

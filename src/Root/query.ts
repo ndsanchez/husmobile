@@ -1,7 +1,7 @@
 import axios from 'axios';
 import store from '../store';
 import storage from '../services/asyncStorage';
-import { session_timeout_alert } from '../services/indicators';
+import { server_error_alert, session_timeout_alert } from '../services/indicators';
 
 const fetchSpecialities = (token: string) => {
     axios.get('http://172.16.10.150/husapp/api/speciality', { headers: {
@@ -15,7 +15,17 @@ const fetchSpecialities = (token: string) => {
       });
     })
     .catch((error) => {
-      console.log(error);
+      if (error.response) {
+        switch (error.response.status) {
+          case 401:
+            session_timeout_alert()
+            break;
+        
+          default:
+            server_error_alert(true)
+            break;
+        }
+      }
     });
 };
 
@@ -35,10 +45,9 @@ const fetchGrants = (token: string) => {
           break;
       
         default:
-          console.log('server error');
+          server_error_alert(true)
           break;
       }
-      
     }
   });
 }

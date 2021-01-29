@@ -47,7 +47,7 @@ const InterconsultationScene = ({ bearer, interconsultation, navigation, placeCo
     })
 
     setTimeout(() => {
-      fetchInterconsultation(bearer, parseInt(placeCode), parseInt(item.value));
+      fetchInterconsultation(bearer, parseInt(placeCode), parseInt(item.value), navigation);
     }, 5);
   };
 

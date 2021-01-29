@@ -1,13 +1,6 @@
 import axios from 'axios';
-import { session_timeout_alert } from '../../services/indicators';
+import { server_error_alert, UnauthenticatedErrorHandler } from '../../services/indicators';
 import store from '../../store';
-
-const UnauthenticatedErrorHandler = (navigation: any) => {
-  store.dispatch({ type: 'RESET_RECEIPT_STATE', payload: [] });
-  navigation.goBack();
-  session_timeout_alert();
-  store.dispatch({type: 'SET_LOADING', payload: false});
-};
 
 const fetchReceipt = (dateIndicator: number, token: string, navigation: any) => {
 
@@ -23,14 +16,16 @@ const fetchReceipt = (dateIndicator: number, token: string, navigation: any) => 
     store.dispatch({ type: 'SET_LOADING', payload: false });
   })
   .catch(err => {
-    switch (err.response.status) {
-      case 401:
-        UnauthenticatedErrorHandler(navigation);
-        break;
-
-      default:
-        console.log('otro');
-        break;
+    if (err.response) {
+      switch (err.response.status) {
+        case 401:
+          UnauthenticatedErrorHandler(navigation);
+          break;
+  
+        default:
+          server_error_alert(true)
+          break;
+      }  
     }
   });
 };
