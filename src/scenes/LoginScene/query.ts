@@ -19,7 +19,9 @@ const loginRequest = async (username: string, password: string) => {
   .then(res => {
     if(!res.hasOwnProperty('error')) {
       store.dispatch({ type: 'LOGIN_SUCCESS', payload: res });
-      storage.storeData('@access_token', res.Bearer)
+      storage.removeData('@access_token').then( () => {
+        storage.storeData('@access_token', res.Bearer)
+      })
     }
     else {
       store.dispatch({ type: 'LOGIN_FAILED', payload: res });

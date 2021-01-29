@@ -7,6 +7,7 @@ import store from '../../store';
 import { style } from './style';
 import BackgroundComponent from '../../components/BackgroundComponent';
 import Constanst from 'expo-constants';
+import { breakSession } from './request';
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeigth = Dimensions.get('window').height;
@@ -40,7 +41,7 @@ const cenate = [
   }
 ]
 
-const SettingScene = ({ cenateName, user }: any) => {
+const SettingScene = ({ bearer, cenateName, user }: any) => {
     const [visible, setVisible] = useState(false);
 
     const toggleOverlay = () => {
@@ -140,7 +141,7 @@ const SettingScene = ({ cenateName, user }: any) => {
             buttonStyle={ style.logoutBtn }
             title='Cerrar Sesión'
             type="outline"
-            onPress={_ => store.dispatch({ type: 'RESET_LOGIN_STATE', payload: [] })}
+            onPress={ () => breakSession(bearer) }
           />
           <Text style={{paddingVertical: 10, fontSize: 10, color: '#7C7F84', fontFamily: 'Manrope_400Regular'}}>
             Versión { Constanst.manifest.version }
@@ -153,6 +154,7 @@ const SettingScene = ({ cenateName, user }: any) => {
 
 const mapStateToProps = (state: any) => {
   return {
+    bearer: state.loginReducer.login.Bearer,
     cenateName: state.generalReducer.place.name,
     user: state.loginReducer.login.user,
   };

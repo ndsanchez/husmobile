@@ -40,7 +40,6 @@ const fetchGrants = (token: string) => {
       }
       
     }
-    console.log(error);
   });
 }
 
