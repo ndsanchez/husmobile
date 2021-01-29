@@ -1,4 +1,5 @@
 import store from '../../store';
+import storage from '../../services/asyncStorage'; 
 
 const loginRequest = async (username: string, password: string) => {
   store.dispatch({type: 'SHOW_PRIMARY_LOADING_INDICATOR', payload: true});
@@ -18,6 +19,7 @@ const loginRequest = async (username: string, password: string) => {
   .then(res => {
     if(!res.hasOwnProperty('error')) {
       store.dispatch({ type: 'LOGIN_SUCCESS', payload: res });
+      storage.storeData('@access_token', res.Bearer)
     }
     else {
       store.dispatch({ type: 'LOGIN_FAILED', payload: res });

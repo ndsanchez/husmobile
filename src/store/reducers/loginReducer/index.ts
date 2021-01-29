@@ -1,5 +1,3 @@
-import { showPrimaryLoadingIndicator } from "../../actions/loginAction";
-
 const LoginInitialState = {
     username: '',
     password: '',
@@ -14,7 +12,7 @@ const LoginInitialState = {
 
 interface IAction {
     type: string,
-    payload: string | Object,
+    payload: string | Object | undefined,
 };
 
 const loginReducer = (state = LoginInitialState, action:IAction) => {
@@ -31,6 +29,14 @@ const loginReducer = (state = LoginInitialState, action:IAction) => {
             return {
                 ...state,
                 password: action.payload,
+            };
+        case 'SET_TOKEN':
+            return {
+                ...state,
+                login: {
+                    ...state.login,
+                    Bearer: action.payload
+                },
             };
         case 'SHOW_PRIMARY_LOADING_INDICATOR':
             return {

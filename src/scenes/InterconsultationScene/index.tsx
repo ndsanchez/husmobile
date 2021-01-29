@@ -7,7 +7,7 @@ import { setSpeciality } from '../../store/actions/assistanceAction';
 import store from '../../store';
 import { specialityOptionType, specialityType } from '../../types';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
-import { loadResources } from '../../Root/query';
+import { fetchSpecialities } from '../../Root/query';
 import NothingToShow from '../../components/NothingToShow';
 import { fetchInterconsultation } from './query';
 import BackgroundComponent from '../../components/BackgroundComponent';
@@ -56,7 +56,7 @@ const InterconsultationScene = ({ interconsultation, navigation, placeCode, spec
       type: 'SET_LOADING',
       payload: true
     });
-    loadResources();
+    fetchSpecialities();
   };
 
   useEffect(()=> {

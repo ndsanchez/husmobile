@@ -1,5 +1,6 @@
 import axios from 'axios';
 import store from '../store';
+import storage from '../services/asyncStorage';
 
 const fetchSpecialities = () => {
     axios.get('http://172.16.10.150/husapp/api/speciality')
@@ -15,8 +16,17 @@ const fetchSpecialities = () => {
       });
 };
 
+const getCredentialsFromStorage = () => {
+  storage.getData('@access_token').then( (value: string | undefined) => {
+    store.dispatch({ type: 'SET_TOKEN', payload: value })
+  })
+  .catch( () => {
+    
+  })
+}
+
 const loadResources = () => {
-  fetchSpecialities();
+  getCredentialsFromStorage()
 };
 
-export { loadResources }
+export { loadResources, fetchSpecialities }

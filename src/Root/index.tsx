@@ -28,8 +28,8 @@ const statusBarHeight = Platform.OS === 'android'
 
 const Root = ({ bearer, isLoading, showUpAlert }: Istate) => {
     useEffect(() => {
-
-    });
+      loadResources()
+    }, []);
   
     let [fontsLoaded] = useFonts({
       Manrope_400Regular,
