@@ -1,9 +1,12 @@
 import axios from 'axios';
 import store from '../../store';
 
-const fetchInterconsultation = (OIDCENATE: number, OIDESPECI: number) => {
+const fetchInterconsultation = (token:string , OIDCENATE: number, OIDESPECI: number) => {
     //store.dispatch(setLoading(true));
-    axios.get(`http://172.16.10.150/husapp/api/interconsultation/${OIDCENATE}/${OIDESPECI}`)
+    axios.get(`http://172.16.10.150/husapp/api/interconsultation/${OIDCENATE}/${OIDESPECI}`, { headers: {
+      Accept: 'application/json',
+      Authorization: `Bearer ${token}`,
+    }})
     .then((response) => {
       if (response.data) {
         console.log('yes: ', response.data)

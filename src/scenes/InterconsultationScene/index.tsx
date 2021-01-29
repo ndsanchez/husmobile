@@ -24,7 +24,7 @@ type itemType = {
 interface InterconsultationSceneProps {
   specialities: [specialityType] | []
 }
-const InterconsultationScene = ({ interconsultation, navigation, placeCode, specialities, specialityOptions }: any) => {
+const InterconsultationScene = ({ bearer, interconsultation, navigation, placeCode, specialities, specialityOptions }: any) => {
 
   const onPressHandler = (navigation: any, route:any, patient: any) => {
     store.dispatch({
@@ -47,7 +47,7 @@ const InterconsultationScene = ({ interconsultation, navigation, placeCode, spec
     })
 
     setTimeout(() => {
-      fetchInterconsultation(parseInt(placeCode), parseInt(item.value));
+      fetchInterconsultation(bearer, parseInt(placeCode), parseInt(item.value));
     }, 5);
   };
 
@@ -56,7 +56,7 @@ const InterconsultationScene = ({ interconsultation, navigation, placeCode, spec
       type: 'SET_LOADING',
       payload: true
     });
-    fetchSpecialities();
+    fetchSpecialities(bearer);
   };
 
   useEffect(()=> {
@@ -153,6 +153,7 @@ const InterconsultationScene = ({ interconsultation, navigation, placeCode, spec
 
 const mapStateToProps = (state: any) => {
   return {
+    bearer: state.loginReducer.login.Bearer,
     placeCode: state.generalReducer.place.code,
     interconsultation: state.assistanceReducer.interconsultation.fetched,
     specialities: state.assistanceReducer.speciality.all,

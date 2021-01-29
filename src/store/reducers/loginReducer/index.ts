@@ -12,13 +12,24 @@ const LoginInitialState = {
 
 interface IAction {
     type: string,
-    payload: string | Object | undefined,
+    payload: any,
 };
 
 const loginReducer = (state = LoginInitialState, action:IAction) => {
     switch (action.type) {
         case 'RESET_LOGIN_STATE':
             return LoginInitialState;
+
+        case 'SET_GRANTS':
+            return {
+                ...state,
+                login: {
+                ...state.login,
+                Message: action.payload.Message,
+                permissions: action.payload.permissions,
+                user: action.payload.user
+                }
+            };
 
         case 'SET_USERNAME':
             return {

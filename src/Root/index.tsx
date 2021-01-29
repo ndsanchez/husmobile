@@ -19,7 +19,7 @@ interface Istate {
     isLoading: boolean,
     password: string,
     showUpAlert: boolean,
-    username: string,
+    username: string
 }
 
 const statusBarHeight = Platform.OS === 'android'
@@ -28,7 +28,7 @@ const statusBarHeight = Platform.OS === 'android'
 
 const Root = ({ bearer, isLoading, showUpAlert }: Istate) => {
     useEffect(() => {
-      loadResources()
+      loadResources(bearer)
     }, []);
   
     let [fontsLoaded] = useFonts({
