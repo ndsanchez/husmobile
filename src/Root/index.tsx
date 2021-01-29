@@ -28,7 +28,7 @@ const statusBarHeight = Platform.OS === 'android'
 
 const Root = ({ bearer, isLoading, showUpAlert }: Istate) => {
     useEffect(() => {
-      loadResources(bearer)
+      bearer && loadResources(bearer)
     }, []);
   
     let [fontsLoaded] = useFonts({

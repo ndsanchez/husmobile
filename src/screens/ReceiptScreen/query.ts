@@ -25,7 +25,7 @@ const fetchReceipt = (dateIndicator: number, token: string, navigation: any) => 
         default:
           server_error_alert(true)
           break;
-      }  
+      }
     }
   });
 };
