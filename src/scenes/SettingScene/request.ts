@@ -6,7 +6,7 @@ import storage from '../../services/asyncStorage';
 const breakSession = (token: string) => {
   store.dispatch({ type: 'SET_LOADING', payload: true })
   storage.removeData('@access_token').then( () => {
-    axios.get('http://172.16.10.150/husapp/api/revoke', { headers: {
+    axios.get('http://husmobile.hus.org.co:8069/huservice/api/revoke', { headers: {
       Accept: 'application/json',
       Authorization: `Bearer ${token}`,
     }})

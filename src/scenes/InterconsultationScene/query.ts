@@ -3,12 +3,13 @@ import { server_error_alert, UnauthenticatedErrorHandler } from '../../services/
 import store from '../../store';
 
 const fetchInterconsultation = (token:string , OIDCENATE: number, OIDESPECI: number, navigation: any) => {
-    //store.dispatch(setLoading(true));
-    axios.get(`http://172.16.10.150/husapp/api/interconsultation/${OIDCENATE}/${OIDESPECI}`, { headers: {
+    store.dispatch({ type: 'SET_LOADING', payload: true });
+    axios.get(`http://husmobile.hus.org.co:8069/huservice/api/interconsultation/${OIDCENATE}/${OIDESPECI}`, { headers: {
       Accept: 'application/json',
       Authorization: `Bearer ${token}`,
     }})
     .then((response) => {
+      store.dispatch({ type: 'SET_LOADING', payload: false });
       if (response.data) {
         store.dispatch({
           type: 'LIST_INTERCONSULTATIONS',
@@ -23,6 +24,7 @@ const fetchInterconsultation = (token:string , OIDCENATE: number, OIDESPECI: num
       }
     })
     .catch((err) => {
+      store.dispatch({ type: 'SET_LOADING', payload: false });
       if (err.response) {
         switch (err.response.status) {
           case 401:

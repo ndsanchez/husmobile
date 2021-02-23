@@ -4,7 +4,7 @@ import storage from '../../services/asyncStorage';
 const loginRequest = async (username: string, password: string) => {
   store.dispatch({type: 'SHOW_PRIMARY_LOADING_INDICATOR', payload: true});
 
-  await fetch('http://172.16.10.150/husapp/api/login', {
+  await fetch('http://husmobile.hus.org.co:8069/huservice/api/login', {
     method: 'POST',
     headers: {
       Accept: 'application/json',

@@ -4,7 +4,7 @@ import storage from '../services/asyncStorage';
 import { server_error_alert, session_timeout_alert } from '../services/indicators';
 
 const fetchSpecialities = (token: string) => {
-    axios.get('http://172.16.10.150/husapp/api/speciality', { headers: {
+    axios.get('http://husmobile.hus.org.co:8069/huservice/api/speciality', { headers: {
       Accept: 'application/json',
       Authorization: `Bearer ${token}`,
     }})
@@ -30,7 +30,7 @@ const fetchSpecialities = (token: string) => {
 };
 
 const fetchGrants = (token: string) => {
-  axios.get('http://172.16.10.150/husapp/api/user/grant', { headers: {
+  axios.get('http://husmobile.hus.org.co:8069/huservice/api/user/grant', { headers: {
     Accept: 'application/json',
     Authorization: `Bearer ${token}`,
   }})

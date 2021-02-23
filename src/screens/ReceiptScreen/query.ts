@@ -4,7 +4,7 @@ import store from '../../store';
 
 const fetchReceipt = (dateIndicator: number, token: string, navigation: any) => {
 
-  axios.get(`http://172.16.10.150/husapp/api/receipt/${dateIndicator}`, {
+  axios.get(`http://husmobile.hus.org.co:8069/huservice/api/receipt/${dateIndicator}`, {
     headers: {
       'Accept': 'application/json',
       'Authorization': `Bearer ${token}`,
